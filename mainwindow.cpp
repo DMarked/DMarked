@@ -1,53 +1,3 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** BSD License Usage
-** Alternatively, you may use this file under the terms of the BSD license
-** as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of The Qt Company Ltd nor the names of its
-**     contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
-
 #include "mainwindow.h"
 #include "previewpage.h"
 #include "ui_mainwindow.h"
@@ -98,8 +48,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::openFile(const QString &path)
-{
+void MainWindow::openFile(const QString &path) {
     QFile f(path);
     if (!f.open(QIODevice::ReadOnly)) {
         QMessageBox::warning(this, windowTitle(),
@@ -111,13 +60,11 @@ void MainWindow::openFile(const QString &path)
     ui->editor->setPlainText(f.readAll());
 }
 
-bool MainWindow::isModified() const
-{
+bool MainWindow::isModified() const {
     return ui->editor->document()->isModified();
 }
 
-void MainWindow::onFileNew()
-{
+void MainWindow::onFileNew() {
     if (isModified()) {
         QMessageBox::StandardButton button = QMessageBox::question(this, windowTitle(),
                              tr("You have unsaved changes. Do you want to create a new document anyway?"));
@@ -130,8 +77,7 @@ void MainWindow::onFileNew()
     ui->editor->document()->setModified(false);
 }
 
-void MainWindow::onFileOpen()
-{
+void MainWindow::onFileOpen() {
     if (isModified()) {
         QMessageBox::StandardButton button = QMessageBox::question(this, windowTitle(),
                              tr("You have unsaved changes. Do you want to open a new document anyway?"));
@@ -147,8 +93,7 @@ void MainWindow::onFileOpen()
     openFile(path);
 }
 
-void MainWindow::onFileSave()
-{
+void MainWindow::onFileSave() {
     if (m_filePath.isEmpty()) {
         onFileSaveAs();
         return;
@@ -167,8 +112,7 @@ void MainWindow::onFileSave()
     ui->editor->document()->setModified(false);
 }
 
-void MainWindow::onFileSaveAs()
-{
+void MainWindow::onFileSaveAs() {
     QString path = QFileDialog::getSaveFileName(this,
         tr("Save MarkDown File"), "", tr("MarkDown File (*.md, *.markdown)"));
     if (path.isEmpty())
@@ -177,8 +121,7 @@ void MainWindow::onFileSaveAs()
     onFileSave();
 }
 
-void MainWindow::onExit()
-{
+void MainWindow::onExit() {
     if (isModified()) {
         QMessageBox::StandardButton button = QMessageBox::question(this, windowTitle(),
                              tr("You have unsaved changes. Do you want to exit anyway?"));
