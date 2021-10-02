@@ -2,6 +2,7 @@ TEMPLATE = app
 
 QT += webenginewidgets webchannel
 
+
 HEADERS += \
     mainwindow.h \
     previewpage.h \
