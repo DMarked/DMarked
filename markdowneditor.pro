@@ -2,6 +2,11 @@ TEMPLATE = app
 
 QT += webenginewidgets webchannel
 
+PKGCONFIG += dtkwidget
+CONFIG -= qtquickcompiler
+CONFIG += c++11 link_pkgconfig
+
+DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     mainwindow.h \
@@ -16,11 +21,6 @@ SOURCES = \
 
 RESOURCES = \
     resources/markdowneditor.qrc
-
-CONFIG -= qtquickcompiler
-
-FORMS += \
-    mainwindow.ui
 
 DISTFILES += \
     resources/3rdparty/MARKDOWN-LICENSE.txt \
