@@ -1,10 +1,8 @@
 #include "document.h"
 #include "mainwindow.h"
 
-//#include <QApplication>
-#include <QFile>
 #include <DApplication>
-#include <DMainWindow>
+#include <DWidgetUtil>
 
 DWIDGET_USE_NAMESPACE
 
@@ -18,6 +16,7 @@ int main(int argc, char *argv[])
 
     MainWindow window;
     window.show();
+    Dtk::Widget::moveToCenter(&window);
 
     return a.exec();
 }

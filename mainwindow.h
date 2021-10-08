@@ -3,13 +3,11 @@
 
 #include "document.h"
 
-#include <QMainWindow>
 #include <QString>
-#include <DWidgetUtil> // 加入此头文件方可使用moveToCenter
 #include <DSearchEdit>
 #include <DTitlebar>
 #include <DMainWindow>
-#include <DGuiApplicationHelper> // 用来适配深色模式
+#include <DGuiApplicationHelper>
 #include <DLabel>
 #include <DPlainTextEdit>
 #include <DSplitter>
@@ -17,12 +15,6 @@
 #include <QAction>
 
 DWIDGET_USE_NAMESPACE
-
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
 
 class MainWindow : public DMainWindow
 {
@@ -39,7 +31,6 @@ private slots:
     void onFileOpen();
     void onFileSave();
     void onFileSaveAs();
-    void onExit();
 
 private:
     bool isModified() const;
@@ -54,6 +45,9 @@ private:
 
     QString m_filePath;
     Document m_content;
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // MAINWINDOW_H

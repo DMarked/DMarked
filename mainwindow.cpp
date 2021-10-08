@@ -12,42 +12,41 @@
 MainWindow::MainWindow(QWidget *parent) :
     DMainWindow(parent)
 {
-      resize(800, 500);
-      m_eidtor_widget = new DPlainTextEdit;
-      m_splitter = new QSplitter;
-      m_preview_widget = new QWebEngineView;
+    resize(800, 500);
+    m_eidtor_widget = new DPlainTextEdit;
+    m_splitter = new QSplitter;
+    m_preview_widget = new QWebEngineView;
 
-      m_splitter->addWidget(m_eidtor_widget);
-      m_splitter->addWidget(m_preview_widget);
+    m_splitter->addWidget(m_eidtor_widget);
+    m_splitter->addWidget(m_preview_widget);
 
-      m_central_layout = new QHBoxLayout;
-      m_central_layout->addWidget(m_splitter);
-      m_central_widget = new DWidget;
-      m_central_widget->setLayout(m_central_layout);
+    m_central_layout = new QHBoxLayout;
+    m_central_layout->addWidget(m_splitter);
+    m_central_widget = new DWidget;
+    m_central_widget->setLayout(m_central_layout);
 
-      setCentralWidget(m_central_widget);
-      setAllAction();
-      moveToCenter(this);
+    setCentralWidget(m_central_widget);
+    setAllAction();
 
-      m_eidtor_widget->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-      m_preview_widget->setContextMenuPolicy(Qt::NoContextMenu);
+    m_eidtor_widget->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    m_preview_widget->setContextMenuPolicy(Qt::NoContextMenu);
 
-      PreviewPage *page = new PreviewPage(this);
-      m_preview_widget->setPage(page);
+    PreviewPage *page = new PreviewPage(this);
+    m_preview_widget->setPage(page);
 
-      connect(m_eidtor_widget, &DPlainTextEdit::textChanged, [this]() {
-          m_content.setText(m_eidtor_widget->toPlainText());
-      });
+    connect(m_eidtor_widget, &DPlainTextEdit::textChanged, [this]() {
+        m_content.setText(m_eidtor_widget->toPlainText());
+    });
 
-      QWebChannel *channel = new QWebChannel(this);
-      channel->registerObject(QStringLiteral("content"), &m_content);
-      page->setWebChannel(channel);
+    QWebChannel *channel = new QWebChannel(this);
+    channel->registerObject(QStringLiteral("content"), &m_content);
+    page->setWebChannel(channel);
 
-      m_preview_widget->setUrl(QUrl("qrc:/index.html"));
+    m_preview_widget->setUrl(QUrl("qrc:/index.html"));
 
-     QFile defaultTextFile(":/default.md");
-     defaultTextFile.open(QIODevice::ReadOnly);
-     m_eidtor_widget->setPlainText(defaultTextFile.readAll());
+    QFile defaultTextFile(":/default.md");
+    defaultTextFile.open(QIODevice::ReadOnly);
+    m_eidtor_widget->setPlainText(defaultTextFile.readAll());
 }
 
 MainWindow::~MainWindow() {
@@ -55,20 +54,17 @@ MainWindow::~MainWindow() {
 
 void MainWindow::setAllAction() {
     QMenu *menu;
-    QAction *actionNew, *actionOpen, *actionSave, *actionSaveAs, *actionExit;
+    QAction *actionNew, *actionOpen, *actionSave, *actionSaveAs;
 
     actionNew = new QAction(tr("New"));
     actionOpen = new QAction(tr("Open"));
     actionSave = new QAction(tr("Save"));
     actionSaveAs = new QAction(tr("SaveAs"));
-    actionExit = new QAction(tr("Exit"));
     menu = new QMenu;
     menu->addAction(actionNew);
     menu->addAction(actionOpen);
     menu->addAction(actionSave);
     menu->addAction(actionSaveAs);
-    menu->addAction(actionExit);
-
 
     titlebar()->setMenu(menu);
 
@@ -76,10 +72,9 @@ void MainWindow::setAllAction() {
     connect(actionOpen, &QAction::triggered, this, &MainWindow::onFileOpen);
     connect(actionSave, &QAction::triggered, this, &MainWindow::onFileSave);
     connect(actionSaveAs, &QAction::triggered, this, &MainWindow::onFileSaveAs);
-    connect(actionExit, &QAction::triggered, this, &MainWindow::onExit);
-
     connect(m_eidtor_widget->document(), &QTextDocument::modificationChanged,
           actionSave, &QAction::setEnabled);
+    //connect(titlebar()->, &MainWindow::close, this, &MainWindow::onExit);
 }
 
 void MainWindow::openFile(const QString &path) {
@@ -155,12 +150,14 @@ void MainWindow::onFileSaveAs() {
     onFileSave();
 }
 
-void MainWindow::onExit() {
+void MainWindow::closeEvent(QCloseEvent *event) {
     if (isModified()) {
         DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle(),
                              tr("You have unsaved changes. Do you want to exit anyway?"));
-        if (button != DMessageBox::Yes)
+        if (button != DMessageBox::Yes) {
+            event->ignore();
             return;
+        }
     }
-    close();
+    event->accept();
 }
