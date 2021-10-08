@@ -14,8 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     resize(800, 500);
     m_eidtor_widget = new DPlainTextEdit;
-    m_splitter = new QSplitter;
     m_preview_widget = new QWebEngineView;
+    m_splitter = new QSplitter;
 
     m_splitter->addWidget(m_eidtor_widget);
     m_splitter->addWidget(m_preview_widget);
@@ -28,8 +28,20 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(m_central_widget);
     setAllAction();
 
+    m_splitter->setOrientation(Qt::Horizontal);
+    m_splitter->setOpaqueResize(true);
+    m_splitter->setHandleWidth(0);
+    m_splitter->setChildrenCollapsible(true);
+
+    m_eidtor_widget->setGeometry(0, 0, 800, 500);
     m_eidtor_widget->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    m_eidtor_widget->setFocusPolicy(Qt::StrongFocus);
+    m_eidtor_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    m_preview_widget->setGeometry(0, 0, 800, 500);
     m_preview_widget->setContextMenuPolicy(Qt::NoContextMenu);
+    m_preview_widget->setFocusPolicy(Qt::NoFocus);
+    m_preview_widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
     PreviewPage *page = new PreviewPage(this);
     m_preview_widget->setPage(page);
@@ -74,7 +86,6 @@ void MainWindow::setAllAction() {
     connect(actionSaveAs, &QAction::triggered, this, &MainWindow::onFileSaveAs);
     connect(m_eidtor_widget->document(), &QTextDocument::modificationChanged,
           actionSave, &QAction::setEnabled);
-    //connect(titlebar()->, &MainWindow::close, this, &MainWindow::onExit);
 }
 
 void MainWindow::openFile(const QString &path) {
@@ -142,7 +153,7 @@ void MainWindow::onFileSave() {
 }
 
 void MainWindow::onFileSaveAs() {
-    QString path = QFileDialog::getSaveFileName(this,
+    QString path = DFileDialog::getSaveFileName(this,
         tr("Save MarkDown File"), "", tr("MarkDown File (*.md, *.markdown)"));
     if (path.isEmpty())
         return;
