@@ -4,11 +4,11 @@
 #include "document.h"
 
 #include <QString>
-#include <DSearchEdit>
 #include <DTitlebar>
+#include <DSearchEdit>
 #include <DMainWindow>
-#include <DGuiApplicationHelper>
 #include <DLabel>
+#include <DGuiApplicationHelper>
 #include <DPlainTextEdit>
 #include <DSplitter>
 #include <QWebEngineView>
@@ -22,7 +22,7 @@ class MainWindow : public DMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
 
     void openFile(const QString &path);
 

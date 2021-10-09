@@ -2,7 +2,21 @@
     <qresource prefix="/">
         <file>default.md</file>
         <file>index.html</file>
-        <file>3rdparty/markdown.css</file>
         <file>3rdparty/marked.js</file>
+        <file>3rdparty/themes/apollo.css</file>
+        <file>3rdparty/themes/erye.css</file>
+        <file>3rdparty/themes/infoq.css</file>
+        <file>3rdparty/themes/less.css</file>
+        <file>3rdparty/themes/list-writing.css</file>
+        <file>3rdparty/themes/markdown.css</file>
+        <file>3rdparty/themes/ocean.css</file>
+        <file>3rdparty/themes/sanyuesha.css</file>
+        <file>3rdparty/themes/simple.css</file>
+        <file>3rdparty/themes/style.css</file>
+        <file>3rdparty/themes/typing.css</file>
+        <file>3rdparty/themes/wecatch-code.css</file>
+        <file>3rdparty/themes/wecatch.css</file>
+        <file>3rdparty/themes/xiaolai.css</file>
+        <file>3rdparty/themes/darkdown.css</file>
     </qresource>
 </RCC>
