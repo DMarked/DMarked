@@ -12,7 +12,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     DMainWindow(parent)
 {
-    resize(800, 500);
+    resize(1200, 740);
     m_eidtor_widget = new DPlainTextEdit;
     m_preview_widget = new QWebEngineView;
     m_splitter = new QSplitter;
@@ -33,12 +33,12 @@ MainWindow::MainWindow(QWidget *parent) :
     m_splitter->setHandleWidth(0);
     m_splitter->setChildrenCollapsible(true);
 
-    m_eidtor_widget->setGeometry(0, 0, 800, 500);
+    m_eidtor_widget->setGeometry(0, 0, 600, 740);
     m_eidtor_widget->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     m_eidtor_widget->setFocusPolicy(Qt::StrongFocus);
     m_eidtor_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_preview_widget->setGeometry(0, 0, 800, 500);
+    m_preview_widget->setGeometry(0, 0, 600, 740);
     m_preview_widget->setContextMenuPolicy(Qt::NoContextMenu);
     m_preview_widget->setFocusPolicy(Qt::NoFocus);
     m_preview_widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
