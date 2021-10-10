@@ -7,6 +7,7 @@
 #include <DMessageBox>
 #include <QTextStream>
 #include <QWebChannel>
+#include <QWebEngineSettings>
 #include <QLayout>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -37,13 +38,16 @@ MainWindow::MainWindow(QWidget *parent) :
     m_eidtor_widget->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     m_eidtor_widget->setFocusPolicy(Qt::StrongFocus);
     m_eidtor_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_eidtor_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     m_preview_widget->setGeometry(0, 0, 600, 740);
     m_preview_widget->setContextMenuPolicy(Qt::NoContextMenu);
     m_preview_widget->setFocusPolicy(Qt::NoFocus);
     m_preview_widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
+
     PreviewPage *page = new PreviewPage(this);
+    page->settings()->setAttribute(QWebEngineSettings::ShowScrollBars, false);
     m_preview_widget->setPage(page);
 
     connect(m_eidtor_widget, &DPlainTextEdit::textChanged, [this]() {
