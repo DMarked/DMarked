@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_central_widget->setLayout(m_central_layout);
 
     setCentralWidget(m_central_widget);
-    setAllAction();
+    setupAction();
 
     m_splitter->setOrientation(Qt::Horizontal);
     m_splitter->setOpaqueResize(true);
@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_eidtor_widget->setFocusPolicy(Qt::StrongFocus);
     m_eidtor_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_eidtor_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    highlighter = new HGMarkdownHighlighter(m_eidtor_widget->document(), 1000);
+
 
     m_preview_widget->setGeometry(0, 0, 600, 740);
     m_preview_widget->setContextMenuPolicy(Qt::NoContextMenu);
@@ -68,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow() {
 }
 
-void MainWindow::setAllAction() {
+void MainWindow::setupAction() {
     QMenu *menu;
     QAction *actionNew, *actionOpen, *actionSave, *actionSaveAs;
 
