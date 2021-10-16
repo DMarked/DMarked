@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     DApplication a(argc, argv);
     a.setProductName("DMarked");
-    a.setApplicationName("DMarkdowneditor");
+    a.setApplicationName("DtkMarkdownEditor");
 
     MainWindow window;
     window.show();

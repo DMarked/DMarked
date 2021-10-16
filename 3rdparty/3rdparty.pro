@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    peg-markdown-highlight
+    #peg-markdown-highlight \
+    qmarkdowntextedit

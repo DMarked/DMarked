@@ -3,7 +3,6 @@
 
 #include "document.h"
 
-#include "highlighter.h"
 #include <QString>
 #include <DTitlebar>
 #include <DSearchEdit>
@@ -46,7 +45,7 @@ private:
 
     QString m_filePath;
     Document m_content;
-    HGMarkdownHighlighter *highlighter;
+    //HGMarkdownHighlighter *highlighter;
 
 protected:
     void closeEvent(QCloseEvent *event) override;

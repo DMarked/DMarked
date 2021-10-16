@@ -10,6 +10,8 @@
 #include <QWebEngineSettings>
 #include <QLayout>
 
+#include "qmarkdowntextedit.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     DMainWindow(parent)
 {
@@ -39,14 +41,14 @@ MainWindow::MainWindow(QWidget *parent) :
     m_eidtor_widget->setFocusPolicy(Qt::StrongFocus);
     m_eidtor_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_eidtor_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    highlighter = new HGMarkdownHighlighter(m_eidtor_widget->document(), 1000);
-
+    //highlighter = new HGMarkdownHighlighter(m_eidtor_widget->document(), 1000);
+    auto doc = m_eidtor_widget->document();
+    auto *highlighter = new MarkdownHighlighter(doc);
 
     m_preview_widget->setGeometry(0, 0, 600, 740);
     m_preview_widget->setContextMenuPolicy(Qt::NoContextMenu);
     m_preview_widget->setFocusPolicy(Qt::NoFocus);
     m_preview_widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-
 
     PreviewPage *page = new PreviewPage(this);
     page->settings()->setAttribute(QWebEngineSettings::ShowScrollBars, false);
