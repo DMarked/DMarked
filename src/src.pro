@@ -11,6 +11,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     widgets/bottombar.h \
     mainwindow.h \
+    application.h \
     widgets/centralwidget.h \
     widgets/preview-widget/document.h \
     widgets/preview-widget/previewpage.h \
@@ -23,7 +24,8 @@ SOURCES = \
     widgets/centralwidget.cpp \
     widgets/preview-widget/document.cpp \
     widgets/preview-widget/previewpage.cpp \
-    widgets/preview-widget/previewwidget.cpp
+    widgets/preview-widget/previewwidget.cpp \
+    application.cpp
 
 RESOURCES = \
     ../resources/markdowneditor.qrc

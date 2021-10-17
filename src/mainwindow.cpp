@@ -83,6 +83,15 @@ bool MainWindow::isModified() const {
     return m_central_widget->m_editor_widget->document()->isModified();
 }
 
+bool MainWindow::queryClose() {
+    if (isModified()) {
+        DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle(),
+                             tr("You have unsaved changes. Do you want to exit anyway?"));
+        return button == DMessageBox::Yes;
+    }
+    return true;
+}
+
 void MainWindow::onFileNew() {
     if (isModified()) {
         DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle(),
@@ -137,16 +146,4 @@ void MainWindow::onFileSaveAs() {
         return;
     m_file_path = path;
     onFileSave();
-}
-
-void MainWindow::closeEvent(QCloseEvent *event) {
-    if (isModified()) {
-        DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle(),
-                             tr("You have unsaved changes. Do you want to exit anyway?"));
-        if (button != DMessageBox::Yes) {
-            event->ignore();
-            return;
-        }
-    }
-    event->accept();
 }

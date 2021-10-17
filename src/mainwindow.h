@@ -30,8 +30,11 @@ private slots:
     void onFileSave();
     void onFileSaveAs();
 
-private:
+public:
     bool isModified() const;
+    bool queryClose();
+
+private:
     void setupAction();
 
     DSearchEdit *m_search_edit;
@@ -39,8 +42,8 @@ private:
     BottomBar *m_bottom_bar;
     QString m_file_path;
 
-protected:
-    void closeEvent(QCloseEvent *event) override;
+//protected:
+//    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // MAINWINDOW_H
