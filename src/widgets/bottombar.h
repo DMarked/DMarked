@@ -21,8 +21,7 @@
 #ifndef BOTTOMBAR_H
 #define BOTTOMBAR_H
 
-#include <QWidget>
-#include <QLabel>
+#include "ddropdownmenu.h"
 #include <DLabel>
 #include <DApplicationHelper>
 #include <DFontSizeManager>
@@ -48,23 +47,24 @@ public:
     void setChildEnabled(bool enabled);
     void setChildrenFocus(bool ok,QWidget* preOrderWidget = nullptr);
 
-//    DDropdownMenu* getEncodeMenu();
+    //DDropdownMenu *getEncodeMenu();
+    DDropdownMenu *getThemeMenu();
 
 protected:
     void paintEvent(QPaintEvent *);
 
 private:
-    EditWrapper *m_pWrapper {nullptr};
     DLabel *m_pPositionLabel {nullptr};
     DLabel *m_pCharCountLabel {nullptr};
     DLabel *m_pCursorStatus {nullptr};
-//    DDropdownMenu *m_pEncodeMenu {nullptr};
+    //DDropdownMenu *m_pEncodeMenu {nullptr};
+    DDropdownMenu *m_pThemeMenu {nullptr};
     QString m_rowStr {QString()};
     QString m_columnStr {QString()};
     QString m_chrCountStr {QString()};
 
 public slots:
-	//编码按钮/文本类型按钮失去焦点后，设置光标回到文本框里
+    // 编码按钮/文本类型按钮失去焦点后，设置光标回到文本框里
     void slotSetTextEditFocus();
 };
 

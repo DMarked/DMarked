@@ -25,10 +25,8 @@
 #include <QDir>
 #include <QMouseEvent>
 #include <QAbstractButton>
-#include <DMessageBox>
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
-#include <DMessageBox>
 
 Application::Application(int &argc, char **argv)
     : DApplication(argc, argv)
@@ -55,12 +53,11 @@ void Application::activateWindow() {
 
         m_qspMainWnd->show();
     } else {
-        /*
-        if (m_qspMainWnd->needShowMax()) {
-            m_qspMainWnd->setWindowState(Qt::WindowMaximized);
-        } else {
+        //if (m_qspMainWnd->needShowMax()) {
+         //   m_qspMainWnd->setWindowState(Qt::WindowMaximized);
+       // } else {
             m_qspMainWnd->setWindowState(Qt::WindowActive);
-        }*/
+       // }
         m_qspMainWnd->activateWindow();
     }
 }

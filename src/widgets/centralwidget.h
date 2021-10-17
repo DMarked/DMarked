@@ -19,9 +19,6 @@ class CentralWidget : public DWidget
 public:
     explicit CentralWidget(DWidget *parent = nullptr);
 
-//public:
-//    void setFilePath(QString path);
-
 private:
     QMarkdownTextEdit *m_editor_widget;
     PreviewWidget *m_preview_widget;

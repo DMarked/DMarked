@@ -19,9 +19,6 @@
  */
 
 #include "bottombar.h"
-//#include "../common/utils.h"
-//#include "../editor/editwrapper.h"
-//#include "../widgets/window.h"
 
 #include <QLabel>
 #include <QPainter>
@@ -31,12 +28,11 @@
 
 BottomBar::BottomBar(QWidget *parent)
     : QWidget(parent),
-      //m_pWrapper(static_cast<EditWrapper *>(parent)),
       m_pPositionLabel(new DLabel),
       m_pCharCountLabel(new DLabel),
       m_pCursorStatus(new DLabel),
       //m_pEncodeMenu(DDropdownMenu::createEncodeMenu()),
-      //m_pHighlightMenu(DDropdownMenu::createHighLightMenu()),
+      m_pThemeMenu(DDropdownMenu::createThemeMenu()),
       m_rowStr(tr("Row")),
       m_columnStr(tr("Column")),
       m_chrCountStr(tr("Characters %1"))
@@ -63,7 +59,7 @@ BottomBar::BottomBar(QWidget *parent)
 
     m_pCharCountLabel->setText(m_chrCountStr.arg("0"));
 //    m_pHighlightMenu->setCurrentTextOnly(qApp->translate("TextEdit", "None"));
-//    m_pEncodeMenu->setCurrentTextOnly(QString("UTF-8"));
+   // m_pEncodeMenu->setCurrentTextOnly(QString("UTF-8"));
 
     DVerticalLine *pVerticalLine1 = new DVerticalLine();
     //DVerticalLine *pVerticalLine2 = new DVerticalLine();
@@ -74,18 +70,18 @@ BottomBar::BottomBar(QWidget *parent)
     layout->addWidget(m_pCursorStatus);
     layout->addSpacing(10);
     layout->addWidget(pVerticalLine1);
-//    layout->addWidget(m_pEncodeMenu);
+    layout->addWidget(m_pThemeMenu);
 
     setFixedHeight(32);
 
-//    //切换编码
-//    connect(m_pEncodeMenu, &DDropdownMenu::currentActionChanged, this,[this](QAction* pAct){
-//        if(!m_pWrapper->getFileLoading() && m_pWrapper->reloadFileEncode(pAct->text().toLocal8Bit())) {
-//            m_pEncodeMenu->setCurrentTextOnly(pAct->text());
-//        }
-//        //先屏蔽，双字节空字符先按照显示字符编码号处理
-//        //m_pWrapper->clearDoubleCharaterEncode();
-//    });
+    //切换编码
+    /*connect(m_pEncodeMenu, &DDropdownMenu::currentActionChanged, this,[this](QAction* pAct){
+        if(!m_pWrapper->getFileLoading() && m_pWrapper->reloadFileEncode(pAct->text().toLocal8Bit())) {
+            m_pEncodeMenu->setCurrentTextOnly(pAct->text());
+        }
+        //先屏蔽，双字节空字符先按照显示字符编码号处理
+        m_pWrapper->clearDoubleCharaterEncode();
+    });*/
 
 //    //切换文件类型
 //    connect(m_pHighlightMenu, &DDropdownMenu::currentActionChanged, this,[this](QAction* pAct) {
@@ -150,11 +146,11 @@ void BottomBar::setPalette(const QPalette &palette)
     m_pPositionLabel->setPalette(paPositionLabel);
     m_pCharCountLabel->setPalette(paCharCountLabel);
     m_pCursorStatus->setPalette(paCursorStatus);
-//    m_pEncodeMenu->getButton()->setPalette(paEncodeMenu);
+   // m_pEncodeMenu->getButton()->setPalette(paEncodeMenu);
 //    m_pHighlightMenu->getButton()->setPalette(paHighlightMenu);
 
     QString theme = (palette.color(QPalette::Background).lightness() < 128) ? "dark" : "light";
-//    m_pEncodeMenu->setTheme(theme);
+   // m_pEncodeMenu->setTheme(theme);
 //    m_pHighlightMenu->setTheme(theme);
 
     QWidget::setPalette(palette);
@@ -167,20 +163,20 @@ void BottomBar::updateSize(int size)
 
 void BottomBar::setChildEnabled(bool enabled)
 {
-//    m_pEncodeMenu->setEnabled(enabled);
+ //   m_pEncodeMenu->setEnabled(enabled);
 //    m_pHighlightMenu->setEnabled(enabled);
-//    m_pEncodeMenu->setRequestMenu(enabled);
+   // m_pEncodeMenu->setRequestMenu(enabled);
 //    m_pHighlightMenu->setRequestMenu(enabled);
 }
 
 void BottomBar::setChildrenFocus(bool ok,QWidget* preOrderWidget)
 {
-//    m_pEncodeMenu->setChildrenFocus(ok);
+  //  m_pEncodeMenu->setChildrenFocus(ok);
 //    m_pHighlightMenu->setChildrenFocus(ok);
-//    if(ok) {
-//        if(preOrderWidget) setTabOrder(preOrderWidget,m_pEncodeMenu->getButton());
-//        setTabOrder(m_pEncodeMenu->getButton(),m_pHighlightMenu->getButton());
-//    }
+    if(ok) {
+      //  if(preOrderWidget) setTabOrder(preOrderWidget,m_pEncodeMenu->getButton());
+        //setTabOrder(m_pEncodeMenu->getButton(),m_pHighlightMenu->getButton());
+    }
 }
 
 //DDropdownMenu *BottomBar::getEncodeMenu()

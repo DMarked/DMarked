@@ -22,13 +22,6 @@
 #include "mainwindow.h"
 #include <DApplication>
 
-class AppInfo;
-
-#if defined(dApp)
-#undef dApp
-#endif
-#define dApp (static_cast<Application *>(QCoreApplication::instance()))
-
 DWIDGET_USE_NAMESPACE
 
 class Application : public DApplication
