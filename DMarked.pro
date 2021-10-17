@@ -10,7 +10,7 @@ CONFIG += c++11
 
 SUBDIRS = \
     3rdparty \
-    src
+    dmarked
 
 src.depends = 3rdparty
 

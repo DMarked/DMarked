@@ -2,6 +2,7 @@
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     rekols <rekols@foxmail.com>
+ * Maintainer： rewine <lhongxu@outlook.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -87,10 +88,10 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
 {
     DDropdownMenu *m_pThemeMenu = new DDropdownMenu();
     DMenu *m_pMenu = new DMenu;
-    QActionGroup *m_pActionGroup = new QActionGroup(m_pMenu);
+    m_pThemeMenu->m_actionGroup = new QActionGroup(m_pMenu);
 
     QAction *noHlAction = m_pMenu->addAction(tr("None"));
-    m_pActionGroup->addAction(noHlAction);
+    m_pThemeMenu->m_actionGroup->addAction(noHlAction);
     noHlAction->setCheckable(true);
     noHlAction->setChecked(true);
 
@@ -98,7 +99,7 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
     themes << "a" << "b" << "c";
     foreach(const QString &theme, themes) {
         QAction *act= m_pMenu->addAction(theme);
-        m_pActionGroup->addAction(act);
+        m_pThemeMenu->m_actionGroup->addAction(act);
         act->setCheckable(true);
     }
 

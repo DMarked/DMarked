@@ -2,6 +2,7 @@
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     rekols <rekols@foxmail.com>
+ * Maintainer： rewine <lhongxu@outlook.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,8 +59,6 @@ public slots:
     void slotRequestMenu(bool request);
 
 public:
-    // 创建编码菜单
-    //static DDropdownMenu* createEncodeMenu();
     // 切换 css 主题的菜单
     static DDropdownMenu* createThemeMenu();
 
@@ -73,15 +72,19 @@ private:
     // 创建文字ICON
     QIcon createIcon();
     void setText(const QString &text);
+
 private slots:
     // 字体大小跟随系统变化
     void OnFontChangedSlot(const QFont &font);
+
 protected:
     // 按键事件　鼠标释放弹出菜单
     bool eventFilter(QObject *object, QEvent *event);
+
 private:
     QPixmap setSvgColor(QString color);
     void SetSVGBackColor(QDomElement &elem, QString strattr, QString strattrval);
+
 private:
     DToolButton *m_pToolButton = nullptr;
     DMenu *m_menu = nullptr;
@@ -91,8 +94,6 @@ private:
     QFont m_font;
     bool m_bPressed =false;
     bool isRequest = false;
-private:
-    //static QVector<QPair<QString,QStringList>> sm_groupEncodeVec;
 };
 
 #endif
