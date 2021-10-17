@@ -1,4 +1,3 @@
-#include "document.h"
 #include "mainwindow.h"
 
 #include <DApplication>

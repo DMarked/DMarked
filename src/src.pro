@@ -9,17 +9,21 @@ CONFIG += c++11 link_pkgconfig
 DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
+    #bottombar.h \
     mainwindow.h \
-    previewpage.h \
-    document.h
-    #highlighter.h
+    widgets/centralwidget.h \
+    widgets/preview-widget/document.h \
+    widgets/preview-widget/previewpage.h \
+    widgets/preview-widget/previewwidget.h
 
 SOURCES = \
     main.cpp \
     mainwindow.cpp \
-    previewpage.cpp \
-    document.cpp
-    #highlighter.cpp
+    #bottombar.cpp \
+    widgets/centralwidget.cpp \
+    widgets/preview-widget/document.cpp \
+    widgets/preview-widget/previewpage.cpp \
+    widgets/preview-widget/previewwidget.cpp
 
 RESOURCES = \
     ../resources/markdowneditor.qrc

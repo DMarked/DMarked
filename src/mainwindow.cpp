@@ -1,72 +1,32 @@
 #include "mainwindow.h"
-#include "previewpage.h"
 
 #include <QFile>
 #include <DFileDialog>
-#include <QFontDatabase>
 #include <DMessageBox>
 #include <QTextStream>
-#include <QWebChannel>
-#include <QWebEngineSettings>
 #include <QLayout>
-
-#include "qmarkdowntextedit.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     DMainWindow(parent)
 {
     resize(1200, 740);
-    m_eidtor_widget = new DPlainTextEdit;
-    m_preview_widget = new QWebEngineView;
-    m_splitter = new QSplitter;
 
-    m_splitter->addWidget(m_eidtor_widget);
-    m_splitter->addWidget(m_preview_widget);
-
-    m_central_layout = new QHBoxLayout;
-    m_central_layout->addWidget(m_splitter);
-    m_central_widget = new DWidget;
-    m_central_widget->setLayout(m_central_layout);
-
+    m_central_widget = new CentralWidget;
     setCentralWidget(m_central_widget);
     setupAction();
 
-    m_splitter->setOrientation(Qt::Horizontal);
-    m_splitter->setOpaqueResize(true);
-    m_splitter->setHandleWidth(0);
-    m_splitter->setChildrenCollapsible(true);
+    m_search_edit = new DSearchEdit;
+    titlebar()->setCustomWidget(m_search_edit);
+    m_search_edit->setFixedWidth(400);
 
-    m_eidtor_widget->setGeometry(0, 0, 600, 740);
-    m_eidtor_widget->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-    m_eidtor_widget->setFocusPolicy(Qt::StrongFocus);
-    m_eidtor_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_eidtor_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    //highlighter = new HGMarkdownHighlighter(m_eidtor_widget->document(), 1000);
-    auto doc = m_eidtor_widget->document();
-    auto *highlighter = new MarkdownHighlighter(doc);
-
-    m_preview_widget->setGeometry(0, 0, 600, 740);
-    m_preview_widget->setContextMenuPolicy(Qt::NoContextMenu);
-    m_preview_widget->setFocusPolicy(Qt::NoFocus);
-    m_preview_widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-
-    PreviewPage *page = new PreviewPage(this);
-    page->settings()->setAttribute(QWebEngineSettings::ShowScrollBars, false);
-    m_preview_widget->setPage(page);
-
-    connect(m_eidtor_widget, &DPlainTextEdit::textChanged, [this]() {
-        m_content.setText(m_eidtor_widget->toPlainText());
-    });
-
-    QWebChannel *channel = new QWebChannel(this);
-    channel->registerObject(QStringLiteral("content"), &m_content);
-    page->setWebChannel(channel);
-
-    m_preview_widget->setUrl(QUrl("qrc:/index.html"));
-
-    QFile defaultTextFile(":/default.md");
-    defaultTextFile.open(QIODevice::ReadOnly);
-    m_eidtor_widget->setPlainText(defaultTextFile.readAll());
+//    QHBoxLayout *m_layout = new QHBoxLayout;
+//    m_layout->setContentsMargins(0, 0, 0, 0);
+//    m_layout->setSpacing(0);
+//    m_layout->addWidget();
+   // BottomBar *m_bottom_bar = new BottomBar;
+   // m_layout->addWidget(m_bottom_bar);
+   // m_central_widget->setLayout(m_layout);
+    //setStatusBar(m_bottom_bar);
 }
 
 MainWindow::~MainWindow() {
@@ -92,7 +52,7 @@ void MainWindow::setupAction() {
     connect(actionOpen, &QAction::triggered, this, &MainWindow::onFileOpen);
     connect(actionSave, &QAction::triggered, this, &MainWindow::onFileSave);
     connect(actionSaveAs, &QAction::triggered, this, &MainWindow::onFileSaveAs);
-    connect(m_eidtor_widget->document(), &QTextDocument::modificationChanged,
+    connect(m_central_widget->m_editor_widget->document(), &QTextDocument::modificationChanged,
           actionSave, &QAction::setEnabled);
 }
 
@@ -104,12 +64,12 @@ void MainWindow::openFile(const QString &path) {
                                  QDir::toNativeSeparators(path), f.errorString()));
         return;
     }
-    m_filePath = path;
-    m_eidtor_widget->setPlainText(f.readAll());
+    m_file_path = path;
+    m_central_widget->m_editor_widget->setPlainText(f.readAll());
 }
 
 bool MainWindow::isModified() const {
-    return m_eidtor_widget->document()->isModified();
+    return m_central_widget->m_editor_widget->document()->isModified();
 }
 
 void MainWindow::onFileNew() {
@@ -120,9 +80,9 @@ void MainWindow::onFileNew() {
             return;
     }
 
-    m_filePath.clear();
-    m_eidtor_widget->setPlainText(tr("## New document"));
-    m_eidtor_widget->document()->setModified(false);
+    m_file_path.clear();
+    m_central_widget->m_editor_widget->setPlainText(tr("## New document"));
+    m_central_widget->m_editor_widget->document()->setModified(false);
 }
 
 void MainWindow::onFileOpen() {
@@ -142,22 +102,21 @@ void MainWindow::onFileOpen() {
 }
 
 void MainWindow::onFileSave() {
-    if (m_filePath.isEmpty()) {
+    if (m_file_path.isEmpty()) {
         onFileSaveAs();
         return;
     }
 
-    QFile f(m_filePath);
+    QFile f(m_file_path);
     if (!f.open(QIODevice::WriteOnly | QIODevice::Text))  {
         DMessageBox::warning(this, windowTitle(),
                              tr("Could not write to file %1: %2").arg(
-                                 QDir::toNativeSeparators(m_filePath), f.errorString()));
+                                 QDir::toNativeSeparators(m_file_path), f.errorString()));
         return;
     }
     QTextStream str(&f);
-    str << m_eidtor_widget->toPlainText();
-
-    m_eidtor_widget->document()->setModified(false);
+    str << m_central_widget->m_editor_widget->toPlainText();
+    m_central_widget->m_editor_widget->document()->setModified(false);
 }
 
 void MainWindow::onFileSaveAs() {
@@ -165,7 +124,7 @@ void MainWindow::onFileSaveAs() {
         tr("Save MarkDown File"), "", tr("MarkDown File (*.md, *.markdown)"));
     if (path.isEmpty())
         return;
-    m_filePath = path;
+    m_file_path = path;
     onFileSave();
 }
 
