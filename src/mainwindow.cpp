@@ -11,22 +11,33 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     resize(1200, 740);
 
-    m_central_widget = new CentralWidget;
-    setCentralWidget(m_central_widget);
-    setupAction();
-
-    m_search_edit = new DSearchEdit;
+    m_search_edit = new DSearchEdit(this);
     titlebar()->setCustomWidget(m_search_edit);
     m_search_edit->setFixedWidth(400);
 
-//    QHBoxLayout *m_layout = new QHBoxLayout;
-//    m_layout->setContentsMargins(0, 0, 0, 0);
-//    m_layout->setSpacing(0);
-//    m_layout->addWidget();
-   // BottomBar *m_bottom_bar = new BottomBar;
-   // m_layout->addWidget(m_bottom_bar);
-   // m_central_widget->setLayout(m_layout);
-    //setStatusBar(m_bottom_bar);
+    m_central_widget = new CentralWidget;
+    m_bottom_bar = new BottomBar;
+    connect(m_central_widget->m_editor_widget, &QMarkdownTextEdit::textChanged, [this]() {
+        m_bottom_bar->updateWordCount(m_central_widget->m_editor_widget->toPlainText().length());
+    });
+    connect(m_central_widget->m_editor_widget, &QMarkdownTextEdit::cursorPositionChanged, [this]() {
+        QTextCursor cursor = m_central_widget->m_editor_widget->textCursor();
+        m_bottom_bar->updatePosition(cursor.blockNumber()+1, cursor.columnNumber()+1);
+    });
+
+    QVBoxLayout *m_layout = new QVBoxLayout;
+    m_layout->setContentsMargins(0, 0, 0, 0);
+    m_layout->setSpacing(0);
+    m_layout->addWidget(m_central_widget);
+    m_layout->addWidget(m_bottom_bar);
+    DWidget *base_widget = new DWidget;
+    base_widget->setLayout(m_layout);
+    setCentralWidget(base_widget);
+    setupAction();
+
+    QFile defaultTextFile(":/default.md");
+    defaultTextFile.open(QIODevice::ReadOnly);
+    m_central_widget->m_editor_widget->setPlainText(defaultTextFile.readAll());
 }
 
 MainWindow::~MainWindow() {

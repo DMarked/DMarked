@@ -1,7 +1,5 @@
 #include "centralwidget.h"
 #include <QFontDatabase>
-#include <QFile>
-#include <QDebug>
 
 CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
 {
@@ -15,6 +13,7 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
       m_splitter->setChildrenCollapsible(true);
 
       m_editor_widget->setGeometry(0, 0, 600, 740);
+      m_editor_widget->setContentsMargins(0, 0, 0, 0);
       m_editor_widget->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
       m_editor_widget->setFocusPolicy(Qt::StrongFocus);
       m_editor_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -22,13 +21,9 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
 
       m_preview_widget->setGeometry(0, 0, 600, 740);
 
-      connect(m_editor_widget, &DPlainTextEdit::textChanged, [this]() {
+      connect(m_editor_widget, &QMarkdownTextEdit::textChanged, [this]() {
           m_preview_widget->setText(m_editor_widget->toPlainText());
       });
-
-      QFile defaultTextFile(":/default.md");
-      defaultTextFile.open(QIODevice::ReadOnly);
-      m_editor_widget->setPlainText(defaultTextFile.readAll());
 
       m_splitter->addWidget(m_editor_widget);
       m_splitter->addWidget(m_preview_widget);

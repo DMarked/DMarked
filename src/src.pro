@@ -9,7 +9,7 @@ CONFIG += c++11 link_pkgconfig
 DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
-    #bottombar.h \
+    widgets/bottombar.h \
     mainwindow.h \
     widgets/centralwidget.h \
     widgets/preview-widget/document.h \
@@ -19,7 +19,7 @@ HEADERS += \
 SOURCES = \
     main.cpp \
     mainwindow.cpp \
-    #bottombar.cpp \
+    widgets/bottombar.cpp \
     widgets/centralwidget.cpp \
     widgets/preview-widget/document.cpp \
     widgets/preview-widget/previewpage.cpp \

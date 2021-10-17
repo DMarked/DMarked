@@ -10,7 +10,7 @@
 #include <QAction>
 
 #include "widgets/centralwidget.h"
-//#include "bottombar.h"
+#include "widgets/bottombar.h"
 
 DWIDGET_USE_NAMESPACE
 
@@ -36,6 +36,7 @@ private:
 
     DSearchEdit *m_search_edit;
     CentralWidget *m_central_widget;
+    BottomBar *m_bottom_bar;
     QString m_file_path;
 
 protected:

@@ -14,6 +14,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
     page->setWebChannel(channel);
     setUrl(QUrl("qrc:/index.html"));
 
+    setContentsMargins(0, 0, 0, 0);
     setContextMenuPolicy(Qt::NoContextMenu);
     setFocusPolicy(Qt::NoFocus);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
