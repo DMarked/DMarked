@@ -6,6 +6,9 @@
 
 #include <QWebChannel>
 #include <QWebEngineView>
+#include <DApplicationHelper>
+
+DWIDGET_USE_NAMESPACE
 
 class PreviewWidget : public QWebEngineView
 {

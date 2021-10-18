@@ -75,8 +75,7 @@ DDropdownMenu::DDropdownMenu(QWidget *parent)
 
     connect(this, &DDropdownMenu::requestContextMenu, this, &DDropdownMenu::slotRequestMenu);
 
-    //设置字体自适应大小
-    //设置界面大小根据内容大小自适应 梁卫东 2020.7.7
+    //设置字体自适应大小 设置界面大小根据内容大小自适应 梁卫东 2020.7.7
     connect(qApp, &DApplication::fontChanged,this,&DDropdownMenu::OnFontChangedSlot);
 }
 
@@ -95,6 +94,7 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
     QAction *noHlAction = m_pMenu->addAction(tr("None"));
     m_pThemeMenu->m_actionGroup->addAction(noHlAction);
     noHlAction->setCheckable(true);
+    noHlAction->setChecked(true);
 
     bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
     foreach(const QString &theme, MdTheme::light_themes) {
@@ -114,12 +114,13 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
             act->setChecked(true);
     }
 
-    m_pThemeMenu->setText(isDark ? MdTheme::dark_current_theme : MdTheme::light_current_theme);
     m_pThemeMenu->setMenu(m_pMenu);
+    m_pThemeMenu->setCurrentTextOnly(isDark ? MdTheme::dark_current_theme : MdTheme::light_current_theme);
+
 
     connect(m_pMenu, &DMenu::triggered, m_pThemeMenu, [m_pThemeMenu](QAction *action) {
         if (m_pThemeMenu->m_text != action->text()) {
-            m_pThemeMenu->setText(action->text());
+            m_pThemeMenu->setCurrentTextOnly(action->text());
             emit m_pThemeMenu->currentActionChanged(action);
         }
     });
@@ -135,7 +136,7 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
                 action->setVisible(isUnknown || isDark);
             if ((!isDark && action->text() == MdTheme::light_current_theme)
                     || (isDark && action->text() == MdTheme::dark_current_theme)) {
-                m_pThemeMenu->setText(action->text());
+                m_pThemeMenu->setCurrentTextOnly(action->text());
                 emit m_pThemeMenu->currentActionChanged(action);
             }
         }
@@ -171,15 +172,15 @@ void DDropdownMenu::setCurrentTextOnly(const QString &name)
    QList<QAction*> menuList = m_menu->actions();
 
    for (int i = 0; i < menuList.size(); i++) {
-       if(menuList[i]->menu()){
+       if (menuList[i]->menu()){
            QList<QAction*> acts = menuList[i]->menu()->actions();
-           if(acts.size() == 0) continue;
+           if (acts.size() == 0) continue;
            for (int j = 0; j < acts.size(); j++) {
-           if(acts[j]->text() != name){
+           if (acts[j]->text() != name) {
                acts[j]->setCheckable(false);
                acts[j]->setChecked(false);
            }
-           else{
+           else {
                acts[j]->setCheckable(true);
                acts[j]->setChecked(true);
            }
@@ -326,7 +327,6 @@ QIcon DDropdownMenu::createIcon()
 
     //arrowPixmap=arrowPixmap.scaled(iconW,iconH,Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
 
-    //qDebug()<<"==================="<<arrowPixmap.rect().height();
     painter.drawPixmap(QRectF(fontWidth,(totalHeigth-iconH)/2,iconW,iconH),arrowPixmap,arrowPixmap.rect());
 
     painter.end();
@@ -404,7 +404,6 @@ QPixmap DDropdownMenu::setSvgColor(QString color)
     SetSVGBackColor(elem, "fill", color);
 
     // 装换图片
-    // int scaled =qApp->devicePixelRatio() == 1.25 ? 2 : 1;
     qreal scaled = this->devicePixelRatioF();
     QSvgRenderer svg_render(doc.toByteArray());
 
@@ -420,7 +419,6 @@ QPixmap DDropdownMenu::setSvgColor(QString color)
 
 void DDropdownMenu::SetSVGBackColor(QDomElement &elem, QString strattr, QString strattrval)
 {
-
     if (elem.tagName().compare("g") == 0 && elem.attribute("id").compare("color") == 0)
     {
         QString before_color = elem.attribute(strattr);

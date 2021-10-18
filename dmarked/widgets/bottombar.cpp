@@ -19,6 +19,7 @@
  */
 
 #include "bottombar.h"
+#include "dropdown-menu/mdtheme.h"
 
 #include <QLabel>
 #include <QPainter>
@@ -53,12 +54,10 @@ BottomBar::BottomBar(QWidget *parent)
     layout->addSpacerItem(new QSpacerItem(110,20,QSizePolicy::Expanding,QSizePolicy::Fixed));
     layout->addWidget(m_pCharCountLabel);
 
-    m_pCursorStatus->setText(qApp->translate("EditWrapper", "INSERT"));
-    m_pPositionLabel->setText(QString("%1 %2  %3 %4").arg(m_rowStr, "1",m_columnStr, "1"));
+    m_pCursorStatus->setText("INSERT");
+    m_pPositionLabel->setText(QString("%1 %2  %3 %4").arg(m_rowStr, "1", m_columnStr, "1"));
 
     m_pCharCountLabel->setText(m_chrCountStr.arg("0"));
-//    m_pHighlightMenu->setCurrentTextOnly(qApp->translate("TextEdit", "None"));
-   // m_pEncodeMenu->setCurrentTextOnly(QString("UTF-8"));
 
     DVerticalLine *pVerticalLine1 = new DVerticalLine();
     //DVerticalLine *pVerticalLine2 = new DVerticalLine();
@@ -73,9 +72,9 @@ BottomBar::BottomBar(QWidget *parent)
 
     setFixedHeight(32);
 
-    //切换文件类型
+    // 切换 CSS
     connect(m_pThemeMenu, &DDropdownMenu::currentActionChanged, this, [this](QAction* pAct) {
-        //m_pThemeMenu->setCurrentTextOnly(pAct->text());
+        m_pThemeMenu->setCurrentTextOnly(pAct->text());
         emit this->currentMdThemeChanged(pAct->text());
     });
 
