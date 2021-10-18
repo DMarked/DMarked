@@ -1,17 +1,15 @@
 #include "previewwidget.h"
-#include "previewpage.h"
 
-#include <QWebChannel>
 #include <QWebEngineSettings>
 
 PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 {
-    PreviewPage *page = new PreviewPage(this);
-    page->settings()->setAttribute(QWebEngineSettings::ShowScrollBars, false);
-    setPage(page);
-    QWebChannel *channel = new QWebChannel(this);
-    channel->registerObject(QStringLiteral("content"), &m_content);
-    page->setWebChannel(channel);
+    m_page = new PreviewPage(this);
+    m_page->settings()->setAttribute(QWebEngineSettings::ShowScrollBars, false);
+    setPage(m_page);
+    m_channel = new QWebChannel(this);
+    m_channel->registerObject(QStringLiteral("content"), &m_content);
+    m_page->setWebChannel(m_channel);
     setUrl(QUrl("qrc:/index.html"));
 
     setContentsMargins(0, 0, 0, 0);
@@ -22,4 +20,9 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 
 void PreviewWidget::setText(const QString &content) {
     m_content.setText(content);
+}
+
+void PreviewWidget::setMdTheme(const QString &theme) {
+    QString method = "setMdTheme(\'" + theme + "\')";
+    m_page->runJavaScript(method);
 }

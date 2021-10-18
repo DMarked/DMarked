@@ -21,7 +21,8 @@
 #ifndef BOTTOMBAR_H
 #define BOTTOMBAR_H
 
-#include "ddropdownmenu.h"
+#include "dropdown-menu/ddropdownmenu.h"
+
 #include <DLabel>
 #include <DApplicationHelper>
 #include <DFontSizeManager>
@@ -40,14 +41,12 @@ public:
 
     void updatePosition(int row, int column);
     void updateWordCount(int charactorCount);
-    void setEncodeName(const QString &name);
     void setCursorStatus(const QString &text);
     void setPalette(const QPalette &palette);
     void updateSize(int size);
     void setChildEnabled(bool enabled);
     void setChildrenFocus(bool ok,QWidget* preOrderWidget = nullptr);
 
-    //DDropdownMenu *getEncodeMenu();
     DDropdownMenu *getThemeMenu();
 
 protected:
@@ -57,7 +56,6 @@ private:
     DLabel *m_pPositionLabel {nullptr};
     DLabel *m_pCharCountLabel {nullptr};
     DLabel *m_pCursorStatus {nullptr};
-    //DDropdownMenu *m_pEncodeMenu {nullptr};
     DDropdownMenu *m_pThemeMenu {nullptr};
     QString m_rowStr {QString()};
     QString m_columnStr {QString()};
@@ -66,6 +64,9 @@ private:
 public slots:
     // 编码按钮/文本类型按钮失去焦点后，设置光标回到文本框里
     void slotSetTextEditFocus();
+
+signals:
+    void currentMdThemeChanged(const QString&);
 };
 
 #endif

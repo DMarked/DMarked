@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <head>
-  <link rel="stylesheet" type="text/css" href="3rdparty/themes/xiaolai.css">
+  <div id="cssplaceholder"></div>
   <script src="3rdparty/marked.js"></script>
   <script src="qrc:/qtwebchannel/qwebchannel.js"></script>
 </head>
@@ -25,6 +25,16 @@
     }
   );
   </script>
+
+  <script>
+  function setMdTheme(theme) {
+    if (theme == 'None')
+      document.getElementById('cssplaceholder').innerHTML = '';
+    else
+      document.getElementById('cssplaceholder').innerHTML = '<link rel=\"stylesheet\" type=\"text/css\" href=\"3rdparty/themes/' + theme + '.css\">';
+  }
+  </script>
+
 </body>
 </html>
 

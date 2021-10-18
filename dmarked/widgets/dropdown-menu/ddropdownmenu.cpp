@@ -19,6 +19,8 @@
  */
 
 #include "ddropdownmenu.h"
+#include "mdtheme.h"
+
 #include <QHBoxLayout>
 #include <QMouseEvent>
 #include <DApplication>
@@ -93,26 +95,53 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
     QAction *noHlAction = m_pMenu->addAction(tr("None"));
     m_pThemeMenu->m_actionGroup->addAction(noHlAction);
     noHlAction->setCheckable(true);
-    noHlAction->setChecked(true);
 
-    QStringList themes;
-    themes << "a" << "b" << "c";
-    foreach(const QString &theme, themes) {
+    bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
+    foreach(const QString &theme, MdTheme::light_themes) {
         QAction *act= m_pMenu->addAction(theme);
         m_pThemeMenu->m_actionGroup->addAction(act);
         act->setCheckable(true);
+        act->setVisible(!isDark);
+        if (!isDark && theme == MdTheme::light_current_theme)
+            act->setChecked(true);
+    }
+    foreach(const QString &theme, MdTheme::dark_themes) {
+        QAction *act= m_pMenu->addAction(theme);
+        m_pThemeMenu->m_actionGroup->addAction(act);
+        act->setCheckable(true);
+        act->setVisible(isDark);
+        if (isDark && theme == MdTheme::dark_current_theme)
+            act->setChecked(true);
     }
 
-//      connect(m_pMenu, &DMenu::triggered, m_pEncodeMenu,[m_pEncodeMenu](QAction *action) {
-//            //编码内容改变触发内容改变和信号发射 梁卫东 2020.7.7
-//            if (m_pEncodeMenu->m_text != action->text()) {
-//                emit m_pEncodeMenu->currentActionChanged(action);
-//            }
-//        });
+    m_pThemeMenu->setText(isDark ? MdTheme::dark_current_theme : MdTheme::light_current_theme);
+    m_pThemeMenu->setMenu(m_pMenu);
 
-      m_pThemeMenu->setText(tr("None"));
-      m_pThemeMenu->setMenu(m_pMenu);
-      return m_pThemeMenu;
+    connect(m_pMenu, &DMenu::triggered, m_pThemeMenu, [m_pThemeMenu](QAction *action) {
+        if (m_pThemeMenu->m_text != action->text()) {
+            m_pThemeMenu->setText(action->text());
+            emit m_pThemeMenu->currentActionChanged(action);
+        }
+    });
+
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged,
+            [m_pThemeMenu](DGuiApplicationHelper::ColorType themeType){
+        bool isDark = themeType == DGuiApplicationHelper::ColorType::DarkType;
+        bool isUnknown = themeType == DGuiApplicationHelper::ColorType::UnknownType;
+        foreach (QAction *action, m_pThemeMenu->m_menu->actions()) {
+            if (MdTheme::light_themes.contains(action->text()))
+                action->setVisible(isUnknown || !isDark);
+            else
+                action->setVisible(isUnknown || isDark);
+            if ((!isDark && action->text() == MdTheme::light_current_theme)
+                    || (isDark && action->text() == MdTheme::dark_current_theme)) {
+                m_pThemeMenu->setText(action->text());
+                emit m_pThemeMenu->currentActionChanged(action);
+            }
+        }
+    });
+
+    return m_pThemeMenu;
 }
 
 

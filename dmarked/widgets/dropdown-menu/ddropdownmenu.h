@@ -90,7 +90,7 @@ private:
     DMenu *m_menu = nullptr;
     QActionGroup *m_actionGroup = nullptr;
     QPixmap m_arrowPixmap;
-    QString m_text = "UTF-8";
+    QString m_text = "None";
     QFont m_font;
     bool m_bPressed =false;
     bool isRequest = false;

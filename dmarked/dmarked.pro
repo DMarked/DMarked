@@ -12,22 +12,24 @@ HEADERS += \
     widgets/bottombar.h \
     mainwindow.h \
     application.h \
-    widgets/ddropdownmenu.h \
+    widgets/dropdown-menu/ddropdownmenu.h \
     widgets/centralwidget.h \
     widgets/preview-widget/document.h \
     widgets/preview-widget/previewpage.h \
-    widgets/preview-widget/previewwidget.h
+    widgets/preview-widget/previewwidget.h \
+    widgets/dropdown-menu/mdtheme.h
 
 SOURCES = \
     main.cpp \
     mainwindow.cpp \
-    widgets/ddropdownmenu.cpp \
+    widgets/dropdown-menu/ddropdownmenu.cpp \
     widgets/bottombar.cpp \
     widgets/centralwidget.cpp \
     widgets/preview-widget/document.cpp \
     widgets/preview-widget/previewpage.cpp \
     widgets/preview-widget/previewwidget.cpp \
-    application.cpp
+    application.cpp \
+    widgets/dropdown-menu/mdtheme.cpp
 
 RESOURCES = \
     ../resources/markdowneditor.qrc

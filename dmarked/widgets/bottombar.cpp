@@ -31,7 +31,6 @@ BottomBar::BottomBar(QWidget *parent)
       m_pPositionLabel(new DLabel),
       m_pCharCountLabel(new DLabel),
       m_pCursorStatus(new DLabel),
-      //m_pEncodeMenu(DDropdownMenu::createEncodeMenu()),
       m_pThemeMenu(DDropdownMenu::createThemeMenu()),
       m_rowStr(tr("Row")),
       m_columnStr(tr("Column")),
@@ -74,36 +73,22 @@ BottomBar::BottomBar(QWidget *parent)
 
     setFixedHeight(32);
 
-    //切换编码
-    /*connect(m_pEncodeMenu, &DDropdownMenu::currentActionChanged, this,[this](QAction* pAct){
-        if(!m_pWrapper->getFileLoading() && m_pWrapper->reloadFileEncode(pAct->text().toLocal8Bit())) {
-            m_pEncodeMenu->setCurrentTextOnly(pAct->text());
-        }
-        //先屏蔽，双字节空字符先按照显示字符编码号处理
-        m_pWrapper->clearDoubleCharaterEncode();
-    });*/
-
-//    //切换文件类型
-//    connect(m_pHighlightMenu, &DDropdownMenu::currentActionChanged, this,[this](QAction* pAct) {
-//        m_pHighlightMenu->setCurrentTextOnly(pAct->text());
-//    });
+    //切换文件类型
+    connect(m_pThemeMenu, &DDropdownMenu::currentActionChanged, this, [this](QAction* pAct) {
+        //m_pThemeMenu->setCurrentTextOnly(pAct->text());
+        emit this->currentMdThemeChanged(pAct->text());
+    });
 
 //    //编码按钮/文本类型按钮失去焦点后，设置光标回到文本框里
-//    connect(m_pEncodeMenu, &DDropdownMenu::sigSetTextEditFocus, this, &BottomBar::slotSetTextEditFocus);
 //    connect(m_pHighlightMenu, &DDropdownMenu::sigSetTextEditFocus, this, &BottomBar::slotSetTextEditFocus);
 }
 
 BottomBar::~BottomBar()
 {
-//    if (m_pEncodeMenu != nullptr) {
-//        delete m_pEncodeMenu;
-//        m_pEncodeMenu = nullptr;
-//    }
-
-//    if (m_pHighlightMenu != nullptr) {
-//        delete m_pHighlightMenu;
-//        m_pHighlightMenu = nullptr;
-//    }
+    if (m_pThemeMenu != nullptr) {
+        delete m_pThemeMenu;
+        m_pThemeMenu = nullptr;
+    }
 }
 
 void BottomBar::updatePosition(int row, int column)
@@ -115,11 +100,6 @@ void BottomBar::updatePosition(int row, int column)
 void BottomBar::updateWordCount(int charactorCount)
 {
     m_pCharCountLabel->setText(m_chrCountStr.arg(QString::number(charactorCount-1)));
-}
-
-void BottomBar::setEncodeName(const QString &name)
-{
-   // m_pEncodeMenu->setCurrentTextOnly(name);
 }
 
 void BottomBar::setCursorStatus(const QString &text)
@@ -163,31 +143,23 @@ void BottomBar::updateSize(int size)
 
 void BottomBar::setChildEnabled(bool enabled)
 {
- //   m_pEncodeMenu->setEnabled(enabled);
-//    m_pHighlightMenu->setEnabled(enabled);
-   // m_pEncodeMenu->setRequestMenu(enabled);
-//    m_pHighlightMenu->setRequestMenu(enabled);
+    m_pThemeMenu->setEnabled(enabled);
+    m_pThemeMenu->setRequestMenu(enabled);
 }
 
 void BottomBar::setChildrenFocus(bool ok,QWidget* preOrderWidget)
 {
-  //  m_pEncodeMenu->setChildrenFocus(ok);
-//    m_pHighlightMenu->setChildrenFocus(ok);
+     m_pThemeMenu->setChildrenFocus(ok);
     if(ok) {
-      //  if(preOrderWidget) setTabOrder(preOrderWidget,m_pEncodeMenu->getButton());
-        //setTabOrder(m_pEncodeMenu->getButton(),m_pHighlightMenu->getButton());
+        if(preOrderWidget) setTabOrder(preOrderWidget, m_pThemeMenu->getButton());
+        //setTabOrder(m_pThemeMenu->getButton(),m_pHighlightMenu->getButton());
     }
 }
 
-//DDropdownMenu *BottomBar::getEncodeMenu()
-//{
-//    return m_pEncodeMenu;
-//}
-
-//DDropdownMenu *BottomBar::getHighlightMenu()
-//{
-//    return m_pHighlightMenu;
-//}
+DDropdownMenu *BottomBar::getThemeMenu()
+{
+    return m_pThemeMenu;
+}
 
 void BottomBar::paintEvent(QPaintEvent *)
 {

@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
         QTextCursor cursor = m_central_widget->m_editor_widget->textCursor();
         m_bottom_bar->updatePosition(cursor.blockNumber()+1, cursor.columnNumber()+1);
     });
+    connect(m_bottom_bar, &BottomBar::currentMdThemeChanged, [this](const QString &theme) {
+       m_central_widget->m_preview_widget->setMdTheme(theme);
+    });
 
     QVBoxLayout *m_layout = new QVBoxLayout;
     m_layout->setContentsMargins(0, 0, 0, 0);
