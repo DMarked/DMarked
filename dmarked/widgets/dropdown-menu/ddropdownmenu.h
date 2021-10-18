@@ -2,7 +2,7 @@
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     rekols <rekols@foxmail.com>
- * Maintainer： rewine <lhongxu@outlook.com>
+ * Maintainer： Lu Hongxu <lhongxu@outlook.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -90,7 +90,7 @@ private:
     DMenu *m_menu = nullptr;
     QActionGroup *m_actionGroup = nullptr;
     QPixmap m_arrowPixmap;
-    QString m_text = "None";
+    QString m_text = "none";
     QFont m_font;
     bool m_bPressed =false;
     bool isRequest = false;
