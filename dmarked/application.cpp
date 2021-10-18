@@ -1,7 +1,8 @@
 /*
 * Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
 *
-* Maintainer： rewine <lhongxu@outlook.com>
+* Author:      V4fr3e <V4fr3e@deepin.io>
+* Maintainer： Lu Hongxu <lhongxu@outlook.com>
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by

@@ -2,7 +2,7 @@
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     rekols <rekols@foxmail.com>
- * Maintainer： rewine <lhongxu@outlook.com>
+ * Maintainer： Lu Hongxu <lhongxu@outlook.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,6 @@
 
 DWIDGET_USE_NAMESPACE
 
-class EditWrapper;
 class BottomBar : public QWidget
 {
     Q_OBJECT
