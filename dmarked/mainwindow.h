@@ -63,10 +63,6 @@ private:
     DSearchEdit *m_search_edit;
     CentralWidget *m_central_widget;
     BottomBar *m_bottom_bar;
-    QString m_file_path;
-
-//protected:
-//    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // MAINWINDOW_H

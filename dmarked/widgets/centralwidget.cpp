@@ -58,6 +58,14 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
       setLayout(m_central_layout);
 }
 
+void CentralWidget::setFilePath(const QString &path) {
+    m_file_path = path;
+}
+
+const QString & CentralWidget::getFilePath() {
+    return  m_file_path;
+}
+
 void CentralWidget::setMode(const QString &mode) {
     if (mode == tr("Read Mode")) {
         m_editor_widget->hide();

@@ -113,7 +113,7 @@ void MainWindow::openFile(const QString &path) {
                                  QDir::toNativeSeparators(path), f.errorString()));
         return;
     }
-    m_file_path = path;
+    m_central_widget->setFilePath(path);
     m_central_widget->m_editor_widget->setPlainText(f.readAll());
 }
 
@@ -154,7 +154,7 @@ void MainWindow::onFileNew() {
             return;
     }
 
-    m_file_path.clear();
+    m_central_widget->setFilePath("");
     m_central_widget->m_editor_widget->setPlainText(tr("## New document"));
     m_central_widget->m_editor_widget->document()->setModified(false);
 }
@@ -176,16 +176,16 @@ void MainWindow::onFileOpen() {
 }
 
 void MainWindow::onFileSave() {
-    if (m_file_path.isEmpty()) {
+    if (m_central_widget->getFilePath().isEmpty()) {
         onFileSaveAs();
         return;
     }
 
-    QFile f(m_file_path);
+    QFile f(m_central_widget->getFilePath());
     if (!f.open(QIODevice::WriteOnly | QIODevice::Text))  {
         DMessageBox::warning(this, windowTitle(),
                              tr("Could not write to file %1: %2").arg(
-                                 QDir::toNativeSeparators(m_file_path), f.errorString()));
+                                 QDir::toNativeSeparators(m_central_widget->getFilePath()), f.errorString()));
         return;
     }
     QTextStream str(&f);
@@ -198,6 +198,6 @@ void MainWindow::onFileSaveAs() {
         tr("Save MarkDown File"), "", tr("MarkDown File (*.md, *.markdown)"));
     if (path.isEmpty())
         return;
-    m_file_path = path;
+    m_central_widget->setFilePath(path);
     onFileSave();
 }

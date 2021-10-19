@@ -41,11 +41,16 @@ public:
     explicit CentralWidget(DWidget *parent = nullptr);
     void setMode(const QString &mode);
 
+    void setFilePath(const QString &path);
+    const QString &getFilePath();
+
 private:
     QMarkdownTextEdit *m_editor_widget;
     PreviewWidget *m_preview_widget;
     DSplitter *m_splitter;
     QLayout *m_central_layout;
+
+    QString m_file_path;
 };
 
 #endif // CENTRALWIDGET_H
