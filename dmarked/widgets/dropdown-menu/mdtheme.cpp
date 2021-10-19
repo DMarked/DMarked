@@ -21,12 +21,13 @@
 
 #include "mdtheme.h"
 
-const QStringList MdTheme::light_themes = { "apollo",        "infoq",      "markdown", "simple",  "wecatch-code"
-                                          , "less",          "ocean",      "style",    "wecatch", "erye"
-                                          , "list-writing",  "sanyuesha",  "typing",   "xiaolai"                };
+const QStringList MdTheme::light_themes = { "apollo",        "infoq",      "markdown", "simple",  "less"
+                                          , "wecatch-code"   "ocean",      "style",    "wecatch", "erye"
+                                          , "list-writing",  "sanyuesha",  "typing",   "xiaolai", "clearness"
+                                          , "solarized-light","github" };
 
-const QStringList MdTheme::dark_themes = { "darkdown" };
+const QStringList MdTheme::dark_themes = { "darkdown", "solarized-dark", "clearness-dark", "byword-dark" };
 
-QString MdTheme::light_current_theme = "apollo";
+QString MdTheme::light_current_theme = "xiaolai";
 QString MdTheme::dark_current_theme = "darkdown";
 

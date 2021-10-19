@@ -47,5 +47,11 @@
         <file>images/u-d.svg</file>
         <file>images/u-l.svg</file>
         <file>images/warning.svg</file>
+        <file>3rdparty/themes/byword-dark.css</file>
+        <file>3rdparty/themes/clearness-dark.css</file>
+        <file>3rdparty/themes/clearness.css</file>
+        <file>3rdparty/themes/github.css</file>
+        <file>3rdparty/themes/solarized-dark.css</file>
+        <file>3rdparty/themes/solarized-light.css</file>
     </qresource>
 </RCC>
