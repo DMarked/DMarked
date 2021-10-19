@@ -39,6 +39,7 @@ class CentralWidget : public DWidget
     friend class MainWindow;
 public:
     explicit CentralWidget(DWidget *parent = nullptr);
+    void setMode(const QString &mode);
 
 private:
     QMarkdownTextEdit *m_editor_widget;

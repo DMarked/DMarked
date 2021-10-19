@@ -62,6 +62,9 @@ public:
     // 切换 css 主题的菜单
     static DDropdownMenu* createThemeMenu();
 
+    // 切换阅读、编写模式
+    static DDropdownMenu* createModeMenu();
+
 signals:
     void requestContextMenu(bool bClicked = false);
     void currentTextChanged(const QString &text);

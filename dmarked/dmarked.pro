@@ -18,7 +18,7 @@ HEADERS += \
     widgets/preview-widget/previewpage.h \
     widgets/preview-widget/previewwidget.h \
     widgets/dropdown-menu/mdtheme.h \
-    utils/mdexport.h
+    utils/mdexport.h \
 
 SOURCES = \
     main.cpp \

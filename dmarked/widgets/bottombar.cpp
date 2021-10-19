@@ -33,6 +33,7 @@ BottomBar::BottomBar(QWidget *parent)
       m_pCharCountLabel(new DLabel),
       m_pCursorStatus(new DLabel),
       m_pThemeMenu(DDropdownMenu::createThemeMenu()),
+      m_pModeMenu(DDropdownMenu::createModeMenu()),
       m_rowStr(tr("Row")),
       m_columnStr(tr("Column")),
       m_chrCountStr(tr("Characters %1"))
@@ -60,22 +61,30 @@ BottomBar::BottomBar(QWidget *parent)
     m_pCharCountLabel->setText(m_chrCountStr.arg("0"));
 
     DVerticalLine *pVerticalLine1 = new DVerticalLine();
-    //DVerticalLine *pVerticalLine2 = new DVerticalLine();
+    DVerticalLine *pVerticalLine2 = new DVerticalLine();
     pVerticalLine1->setFixedSize(1, 15);
-    //pVerticalLine2->setFixedSize(1, 15);
+    pVerticalLine2->setFixedSize(1, 15);
 
     layout->addStretch();
     layout->addWidget(m_pCursorStatus);
     layout->addSpacing(10);
     layout->addWidget(pVerticalLine1);
     layout->addWidget(m_pThemeMenu);
+    layout->addSpacing(10);
+    layout->addWidget(pVerticalLine2);
+    layout->addWidget(m_pModeMenu);
 
     setFixedHeight(32);
 
     // 切换 CSS
-    connect(m_pThemeMenu, &DDropdownMenu::currentActionChanged, this, [this](QAction* pAct) {
+    connect(m_pThemeMenu, &DDropdownMenu::currentActionChanged, [this](QAction* pAct) {
         m_pThemeMenu->setCurrentTextOnly(pAct->text());
         emit this->currentMdThemeChanged(pAct->text());
+    });
+
+    connect(m_pModeMenu, &DDropdownMenu::currentActionChanged, [this](QAction *pAct) {
+        m_pModeMenu->setCurrentTextOnly(pAct->text());
+        emit this->currentModeChanged(pAct->text());
     });
 
 //    //编码按钮/文本类型按钮失去焦点后，设置光标回到文本框里
@@ -87,6 +96,10 @@ BottomBar::~BottomBar()
     if (m_pThemeMenu != nullptr) {
         delete m_pThemeMenu;
         m_pThemeMenu = nullptr;
+    }
+    if (m_pModeMenu != nullptr) {
+        delete m_pModeMenu;
+        m_pModeMenu = nullptr;
     }
 }
 
@@ -144,20 +157,28 @@ void BottomBar::setChildEnabled(bool enabled)
 {
     m_pThemeMenu->setEnabled(enabled);
     m_pThemeMenu->setRequestMenu(enabled);
+
+    m_pModeMenu->setEnabled(enabled);
+    m_pModeMenu->setRequestMenu(enabled);
 }
 
 void BottomBar::setChildrenFocus(bool ok,QWidget* preOrderWidget)
 {
      m_pThemeMenu->setChildrenFocus(ok);
+     m_pModeMenu->setChildrenFocus(ok);
     if(ok) {
         if(preOrderWidget) setTabOrder(preOrderWidget, m_pThemeMenu->getButton());
-        //setTabOrder(m_pThemeMenu->getButton(),m_pHighlightMenu->getButton());
+        setTabOrder(m_pThemeMenu->getButton(),m_pModeMenu->getButton());
     }
 }
 
 DDropdownMenu *BottomBar::getThemeMenu()
 {
     return m_pThemeMenu;
+}
+
+DDropdownMenu *BottomBar::getModeMenu() {
+    return m_pModeMenu;
 }
 
 void BottomBar::paintEvent(QPaintEvent *)

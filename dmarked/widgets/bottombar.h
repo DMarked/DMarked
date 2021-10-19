@@ -47,6 +47,8 @@ public:
     void setChildrenFocus(bool ok,QWidget* preOrderWidget = nullptr);
 
     DDropdownMenu *getThemeMenu();
+    DDropdownMenu *getModeMenu();
+
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -56,6 +58,7 @@ private:
     DLabel *m_pCharCountLabel {nullptr};
     DLabel *m_pCursorStatus {nullptr};
     DDropdownMenu *m_pThemeMenu {nullptr};
+    DDropdownMenu *m_pModeMenu {nullptr};
     QString m_rowStr {QString()};
     QString m_columnStr {QString()};
     QString m_chrCountStr {QString()};
@@ -66,6 +69,7 @@ public slots:
 
 signals:
     void currentMdThemeChanged(const QString&);
+    void currentModeChanged(const QString&);
 };
 
 #endif

@@ -58,3 +58,20 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
       setLayout(m_central_layout);
 }
 
+void CentralWidget::setMode(const QString &mode) {
+    if (mode == tr("Read Mode")) {
+        m_editor_widget->hide();
+        m_preview_widget->show();
+    } else if (mode == tr("Write Mode")) {
+        m_editor_widget->show();
+        m_preview_widget->hide();
+    } else if (mode ==tr("Preview Mode(S)")) {
+        m_editor_widget->show();
+        m_preview_widget->show();
+        // TODO SYNC
+    } else if (mode == tr("Preview Mode(N)")) {
+        m_editor_widget->show();
+        m_preview_widget->show();
+    }
+}
+

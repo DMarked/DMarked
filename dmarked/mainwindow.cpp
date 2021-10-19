@@ -48,6 +48,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_bottom_bar, &BottomBar::currentMdThemeChanged, [this](const QString &theme) {
        m_central_widget->m_preview_widget->setMdTheme(theme);
     });
+    connect(m_bottom_bar, &BottomBar::currentModeChanged, [this](const QString &mode) {
+        m_central_widget->setMode(mode);
+    });
 
     QVBoxLayout *m_layout = new QVBoxLayout;
     m_layout->setContentsMargins(0, 0, 0, 0);
@@ -126,7 +129,6 @@ bool MainWindow::queryClose() {
     }
     return true;
 }
-
 
 void MainWindow::onToPdf() {
     QString path = DFileDialog::getSaveFileName(this,

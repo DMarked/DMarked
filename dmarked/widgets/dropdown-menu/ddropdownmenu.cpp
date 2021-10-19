@@ -146,6 +146,37 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
     return m_pThemeMenu;
 }
 
+DDropdownMenu *DDropdownMenu::createModeMenu() {
+    DDropdownMenu *m_pModeMenu = new DDropdownMenu();
+    DMenu *m_pMenu = new DMenu;
+    m_pModeMenu->m_actionGroup = new QActionGroup(m_pMenu);
+
+    QAction *act1 = m_pMenu->addAction(tr("Read Mode"));
+    m_pModeMenu->m_actionGroup->addAction(act1);
+
+    QAction *act2 = m_pMenu->addAction(tr("Write Mode"));
+    m_pModeMenu->m_actionGroup->addAction(act2);
+
+    QAction *act3 = m_pMenu->addAction(tr("Preview Mode(S)"));
+    m_pModeMenu->m_actionGroup->addAction(act3);
+
+    QAction *act4 = m_pMenu->addAction(tr("Preview Mode(N)"));
+    m_pModeMenu->m_actionGroup->addAction(act4);
+
+    act4->setChecked(true);
+
+    m_pModeMenu->setMenu(m_pMenu);
+    m_pModeMenu->setCurrentTextOnly(tr("Preview Mode(N)"));
+
+    connect(m_pMenu, &DMenu::triggered, m_pModeMenu, [m_pModeMenu](QAction *action) {
+        if (m_pModeMenu->m_text != action->text()) {
+            m_pModeMenu->setCurrentTextOnly(action->text());
+            emit m_pModeMenu->currentActionChanged(action);
+        }
+    });
+
+    return m_pModeMenu;
+}
 
 void DDropdownMenu::setFontEx(const QFont& font)
 {
