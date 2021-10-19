@@ -25,6 +25,8 @@
 #include <QWebEngineSettings>
 #include <DDesktopServices>
 #include <DMessageBox>
+#include <QFile>
+#include <QDir>
 
 PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 {
@@ -62,7 +64,30 @@ void PreviewWidget::setMdTheme(const QString &theme) {
     m_page->runJavaScript(method);
 }
 
-void PreviewWidget::printToPdf(const QString &filePath, const QPageLayout &layout) {
+/**
+ * @brief PreviewWidget::convert2Html
+ * @param filePath
+ * @todo add css theme
+ * @todo rm code about qtchannel
+ */
+void PreviewWidget::convert2Html(const QString &filePath) {
+    QWebEngineCallback<const QString &> resultCallback([filePath](const QString &html) {
+        //DMessageBox::warning(nullptr, tr("Warn"), html);
+        QFile f(filePath);
+        if (!f.open(QIODevice::WriteOnly | QIODevice::Text))  {
+            DMessageBox::warning(nullptr, tr("toHtml"),
+                                 tr("Could not write to file %1: %2").arg(
+                                     QDir::toNativeSeparators(filePath), f.errorString()));
+            return;
+        }
+        QTextStream str(&f);
+        str << html;
+        DDesktopServices::showFileItem(filePath);
+    });
+    m_page->toHtml(resultCallback);
+}
+
+void PreviewWidget::convert2Pdf(const QString &filePath, const QPageLayout &layout) {
     m_page->printToPdf(filePath, layout);
 }
 
@@ -70,7 +95,7 @@ void PreviewWidget::pdfPrintingFinished(const QString &filePath, bool success) {
     if (success) {
         DDesktopServices::showFileItem(filePath);
     } else {
-        DMessageBox::warning(this, tr("Warn"), tr("fail to PDF"));
+        DMessageBox::warning(this, tr("Warning"), tr("fail convert to PDF!"));
     }
 }
 

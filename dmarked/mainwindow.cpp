@@ -99,6 +99,7 @@ void MainWindow::setupAction() {
           actionSave, &QAction::setEnabled);
 
     connect(action2Pdf, &QAction::triggered, this, &MainWindow::onToPdf);
+    connect(action2Html, &QAction::triggered, this, &MainWindow::onToHtml);
 }
 
 void MainWindow::openFile(const QString &path) {
@@ -132,11 +133,15 @@ void MainWindow::onToPdf() {
         tr("Convert to PDF"), "", tr("PDF File (*.pdf)"));
     if (path.isEmpty())
         return;
-    m_central_widget->m_preview_widget->printToPdf(path);
+    m_central_widget->m_preview_widget->convert2Pdf(path);
 }
 
 void MainWindow::onToHtml() {
-
+    QString path = DFileDialog::getSaveFileName(this,
+        tr("Convert to HTML"), "", tr("HTML File (*.html)"));
+    if (path.isEmpty())
+        return;
+    m_central_widget->m_preview_widget->convert2Html(path);
 }
 
 void MainWindow::onFileNew() {

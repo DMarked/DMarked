@@ -38,7 +38,8 @@ public:
     explicit PreviewWidget(QWidget *parent = nullptr);
 
     void setText(const QString &content);
-    void printToPdf(const QString &filePath, const QPageLayout &layout = QPageLayout(QPageSize(QPageSize::A4), QPageLayout::Portrait, QMarginsF()));
+    void convert2Pdf(const QString &filePath, const QPageLayout &layout = QPageLayout(QPageSize(QPageSize::A4), QPageLayout::Portrait, QMarginsF()));
+    void convert2Html(const QString &filePath);
 
 public Q_SLOTS:
     void setMdTheme(const QString &theme);
