@@ -23,6 +23,8 @@
 #include "../dropdown-menu/mdtheme.h"
 
 #include <QWebEngineSettings>
+#include <DDesktopServices>
+#include <DMessageBox>
 
 PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 {
@@ -32,6 +34,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
     m_channel = new QWebChannel(this);
     m_channel->registerObject(QStringLiteral("content"), &m_content);
     m_page->setWebChannel(m_channel);
+
     setUrl(QUrl("qrc:/index.html"));
 
     connect(this, &QWebEngineView::loadFinished, [this](bool success) {
@@ -40,6 +43,9 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
             setMdTheme(isDark ? MdTheme::dark_current_theme : MdTheme::light_current_theme);
         }
     });
+
+    connect(m_page, &QWebEnginePage::pdfPrintingFinished,
+              this, &PreviewWidget::pdfPrintingFinished);
 
     setContentsMargins(0, 0, 0, 0);
     setContextMenuPolicy(Qt::NoContextMenu);
@@ -55,3 +61,16 @@ void PreviewWidget::setMdTheme(const QString &theme) {
     QString method = "setMdTheme(\'" + theme + "\')";
     m_page->runJavaScript(method);
 }
+
+void PreviewWidget::printToPdf(const QString &filePath, const QPageLayout &layout) {
+    m_page->printToPdf(filePath, layout);
+}
+
+void PreviewWidget::pdfPrintingFinished(const QString &filePath, bool success) {
+    if (success) {
+        DDesktopServices::showFileItem(filePath);
+    } else {
+        DMessageBox::warning(this, tr("Warn"), tr("fail to PDF"));
+    }
+}
+

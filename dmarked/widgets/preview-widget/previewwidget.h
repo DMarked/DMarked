@@ -38,9 +38,11 @@ public:
     explicit PreviewWidget(QWidget *parent = nullptr);
 
     void setText(const QString &content);
+    void printToPdf(const QString &filePath, const QPageLayout &layout = QPageLayout(QPageSize(QPageSize::A4), QPageLayout::Portrait, QMarginsF()));
 
-public slots:
+public Q_SLOTS:
     void setMdTheme(const QString &theme);
+    void pdfPrintingFinished(const QString &filePath, bool success);
 
 private:
     Document m_content;

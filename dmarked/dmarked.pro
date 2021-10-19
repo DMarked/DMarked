@@ -17,7 +17,8 @@ HEADERS += \
     widgets/preview-widget/document.h \
     widgets/preview-widget/previewpage.h \
     widgets/preview-widget/previewwidget.h \
-    widgets/dropdown-menu/mdtheme.h
+    widgets/dropdown-menu/mdtheme.h \
+    utils/mdexport.h
 
 SOURCES = \
     main.cpp \
@@ -29,7 +30,8 @@ SOURCES = \
     widgets/preview-widget/previewpage.cpp \
     widgets/preview-widget/previewwidget.cpp \
     application.cpp \
-    widgets/dropdown-menu/mdtheme.cpp
+    widgets/dropdown-menu/mdtheme.cpp \
+    utils/mdexport.cpp
 
 RESOURCES = \
     ../resources/markdowneditor.qrc

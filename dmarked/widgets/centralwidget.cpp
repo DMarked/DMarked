@@ -21,6 +21,7 @@
 
 #include "centralwidget.h"
 #include <QFontDatabase>
+#include <QColor>
 
 CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
 {
@@ -39,6 +40,9 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
       m_editor_widget->setFocusPolicy(Qt::StrongFocus);
       m_editor_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
       m_editor_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+      m_editor_widget->setLineNumberEnabled(true);
+      QColor a = QColor::fromRgb(255, 0, 0);
+      m_editor_widget->setLineNumbersCurrentLineColor(a);
 
       m_preview_widget->setGeometry(0, 0, 600, 740);
 

@@ -68,16 +68,24 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::setupAction() {
-    QMenu *menu;
+    QMenu *menu, *convert_menu;
     QAction *actionNew, *actionOpen, *actionSave, *actionSaveAs;
+    QAction *action2Pdf, *action2Html;
 
     actionNew = new QAction(tr("New"));
     actionOpen = new QAction(tr("Open"));
     actionSave = new QAction(tr("Save"));
     actionSaveAs = new QAction(tr("SaveAs"));
+    action2Pdf = new QAction(tr("Pdf"));
+    action2Html = new QAction(tr("Html"));
+
     menu = new QMenu;
     menu->addAction(actionNew);
     menu->addAction(actionOpen);
+    convert_menu = new QMenu(tr("Convert"));
+    convert_menu->addAction(action2Pdf);
+    convert_menu->addAction(action2Html);
+    menu->addMenu(convert_menu);
     menu->addAction(actionSave);
     menu->addAction(actionSaveAs);
 
@@ -89,6 +97,8 @@ void MainWindow::setupAction() {
     connect(actionSaveAs, &QAction::triggered, this, &MainWindow::onFileSaveAs);
     connect(m_central_widget->m_editor_widget->document(), &QTextDocument::modificationChanged,
           actionSave, &QAction::setEnabled);
+
+    connect(action2Pdf, &QAction::triggered, this, &MainWindow::onToPdf);
 }
 
 void MainWindow::openFile(const QString &path) {
@@ -114,6 +124,19 @@ bool MainWindow::queryClose() {
         return button == DMessageBox::Yes;
     }
     return true;
+}
+
+
+void MainWindow::onToPdf() {
+    QString path = DFileDialog::getSaveFileName(this,
+        tr("Convert to PDF"), "", tr("PDF File (*.pdf)"));
+    if (path.isEmpty())
+        return;
+    m_central_widget->m_preview_widget->printToPdf(path);
+}
+
+void MainWindow::onToHtml() {
+
 }
 
 void MainWindow::onFileNew() {

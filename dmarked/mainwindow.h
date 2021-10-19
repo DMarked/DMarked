@@ -50,6 +50,8 @@ private slots:
     void onFileOpen();
     void onFileSave();
     void onFileSaveAs();
+    void onToPdf();
+    void onToHtml();
 
 public:
     bool isModified() const;
