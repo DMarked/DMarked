@@ -153,15 +153,19 @@ DDropdownMenu *DDropdownMenu::createModeMenu() {
 
     QAction *act1 = m_pMenu->addAction(tr("Read Mode"));
     m_pModeMenu->m_actionGroup->addAction(act1);
+    act1->setCheckable(true);
 
     QAction *act2 = m_pMenu->addAction(tr("Write Mode"));
     m_pModeMenu->m_actionGroup->addAction(act2);
+    act2->setCheckable(true);
 
     QAction *act3 = m_pMenu->addAction(tr("Preview Mode(S)"));
     m_pModeMenu->m_actionGroup->addAction(act3);
+    act3->setCheckable(true);
 
     QAction *act4 = m_pMenu->addAction(tr("Preview Mode(N)"));
     m_pModeMenu->m_actionGroup->addAction(act4);
+    act4->setCheckable(true);
 
     act4->setChecked(true);
 
@@ -330,8 +334,8 @@ QIcon DDropdownMenu::createIcon()
         arrowPixmap = m_arrowPixmap;
     }
 
-    //根据字体大小设置icon大小
-    //height 30    width QFontMetrics fm(font()) fm.width(text)+40;
+    // 根据字体大小设置icon大小
+    // height 30    width QFontMetrics fm(font()) fm.width(text)+40;
     int fontWidth = QFontMetrics(m_font).width(m_text)+20;
     int fontHeight = QFontMetrics(m_font).height();
     int iconW = 8;
