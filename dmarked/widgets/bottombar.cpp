@@ -87,8 +87,9 @@ BottomBar::BottomBar(QWidget *parent)
         emit this->currentModeChanged(pAct->text());
     });
 
-//    //编码按钮/文本类型按钮失去焦点后，设置光标回到文本框里
-//    connect(m_pHighlightMenu, &DDropdownMenu::sigSetTextEditFocus, this, &BottomBar::slotSetTextEditFocus);
+    //编码按钮/文本类型按钮失去焦点后，设置光标回到文本框里
+    //connect(m_pModeMenu, &DDropdownMenu::sigSetTextEditFocus, this, &BottomBar::slotSetTextEditFocus);
+    //connect(m_pThemeMenu, &DDropdownMenu::sigSetTextEditFocus, this, &BottomBar::slotSetTextEditFocus);
 }
 
 BottomBar::~BottomBar()
@@ -124,26 +125,26 @@ void BottomBar::setPalette(const QPalette &palette)
     DPalette paPositionLabel  = DApplicationHelper::instance()->applicationPalette();
     DPalette paCharCountLabel = DApplicationHelper::instance()->applicationPalette();
     DPalette paCursorStatus = DApplicationHelper::instance()->applicationPalette();
-    DPalette paEncodeMenu = DApplicationHelper::instance()->applicationPalette();
-    DPalette paHighlightMenu = DApplicationHelper::instance()->applicationPalette();
+    DPalette paThemeMenu = DApplicationHelper::instance()->applicationPalette();
+    DPalette paModeMenu = DApplicationHelper::instance()->applicationPalette();
 
     QColor colorFont = paPositionLabel.textTips().color();
 
     paPositionLabel.setColor(DPalette::WindowText, colorFont);
     paCharCountLabel.setColor(DPalette::WindowText, colorFont);
     paCursorStatus.setColor(DPalette::WindowText, colorFont);
-    paEncodeMenu.setColor(DPalette::WindowText, colorFont);
-    paHighlightMenu.setColor(DPalette::WindowText, colorFont);
+    paThemeMenu.setColor(DPalette::WindowText, colorFont);
+    paModeMenu.setColor(DPalette::WindowText, colorFont);
 
     m_pPositionLabel->setPalette(paPositionLabel);
     m_pCharCountLabel->setPalette(paCharCountLabel);
     m_pCursorStatus->setPalette(paCursorStatus);
-   // m_pEncodeMenu->getButton()->setPalette(paEncodeMenu);
-//    m_pHighlightMenu->getButton()->setPalette(paHighlightMenu);
+    m_pThemeMenu->getButton()->setPalette(paThemeMenu);
+    m_pModeMenu->getButton()->setPalette(paModeMenu);
 
     QString theme = (palette.color(QPalette::Background).lightness() < 128) ? "dark" : "light";
-   // m_pEncodeMenu->setTheme(theme);
-//    m_pHighlightMenu->setTheme(theme);
+    m_pThemeMenu->setTheme(theme);
+    m_pModeMenu->setTheme(theme);
 
     QWidget::setPalette(palette);
 }

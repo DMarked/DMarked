@@ -40,6 +40,7 @@ class CentralWidget : public DWidget
 public:
     explicit CentralWidget(DWidget *parent = nullptr);
     void setMode(const QString &mode);
+    void setSync(bool enable);
 
     void setFilePath(const QString &path);
     const QString &getFilePath();
@@ -51,6 +52,7 @@ private:
     QLayout *m_central_layout;
 
     QString m_file_path;
+    bool m_is_sync = false;
 };
 
 #endif // CENTRALWIDGET_H

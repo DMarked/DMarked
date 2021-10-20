@@ -23,6 +23,11 @@
 #include <QFontDatabase>
 #include <QColor>
 
+#include <QScrollBar>
+#include <QWebEnginePage>
+#include <QWebEngineSettings>
+
+
 CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
 {
       m_editor_widget = new QMarkdownTextEdit;
@@ -50,6 +55,16 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
           m_preview_widget->setText(m_editor_widget->toPlainText());
       });
 
+      connect(m_editor_widget->verticalScrollBar(), &QScrollBar::valueChanged,
+              m_preview_widget, [this](int val) {
+          if (!m_is_sync) return;
+          int editMax = m_editor_widget->verticalScrollBar()->maximum();
+          //int editPos = m_editor_widget->verticalScrollBar()->sliderPosition();
+          double factor = 1.0 * val / editMax;
+          QString method = QString("window.scrollTo(0,document.documentElement.scrollHeight*%1)").arg(factor);
+          m_preview_widget->page()->runJavaScript(method);
+      });
+
       m_splitter->addWidget(m_editor_widget);
       m_splitter->addWidget(m_preview_widget);
 
@@ -66,6 +81,10 @@ const QString & CentralWidget::getFilePath() {
     return  m_file_path;
 }
 
+void CentralWidget::setSync(bool enable) {
+    m_is_sync = enable;
+}
+
 void CentralWidget::setMode(const QString &mode) {
     if (mode == tr("Read Mode")) {
         m_editor_widget->hide();
@@ -76,10 +95,11 @@ void CentralWidget::setMode(const QString &mode) {
     } else if (mode ==tr("Preview Mode(S)")) {
         m_editor_widget->show();
         m_preview_widget->show();
-        // TODO SYNC
+        setSync(true);
     } else if (mode == tr("Preview Mode(N)")) {
         m_editor_widget->show();
         m_preview_widget->show();
+        setSync(false);
     }
 }
 
