@@ -37,7 +37,7 @@ RESOURCES = \
     ../resources/markdowneditor.qrc
 
 # install
-target.path = $$[QT_INSTALL_EXAMPLES]/webenginewidgets/markdowneditor
+target.path = $${PREFIX}/bin
 INSTALLS += target
 
 # qmarkdowntextedit
