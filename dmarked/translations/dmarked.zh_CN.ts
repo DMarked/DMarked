@@ -43,19 +43,19 @@
     </message>
     <message>
         <source>Read Mode</source>
-        <translation></translation>
+        <translation>阅读模式</translation>
     </message>
     <message>
         <source>Write Mode</source>
-        <translation></translation>
+        <translation>编辑模式</translation>
     </message>
     <message>
         <source>Preview Mode(S)</source>
-        <translation></translation>
+        <translation>预览模式(S)</translation>
     </message>
     <message>
         <source>Preview Mode(N)</source>
-        <translation></translation>
+        <translation>预览模式(N)</translation>
     </message>
 </context>
 <context>

@@ -40,8 +40,8 @@ int main(int argc, char *argv[])
 
     app.setAttribute(Qt::AA_UseHighDpiPixmaps);
 
-    QTranslator translator;
-    if (translator.load(QString(":/translations/dmarked.%1.qm").arg(QLocale::system().name())))
+    QTranslator translator; // TODO
+    if (translator.load(QString(":/translations/dmarked.%1").arg(QLocale::system().name())))
         app.installTranslator(&translator);
 
     app.loadTranslator();
