@@ -37,8 +37,8 @@
 - [ ] 进行打包工作
 
 （Need Help）
-- [] 一个 logo
-- [] 更好的编辑页面，预览页面的同步算法
+- [ ] 一个 logo
+- [ ] 更好的编辑页面，预览页面的同步算法
 
 #### 使用的第三方库
 
@@ -53,4 +53,5 @@
 
 代码部分参考了：
 - [deepin-edito](https://github.com/linuxdeepin/deepin-editor)
+- [WebEngine Markdown Editor Example](https://doc.qt.io/qt-5/qtwebengine-webenginewidgets-markdowneditor-example.html)
 
