@@ -8,6 +8,9 @@ CONFIG += c++11 link_pkgconfig
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
+TRANSLATIONS = \
+    translations/dmarked.zh_CN.ts
+
 HEADERS += \
     widgets/bottombar.h \
     mainwindow.h \
@@ -34,18 +37,23 @@ SOURCES = \
     utils/mdexport.cpp
 
 RESOURCES = \
-    ../resources/markdowneditor.qrc
+    ../resources/markdowneditor.qrc \
+    translations.qrc
 
 # install
+isEmpty(PREFIX){
+    PREFIX = /usr
+}
+
+isEmpty(DSRDIR):DSRDIR=/usr/share/dmarked
+
+translations.path = $$INSTROOT$$DSRDIR/translations
 target.path = $${PREFIX}/bin
-INSTALLS += target
+INSTALLS += target translations
 
 # qmarkdowntextedit
 LIBS += -lQMarkdownTextedit -L$$OUT_PWD
 INCLUDEPATH += $$PWD/../3rdparty/qmarkdowntextedit
 DEPENDPATH += $$PWD/../3rdparty/qmarkdowntextedit
 
-# peg-markdown-highlight
-#LIBS += -L$$OUT_PWD/../3rdparty/peg-markdown-highlight/ -lpmh
-#INCLUDEPATH += $$PWD/../3rdparty/peg-markdown-highlight
-#DEPENDPATH += $$PWD/../3rdparty/peg-markdown-highlight
+

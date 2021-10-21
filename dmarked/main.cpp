@@ -39,7 +39,14 @@ int main(int argc, char *argv[])
         "MainWindow", "Markdown Editor is a powerful tool for viewing and editing Markdown files.");
 
     app.setAttribute(Qt::AA_UseHighDpiPixmaps);
-    // TODO: app.loadTranslator();
+
+    QTranslator translator;
+    if (translator.load(QString(":/translations/dmarked.%1.qm").arg(QLocale::system().name())))
+        app.installTranslator(&translator);
+
+    app.loadTranslator();
+
+
     app.setOrganizationName("deepin");
     app.setApplicationName("DMarked");
     app.setApplicationDisplayName("Markdown Editor");
