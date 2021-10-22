@@ -52,6 +52,6 @@
 - [CuteMarkEd-NG](https://github.com/Waqar144/CuteMarkEd-NG)
 
 代码部分参考了：
-- [deepin-edito](https://github.com/linuxdeepin/deepin-editor)
+- [deepin-editor](https://github.com/linuxdeepin/deepin-editor)
 - [WebEngine Markdown Editor Example](https://doc.qt.io/qt-5/qtwebengine-webenginewidgets-markdowneditor-example.html)
 
