@@ -2,22 +2,22 @@
     <qresource prefix="/">
         <file>default.md</file>
         <file>index.html</file>
-        <file>3rdparty/marked.js</file>
-        <file>3rdparty/themes/apollo.css</file>
-        <file>3rdparty/themes/erye.css</file>
-        <file>3rdparty/themes/infoq.css</file>
-        <file>3rdparty/themes/less.css</file>
-        <file>3rdparty/themes/list-writing.css</file>
-        <file>3rdparty/themes/markdown.css</file>
-        <file>3rdparty/themes/ocean.css</file>
-        <file>3rdparty/themes/sanyuesha.css</file>
-        <file>3rdparty/themes/simple.css</file>
-        <file>3rdparty/themes/style.css</file>
-        <file>3rdparty/themes/typing.css</file>
-        <file>3rdparty/themes/wecatch-code.css</file>
-        <file>3rdparty/themes/wecatch.css</file>
-        <file>3rdparty/themes/xiaolai.css</file>
-        <file>3rdparty/themes/darkdown.css</file>
+        <file>3rdscripts/marked/marked.js</file>
+        <file>themes/apollo.css</file>
+        <file>themes/erye.css</file>
+        <file>themes/infoq.css</file>
+        <file>themes/less.css</file>
+        <file>themes/list-writing.css</file>
+        <file>themes/markdown.css</file>
+        <file>themes/ocean.css</file>
+        <file>themes/sanyuesha.css</file>
+        <file>themes/simple.css</file>
+        <file>themes/style.css</file>
+        <file>themes/typing.css</file>
+        <file>themes/wecatch-code.css</file>
+        <file>themes/wecatch.css</file>
+        <file>themes/xiaolai.css</file>
+        <file>themes/darkdown.css</file>
         <file>images/arrow_dark.svg</file>
         <file>images/arrow_light.svg</file>
         <file>images/bar_close_hover_dark.svg</file>
@@ -47,11 +47,11 @@
         <file>images/u-d.svg</file>
         <file>images/u-l.svg</file>
         <file>images/warning.svg</file>
-        <file>3rdparty/themes/byword-dark.css</file>
-        <file>3rdparty/themes/clearness-dark.css</file>
-        <file>3rdparty/themes/clearness.css</file>
-        <file>3rdparty/themes/github.css</file>
-        <file>3rdparty/themes/solarized-dark.css</file>
-        <file>3rdparty/themes/solarized-light.css</file>
+        <file>themes/byword-dark.css</file>
+        <file>themes/clearness-dark.css</file>
+        <file>themes/clearness.css</file>
+        <file>themes/github.css</file>
+        <file>themes/solarized-dark.css</file>
+        <file>themes/solarized-light.css</file>
     </qresource>
 </RCC>

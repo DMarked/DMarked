@@ -91,7 +91,7 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
     DMenu *m_pMenu = new DMenu;
     m_pThemeMenu->m_actionGroup = new QActionGroup(m_pMenu);
 
-    QAction *noHlAction = m_pMenu->addAction(tr("none"));
+    QAction *noHlAction = m_pMenu->addAction("none");
     m_pThemeMenu->m_actionGroup->addAction(noHlAction);
     noHlAction->setCheckable(true);
     noHlAction->setChecked(false);
@@ -130,7 +130,7 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
         bool isDark = themeType == DGuiApplicationHelper::ColorType::DarkType;
         bool isUnknown = themeType == DGuiApplicationHelper::ColorType::UnknownType;
         foreach (QAction *action, m_pThemeMenu->m_menu->actions()) {
-            if (action->text() == tr("none")) continue;
+            if (action->text() == "none") continue;
             if (MdTheme::light_themes.contains(action->text()))
                 action->setVisible(isUnknown || !isDark);
             else

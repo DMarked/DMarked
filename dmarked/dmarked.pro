@@ -47,9 +47,8 @@ isEmpty(PREFIX){
 
 isEmpty(DSRDIR):DSRDIR=/usr/share/dmarked
 
-translations.path = $$INSTROOT$$DSRDIR/translations
 target.path = $${PREFIX}/bin
-INSTALLS += target translations
+INSTALLS += target
 
 # qmarkdowntextedit
 LIBS += -lQMarkdownTextedit -L$$OUT_PWD
