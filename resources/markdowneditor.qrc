@@ -53,5 +53,20 @@
         <file>themes/github.css</file>
         <file>themes/solarized-dark.css</file>
         <file>themes/solarized-light.css</file>
+        <file>3rdscripts/markdown-it/markdown-it-container.min.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-emoji.min.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-footnote.min.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-front-matter.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-imsize.min.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-inject-linenumbers.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-sub.min.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-sup.min.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-task-lists.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-texmath.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-xss.min.js</file>
+        <file>3rdscripts/markdown-it/markdown-it.min.js</file>
+        <file>3rdscripts/markdown-it/markdownItAnchor.umd.js</file>
+        <file>3rdscripts/markdown-it/markdownItTocDoneRight.umd.js</file>
+        <file>3rdscripts/markdown-it/README.md</file>
     </qresource>
 </RCC>
