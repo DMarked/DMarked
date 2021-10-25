@@ -11,6 +11,9 @@ You will like those projects!
 ---
 
 # h1 Heading 8-)
+Euler\'s identity $e^{i\\pi}+1=0$ is a beautiful formula in $\\RR^2$.
+
+
 ## h2 Heading
 ### h3 Heading
 #### h4 Heading
