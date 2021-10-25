@@ -28,8 +28,8 @@
 - [ ] 完善对命令行支持，可以在命令行中打开文件，批量转换HTML，PDF
 - [ ] 完善快捷键
 - [ ] 图床工具 --picgo
-- [ ] 增加 markdown-it 引擎
-- [ ] highlight.js
+- [X] 增加 markdown-it 引擎
+- [X] highlight.js
 - [ ] 画图 Mermaid.js 
 - [ ] 数学 mathjax
 - [ ] 使用配置文件保存配置
