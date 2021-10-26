@@ -30,8 +30,8 @@
 - [ ] 图床工具 --picgo
 - [X] 增加 markdown-it 引擎
 - [X] highlight.js
-- [ ] 画图 Mermaid.js 
-- [ ] 数学 mathjax
+- [X] 画图 Mermaid.js 
+- [X] 数学 katex
 - [ ] 使用配置文件保存配置
 - [ ] 增加设置面板（字体，快捷键，自动保存等）
 - [ ] 进行打包工作

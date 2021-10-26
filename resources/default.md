@@ -10,16 +10,18 @@ You will like those projects!
 
 ---
 
+Euler\'s identity $e^{i\\pi}+1=0$ is a beautiful formula in $R^2$.
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
 # h1 Heading 8-)
-Euler\'s identity $e^{i\\pi}+1=0$ is a beautiful formula in $\\RR^2$.
-
-
 ## h2 Heading
-### h3 Heading
-#### h4 Heading
-##### h5 Heading
 ###### h6 Heading
-
 
 ## Horizontal Rules
 

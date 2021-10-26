@@ -1,3 +1,5 @@
+## markdown-it
+- https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.2.0/markdown-it.min.js
 
 ## math
 [Doc](https://www.npmjs.com/package/markdown-it-texmath)

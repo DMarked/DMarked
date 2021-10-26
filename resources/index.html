@@ -15,6 +15,9 @@
   <script src="3rdscripts/highlight/highlight.min.js"></script>
   <link rel="stylesheet" href="3rdscripts/highlight/default.min.css">
 
+  <script src="3rdscripts/mermaid.min.js"></script>
+
+
   <script src="qrc:/qtwebchannel/qwebchannel.js"></script>
 
   <script>
@@ -27,7 +30,19 @@
   </script>
 </head>
 <body>
-  <div id="placeholder"></div>
+  <div id="place3434holder">
+   
+</div>
+  <div id="placeholder"><pre>
+   <code class="language-mermaid">
+   <div class="mermaid">graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+  </div>
+  </code>
+  </pre></div>
   <script>
   'use strict';
 
@@ -41,33 +56,48 @@
             langPrefix: 'language-',    // CSS language prefix for fenced blocks
             linkify: true,              // autoconvert URL-like texts to links
             typographer: true,          // Enable smartypants and other sweet transforms
-          };
-          defaults.highlight = function (str, lang) {
+          }; 
+
+     // 参考 https://github.com/yansenlei/markdown-it-mermaid
+     const mermaidChart = (code) => {
+        try {
+         // mermaid.parse(code)
+         // return `<div class="mermaid">${code}</div>`
+         var needsUniqueId = "render" + (Math.floor(Math.random() * 10000)).toString();
+         mermaid.mermaidAPI.render(needsUniqueId, code, sc => {code=sc})
+         return `<div class="mermaid">${code}</div>`
+        } catch ({ str, hash }) {
+          return `<pre>${str}</pre>`
+        }
+     }
+
+     defaults.highlight = function (str, lang) {
+                    //console.log(str);console.log(lang);
                     var esc = md.utils.escapeHtml;
-                    //console.log(str)
-                    //console.log(lang)
                     if (lang && hljs.getLanguage(lang)) {
                           try {
                             return '<pre class="hljs"><code>' +
                                            hljs.highlight(lang, str, true).value +
                                            '</code></pre>';
                           } catch (__) {}
-                    }else if(lang == 'mermaid'){
+                    } else if (lang == 'mermaid') {
                           return mermaidChart(str)
-                    }else{
+                    } else {
                           return '<pre class="hljs"><code>' + esc(str) + '</code></pre>';
                     }
-
                   };
-
+      
+      
 
       var md = window.markdownit(defaults).use(window.markdownitEmoji)
                                           .use(window.markdownitFootnote)
                                           .use(texmath, { engine: katex,
                                                           delimiters: 'dollars',
                                                           katexOptions: { macros: {"\\RR": "\\mathbb{R}"} } } );
-      placeholder.innerHTML = md.render(text);
+      placeholder.innerHTML =  md.render(text);
+	  mermaid.initialize({startOnLoad:true});
   }
+
 
   new QWebChannel(qt.webChannelTransport,
     function(channel) {
