@@ -44,6 +44,9 @@ int main(int argc, char *argv[])
     if (translator.load(QString(":/translations/dmarked.%1").arg(QLocale::system().name())))
         app.installTranslator(&translator);
 
+    if (translator.load(QString(":/3drtrans/qmarkdowntextedit/qmarkdowntextedit_%1").arg(QLocale::system().name())))
+        app.installTranslator(&translator);
+
     app.loadTranslator();
 
 
