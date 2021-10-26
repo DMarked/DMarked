@@ -9,7 +9,7 @@ CONFIG += c++11 link_pkgconfig
 DEFINES += QT_DEPRECATED_WARNINGS
 
 TRANSLATIONS = \
-    translations/dmarked.zh_CN.ts
+    translations/dmarked_zh_CN.ts
 
 HEADERS += \
     widgets/bottombar.h \
@@ -47,8 +47,16 @@ isEmpty(PREFIX){
 
 isEmpty(DSRDIR):DSRDIR=/usr/share/dmarked
 
+
 target.path = $${PREFIX}/bin
-INSTALLS += target
+
+
+system("lrelease translations/*.ts")
+qm_file.files = translations/*.qm
+qm_file.path = $${DSRDIR}/translations/
+
+
+INSTALLS += target qm_file
 
 # qmarkdowntextedit
 LIBS += -lQMarkdownTextedit -L$$OUT_PWD

@@ -1,10 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>translations/dmarked.zh_CN.qm</file>
-        <file>../3rdparty/qmarkdowntextedit/trans/qmarkdowntextedit_de.qm</file>
-        <file>../3rdparty/qmarkdowntextedit/trans/qmarkdowntextedit_de.ts</file>
-        <file>../3rdparty/qmarkdowntextedit/trans/qmarkdowntextedit_ur.qm</file>
-        <file>../3rdparty/qmarkdowntextedit/trans/qmarkdowntextedit_ur.ts</file>
+        <file>translations/dmarked_zh_CN.qm</file>
         <file>3drtrans/qmarkdowntextedit/qmarkdowntextedit_de.qm</file>
         <file>3drtrans/qmarkdowntextedit/qmarkdowntextedit_ur.qm</file>
         <file>3drtrans/qmarkdowntextedit/qmarkdowntextedit_zh_CN.qm</file>

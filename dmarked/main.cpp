@@ -40,16 +40,12 @@ int main(int argc, char *argv[])
 
     app.setAttribute(Qt::AA_UseHighDpiPixmaps);
 
-    QTranslator translator; // TODO
-    if (translator.load(QString(":/translations/dmarked.%1").arg(QLocale::system().name())))
-        app.installTranslator(&translator);
-
+    // Translator for qmarkdowntextedit
+    QTranslator translator;
     if (translator.load(QString(":/3drtrans/qmarkdowntextedit/qmarkdowntextedit_%1").arg(QLocale::system().name())))
         app.installTranslator(&translator);
 
     app.loadTranslator();
-
-
     app.setOrganizationName("deepin");
     app.setApplicationName("DMarked");
     app.setApplicationDisplayName("Markdown Editor");
