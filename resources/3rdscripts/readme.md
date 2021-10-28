@@ -1,5 +1,7 @@
 ## markdown-it
 - https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.2.0/markdown-it.min.js
+- https://unpkg.com/markdown-it-anchor/dist/markdownItAnchor.umd.js
+- https://unpkg.com/markdown-it-toc-done-right/dist/markdownItTocDoneRight.umd.js
 
 ## math
 [Doc](https://www.npmjs.com/package/markdown-it-texmath)
@@ -11,3 +13,7 @@
 
 ## mermaid
 - https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js
+
+## pica
+- https://cdn.bootcdn.net/ajax/libs/pica/1.0.4/pica.min.js
+

@@ -37,15 +37,27 @@ var updateText = function (text) {
     }
   };
 
-
-
-  var md = window.markdownit(defaults).use(window.markdownitEmoji)
+  var uslugify = function(s) {
+    return window.uslug(s);
+  }
+  
+  var md = window.markdownit(defaults)
+    .use(window.markdownitEmoji)
     .use(window.markdownitFootnote)
     .use(texmath, {
       engine: katex,
       delimiters: 'dollars',
       katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
-    });
+    })
+    .use(window.markdownItAnchor, {
+      permalink: window.markdownItAnchor.permalink.linkAfterHeader({
+        style: 'visually-hidden',
+        assistiveText: title => `Permalink to “${title}”`,
+        visuallyHiddenClass: 'visually-hidden',
+      })
+   })  
+   .use(window.markdownItTocDoneRight, { slugify: uslugify });
+
   document.getElementById('placeholder').innerHTML = md.render(text);
   mermaid.initialize({ startOnLoad: true });
 }

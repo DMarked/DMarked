@@ -76,5 +76,6 @@
         <file>3rdscripts/math/texmath.min.js</file>
         <file>3rdscripts/mermaid.min.js</file>
         <file>dmarked.js</file>
+        <file>3rdscripts/uslug.js</file>
     </qresource>
 </RCC>
