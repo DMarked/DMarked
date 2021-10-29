@@ -82,5 +82,6 @@
         <file>3rdscripts/markdown-it/markdown-it-mark.min.js</file>
         <file>3rdscripts/markdown-it/markdown-it-deflist.min.js</file>
         <file>3rdscripts/markdown-it/markdown-it-abbr.min.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-container.scss</file>
     </qresource>
 </RCC>
