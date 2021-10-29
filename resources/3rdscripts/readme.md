@@ -3,6 +3,7 @@
 - https://unpkg.com/markdown-it-anchor/dist/markdownItAnchor.umd.js
 - https://unpkg.com/markdown-it-toc-done-right/dist/markdownItTocDoneRight.umd.js
 - https://unpkg.com/markdown-it-ins@3.0.1/dist/markdown-it-ins.min.js
+- https://unpkg.com/markdown-it-mark@3.0.1/dist/markdown-it-mark.min.js
 
 
 ## math

@@ -9,6 +9,13 @@ __Advertisement :)__
 You will like those projects!
 
 ---
+## markdown-it-mark
+
+==mark==
+
+```html
+==marked== => <mark>inserted</mark>
+```
 
 ## markdown-it-sub
 H~2~0
@@ -34,32 +41,10 @@ H~2~0 => H<sub>2</sub>O
 ```
 
 ## markdown-it-emoji
-- angry:            [ '>:(', '>:-(' ],
-- blush:            [ ':")', ':-")' ],
-- broken_heart:     [ '</3', '<\\3' ],
- // :\ and :-\ not used because of conflict with markdown escaping
-- confused:         [ ':/', ':-/' ], // twemoji shows question
-- cry:              [ ":'(", ":'-(", ':,(', ':,-(' ],
-- frowning:         [ ':(', ':-(' ],
-- heart:            [ '<3' ],
-- imp:              [ ']:(', ']:-(' ],
-- innocent:         [ 'o:)', 'O:)', 'o:-)', 'O:-)', '0:)', '0:-)' ],
-- joy:              [ ":')", ":'-)", ':,)', ':,-)', ":'D", ":'-D", ':,D', ':,-D' ],
-- kissing:          [ ':*', ':-*' ],
-- laughing:         [ 'x-)', 'X-)' ],
-- neutral_face:     [ ':|', ':-|' ],
-- open_mouth:       [ ':o', ':-o', ':O', ':-O' ],
-- rage:             [ ':@', ':-@' ],
-- smile:            [ ':D', ':-D' ],
-- smiley:           [ ':)', ':-)' ],
-- smiling_imp:      [ ']:)', ']:-)' ],
-- sob:              [ ":,'(", ":,'-(", ';(', ';-(' ],
-- stuck_out_tongue: [ ':P', ':-P' ],
-- sunglasses:       [ '8-)', 'B-)' ],
-- sweat:            [ ',:(', ',:-(' ],
-- sweat_smile:      [ ',:)', ',:-)' ],
-- unamused:         [ ':s', ':-S', ':z', ':-Z', ':$', ':-$' ],
-- wink:             [ ';)', ';-)' ]
+- Classic markup: :wink: :cry: :laughing: :yum:
+- Shortcuts (emoticons): :-) :-( 8-) ;)
+
+see [how to change output](https://github.com/markdown-it/markdown-it-emoji#change-output) with twemoji.
 
 ::: warning
 *here be dragons*
