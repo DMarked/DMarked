@@ -44,8 +44,8 @@ var updateText = function (text) {
   var md = window.markdownit(defaults)
     .use(window.markdownitEmoji).use(window.markdownitFootnote)
     .use(window.markdownitSub).use(window.markdownitSup)
-    .use(window.markdownitMark).use(window.markdownitDeflist) // .use(markdownItAbbr)
-    .use(window.markdownitIns)
+    .use(window.markdownitMark).use(window.markdownitDeflist)
+    .use(window.markdownitIns).use(window.markdownitAbbr)
     .use(texmath, {
       engine: katex,
       delimiters: 'dollars',

@@ -17,7 +17,16 @@ You will like those projects!
 ==marked== => <mark>inserted</mark>
 ```
 
+## markdown-it-addr
+
+*[HTML]: Hyper Text Markup Language
+*[W3C]:  World Wide Web Consortium
+The HTML specification
+is maintained by the W3C.
+
+
 ## markdown-it-deflist.min.js
+> https://pandoc.org/MANUAL.html#definition-lists
 
 Term 1
 

@@ -5,6 +5,7 @@
 - https://unpkg.com/markdown-it-ins@3.0.1/dist/markdown-it-ins.min.js
 - https://unpkg.com/markdown-it-mark@3.0.1/dist/markdown-it-mark.min.js
 - https://unpkg.com/markdown-it-deflist@2.1.0/dist/markdown-it-deflist.min.js
+- https://unpkg.com/markdown-it-abbr@1.0.4/dist/markdown-it-abbr.min.js
 
 ## math
 [Doc](https://www.npmjs.com/package/markdown-it-texmath)
