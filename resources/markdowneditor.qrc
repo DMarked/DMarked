@@ -67,7 +67,6 @@
         <file>3rdscripts/markdown-it/markdown-it.min.js</file>
         <file>3rdscripts/markdown-it/markdownItAnchor.umd.js</file>
         <file>3rdscripts/markdown-it/markdownItTocDoneRight.umd.js</file>
-        <file>3rdscripts/markdown-it/README.md</file>
         <file>3rdscripts/highlight/highlight.min.js</file>
         <file>3rdscripts/highlight/default.min.css</file>
         <file>3rdscripts/math/katex.min.css</file>
@@ -79,5 +78,6 @@
         <file>3rdscripts/uslug.js</file>
         <file>3rdscripts/require.js</file>
         <file>3rdscripts/require_config.js</file>
+        <file>3rdscripts/markdown-it/markdown-it-ins.min.js</file>
     </qresource>
 </RCC>

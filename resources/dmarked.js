@@ -42,8 +42,9 @@ var updateText = function (text) {
   }
 
   var md = window.markdownit(defaults)
-    .use(window.markdownitEmoji)
-    .use(window.markdownitFootnote)
+    .use(window.markdownitEmoji).use(window.markdownitFootnote)
+    .use(window.markdownitSub).use(window.markdownitSup)
+    .use(window.markdownitIns)
     .use(texmath, {
       engine: katex,
       delimiters: 'dollars',
@@ -71,8 +72,7 @@ var updateText = function (text) {
         visuallyHiddenClass: 'visually-hidden',
       })
    })  
-   .use(window.markdownItTocDoneRight, { slugify: uslugify })
-   .use(window.markdownitSub).use(window.markdownitSup);
+   .use(window.markdownItTocDoneRight, { slugify: uslugify });
    // https://github.com/tatsy/markdown-it-imsize/issues/5
    //.use(require('MarkdownItImsize'),  { autofill: true });
 

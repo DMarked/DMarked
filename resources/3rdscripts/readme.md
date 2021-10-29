@@ -2,6 +2,8 @@
 - https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.2.0/markdown-it.min.js
 - https://unpkg.com/markdown-it-anchor/dist/markdownItAnchor.umd.js
 - https://unpkg.com/markdown-it-toc-done-right/dist/markdownItTocDoneRight.umd.js
+- https://unpkg.com/markdown-it-ins@3.0.1/dist/markdown-it-ins.min.js
+
 
 ## math
 [Doc](https://www.npmjs.com/package/markdown-it-texmath)
