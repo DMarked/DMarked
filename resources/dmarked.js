@@ -71,7 +71,9 @@ var updateText = function (text) {
         visuallyHiddenClass: 'visually-hidden',
       })
    })  
-   .use(window.markdownItTocDoneRight, { slugify: uslugify });
+   .use(window.markdownItTocDoneRight, { slugify: uslugify })
+   .use(window.markdownitSub).use(window.markdownitSup);
+   // https://github.com/tatsy/markdown-it-imsize/issues/5
    //.use(require('MarkdownItImsize'),  { autofill: true });
 
   document.getElementById('placeholder').innerHTML = md.render(text);

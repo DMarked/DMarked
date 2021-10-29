@@ -10,6 +10,21 @@ You will like those projects!
 
 ---
 
+## markdown-it-sub
+H~2~0
+
+```html
+H~2~0 => H<sub>2</sub>O
+```
+
+## markdown-it-sup
+
+29^th^
+
+```html
+29^th^ => 29<sup>th</sup>
+```
+
 ::: warning
 *here be dragons*
 :::
