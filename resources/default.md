@@ -10,6 +10,11 @@ You will like those projects!
 
 ---
 
+::: warning
+*here be dragons*
+:::
+
+
 Euler\'s identity $e^{i\\pi}+1=0$ is a beautiful formula in $R^2$.
 
 ```mermaid
