@@ -44,7 +44,7 @@ var updateText = function (text) {
   var md = window.markdownit(defaults)
     .use(window.markdownitEmoji).use(window.markdownitFootnote)
     .use(window.markdownitSub).use(window.markdownitSup)
-    .use(window.markdownitMark) // .use(markdownItAbbr).use(markdownItDeflist)
+    .use(window.markdownitMark).use(window.markdownitDeflist) // .use(markdownItAbbr)
     .use(window.markdownitIns)
     .use(texmath, {
       engine: katex,

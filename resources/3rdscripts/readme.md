@@ -4,7 +4,7 @@
 - https://unpkg.com/markdown-it-toc-done-right/dist/markdownItTocDoneRight.umd.js
 - https://unpkg.com/markdown-it-ins@3.0.1/dist/markdown-it-ins.min.js
 - https://unpkg.com/markdown-it-mark@3.0.1/dist/markdown-it-mark.min.js
-
+- https://unpkg.com/markdown-it-deflist@2.1.0/dist/markdown-it-deflist.min.js
 
 ## math
 [Doc](https://www.npmjs.com/package/markdown-it-texmath)
