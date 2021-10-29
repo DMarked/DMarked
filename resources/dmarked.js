@@ -74,8 +74,6 @@ var updateText = function (text) {
       })
    })  
    .use(window.markdownItTocDoneRight, { slugify: uslugify });
-   // https://github.com/tatsy/markdown-it-imsize/issues/5
-   //.use(require('MarkdownItImsize'),  { autofill: true });
 
   document.getElementById('placeholder').innerHTML = md.render(text);
   mermaid.initialize({ startOnLoad: true });
