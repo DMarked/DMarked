@@ -31,7 +31,7 @@
 PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 {
     m_page = new PreviewPage(this);
-    m_page->settings()->setAttribute(QWebEngineSettings::ShowScrollBars, false);
+    //m_page->settings()->setAttribute(QWebEngineSettings::ShowScrollBars, false);
     setPage(m_page);
     m_channel = new QWebChannel(this);
     m_channel->registerObject(QStringLiteral("content"), &m_content);
