@@ -56,11 +56,11 @@ var updateText = function (text) {
     .use(window.markdownitContainer, "warning")
     .use(window.markdownitContainer, "danger")
     .use(window.markdownItAnchor, {
-      permalink: window.markdownItAnchor.permalink.linkAfterHeader({
-        style: 'visually-hidden',
-        assistiveText: title => `Permalink to “${title}”`,
-        visuallyHiddenClass: 'visually-hidden',
-      })
+//      permalink: window.markdownItAnchor.permalink.linkAfterHeader({
+//        style: 'visually-hidden',
+//        assistiveText: title => `Permalink to “${title}”`,
+//        visuallyHiddenClass: 'visually-hidden',
+//      })
    })  
    .use(window.markdownItTocDoneRight, { slugify: uslugify });
 
