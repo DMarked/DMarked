@@ -55,7 +55,6 @@ BottomBar::BottomBar(QWidget *parent)
     layout->addSpacerItem(new QSpacerItem(110,20,QSizePolicy::Expanding,QSizePolicy::Fixed));
     layout->addWidget(m_pCharCountLabel);
 
-    m_pCursorStatus->setText("INSERT");
     m_pPositionLabel->setText(QString("%1 %2  %3 %4").arg(m_rowStr, "1", m_columnStr, "1"));
 
     m_pCharCountLabel->setText(m_chrCountStr.arg("0"));
@@ -66,7 +65,8 @@ BottomBar::BottomBar(QWidget *parent)
     pVerticalLine2->setFixedSize(1, 15);
 
     layout->addStretch();
-    layout->addWidget(m_pCursorStatus);
+    //m_pCursorStatus->setText("INSERT");
+    //layout->addWidget(m_pCursorStatus);
     layout->addSpacing(10);
     layout->addWidget(pVerticalLine1);
     layout->addWidget(m_pThemeMenu);
