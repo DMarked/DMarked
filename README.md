@@ -42,8 +42,8 @@
 
 #### 使用的第三方库
 
-- [qmarkdowntextedit](https://github.com/pbek/qmarkdowntextedit)
-- [marked](https://github.com/markedjs/marked) 
+- [qmarkdowntextedit](https://github.com/pbek/qmarkdowntextedit) MIT
+- [markdown-it](https://github.com/markdown-it/markdown-it) MIT
 
 主题使用了：
 - [wecatch/markdown-css](https://github.com/wecatch/markdown-css)

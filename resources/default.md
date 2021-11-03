@@ -1,19 +1,153 @@
 ---
-__Advertisement :)__
-
-- __[pica](https://nodeca.github.io/pica/demo/)__ - high quality and fast image
-  resize in browser.
-- __[babelfish](https://github.com/nodeca/babelfish/)__ - developer friendly
-  i18n with plurals support and easy syntax.
-
-You will like those projects!
+__欢迎使用 DMarked :)__
 
 ---
+
+## 字体
+
+**我是粗体**
+
+__我是粗体__
+
+*我是斜体*
+
+_我是斜体_
+
+~~我是删除线~~
+
+<u>带下划线文本</u>
+
+
+## 分隔线
+
+___
+
+---
+
+***
+
+
+## 排版替换
+
+
+(c) (C) (r) (R) (tm) (TM) (p) (P) +-
+
+test.. test... test..... test?..... test!....
+
+!!!!!! ???? ,,  -- ---
+
+"Smartypants, double quotes" and 'single quotes'
+
+
+## 块引用
+
+
+> 块引用也可以嵌套 ...
+>> ... 通过使用连续的 '>' ...
+> > > ... '>' 之间可以有空格。
+
+
+## 列表
+
+无序列表
+
++ 无序列表使用星号(*)、加号(+)或是减号(-)作为列表标记
+- 这些标记后面要添加一个空格，然后再填写内容
+
+
+有序列表
+
+1. 有序列表使用数字并加上 . 号来表示
+2. 列表嵌套只需在子列表中的选项前面多添加2个空格即可:
+3. 第一项：
+    - 第一项嵌套的第一个元素
+    - 第一项嵌套的第二个元素
+4. 第二项：
+    1. 第二项嵌套的第一个元素
+    2. 第二项嵌套的第二个元素
+
+
+也可以不从 1 开始:
+
+57. foo
+1. bar
+
+
+## 代码
+
+行内代码 `code`
+
+代码区块
+
+代码区块使用 4 个空格或者一个制表符（Tab 键）。
+
+    // Some comments
+    line 1 of code
+    line 2 of code
+    line 3 of code
+
+
+你也可以用 ``` 包裹一段代码，并指定一种语言（也可以不指定）：
+
+``` js
+var foo = function (bar) {
+  return bar++;
+};
+
+console.log(foo(5));
+```
+
+## 表格
+
+Markdown 制作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。
+
+|  表头   | 表头  |
+|  ----  | ----  |
+| 单元格  | 单元格 |
+| 单元格  | 单元格 |
+
+对齐方式
+
+我们可以设置表格的对齐方式：
+-    -: 设置内容和标题栏居右对齐。
+-    :- 设置内容和标题栏居左对齐。
+-    :-: 设置内容和标题栏居中对齐。
+
+ 左对齐 | 右对齐 | 居中对齐 |
+| :-----| ----: | :----: |
+| 单元格001 | 单元格 | 单元格003 |
+| 单元格 | 单元格002 | 单元格 |
+
+## 链接
+
+这是一个链接 [DMarked](https://github.com/wineee/DMarked)
+
+[点我](http://nodeca.github.io/pica/demo/ "一个图片剪裁工具")
+
+
+## 图片
+Markdown 图片语法格式如下：
+
+```
+![alt 属性文本](图片地址)
+![alt 属性文本](图片地址 "可选标题")
+```
+
+![Minion](https://octodex.github.com/images/minion.png)
+
+你也可以像网址那样对图片网址使用变量:
+
+![Alt text][id]
+
+
+[id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
+
+## 来自插件的功能
 ## markdown-it-mark
 
-==mark==
+==标记==
 
-```html
+```
 ==marked== => <mark>inserted</mark>
 ```
 
@@ -28,27 +162,27 @@ is maintained by the W3C.
 ## markdown-it-deflist.min.js
 > https://pandoc.org/MANUAL.html#definition-lists
 
-Term 1
+条目 1
 
-:   Definition 1
+:   定义 1
 with lazy continuation.
 
-Term 2 with *inline markup*
+条目 2 *单行描述*
 
-:   Definition 2
+:   定义 2
 
-        { some code, part of Definition 2 }
+        { 一些代码, 定义 2 的一部分 }
 
-    Third paragraph of definition 2.
+    定义 2 的第三段。
 
-_Compact style:_
+_紧凑型:_
 
-Term 1
-  ~ Definition 1
+条目 1
+  ~ 定义 1
 
-Term 2
-  ~ Definition 2a
-  ~ Definition 2b
+条目 2
+  ~ 定义 2a
+  ~ 定义 2b
 
 ## markdown-it-sub
 H~2~0
@@ -67,7 +201,7 @@ H~2~0 => H<sub>2</sub>O
 
 ## markdown-it-ins
 
-++inserted++
+++下划线++
 
 ```html
 ++inserted++ => <ins>inserted</ins>
@@ -77,14 +211,34 @@ H~2~0 => H<sub>2</sub>O
 - Classic markup: :wink: :cry: :laughing: :yum:
 - Shortcuts (emoticons): :-) :-( 8-) ;)
 
-see [how to change output](https://github.com/markdown-it/markdown-it-emoji#change-output) with twemoji.
+用 twemoji [可以进一步美化](https://github.com/markdown-it/markdown-it-emoji#change-output)。
+
+## markdown-it-container
 
 ::: warning
-*here be dragons*
+*这里是警告条目*
 :::
 
+:::success
+*这里是成功条目*
+:::
 
-Euler\'s identity $e^{i\\pi}+1=0$ is a beautiful formula in $R^2$.
+## math
+
+设第 $i$ 天需要 $x_i$ 个志愿者，记 $a_{ij}$ 为第 $i$ 天第 $j$ 个志愿者是否能工作。
+题目要求总费用最低，即求：$Min \, z = \sum_{i=1}^{n}{C_i * x_i}$。
+它们需要满足要求：
+
+$$\begin{cases}
+a_{11}x_1+a_{12}x_2+a_{13}x_3...+a_{1m}x_m \geq A_1 \\
+a_{21}x_1+a_{22}x_2+a_{23}x_3...+a_{2m}x_m \geq A_2 \\
+...\\
+a_{n1}x_1+a_{n2}x_2+a_{n3}x_3...+a_{nm}x_m \geq A_n \\
+x_1,x_2,x_3  ... x_m \geq 0\\
+\end{cases}$$
+
+## mermaid.js
+
 
 ```mermaid
 graph TD;
@@ -93,232 +247,21 @@ graph TD;
     B-->D;
     C-->D;
 ```
-# h1 Heading 8-)
-## h2 Heading
-###### h6 Heading
-
-## Horizontal Rules
-
-___
-
----
-
-***
-
-
-## Typographic replacements
-
-Enable typographer option to see result.
-
-(c) (C) (r) (R) (tm) (TM) (p) (P) +-
-
-test.. test... test..... test?..... test!....
-
-!!!!!! ???? ,,  -- ---
-
-"Smartypants, double quotes" and 'single quotes'
-
-
-## Emphasis
-
-**This is bold text**
-
-__This is bold text__
-
-*This is italic text*
-
-_This is italic text_
-
-~~Strikethrough~~
-
-
-## Blockquotes
-
-
-> Blockquotes can also be nested...
->> ...by using additional greater-than signs right next to each other...
-> > > ...or with spaces between arrows.
-
-
-## Lists
-
-Unordered
-
-+ Create a list by starting a line with `+`, `-`, or `*`
-+ Sub-lists are made by indenting 2 spaces:
-  - Marker character change forces new list start:
-    * Ac tristique libero volutpat at
-    + Facilisis in pretium nisl aliquet
-    - Nulla volutpat aliquam velit
-+ Very easy!
-
-Ordered
-
-1. Lorem ipsum dolor sit amet
-2. Consectetur adipiscing elit
-3. Integer molestie lorem at massa
-
-
-1. You can use sequential numbers...
-1. ...or keep all the numbers as `1.`
-
-Start numbering with offset:
-
-57. foo
-1. bar
-
-
-## Code
-
-Inline `code`
-
-Indented code
-
-    // Some comments
-    line 1 of code
-    line 2 of code
-    line 3 of code
-
-
-Block code "fences"
-
-```
-Sample text here...
-```
-
-Syntax highlighting
-
-``` js
-var foo = function (bar) {
-  return bar++;
-};
-
-console.log(foo(5));
-```
-
-## Tables
-
-| Option | Description |
-| ------ | ----------- |
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
-
-Right aligned columns
-
-| Option | Description |
-| ------:| -----------:|
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
-
-
-## Links
-
-[link text](http://dev.nodeca.com)
-
-[link with title](http://nodeca.github.io/pica/demo/ "title text!")
-
-Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
-
-
-## Images
-
-![Minion](https://octodex.github.com/images/minion.png)
-![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
-
-Like links, Images also have a footnote style syntax
-
-![Alt text][id]
-
-With a reference later in the document defining the URL location:
-
-[id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
-
-
-## Plugins
-
-The killer feature of `markdown-it` is very effective support of
-[syntax plugins](https://www.npmjs.org/browse/keyword/markdown-it-plugin).
-
-
-### [Emojies](https://github.com/markdown-it/markdown-it-emoji)
-
-> Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
->
-> Shortcuts (emoticons): :-) :-( 8-) ;)
-
-see [how to change output](https://github.com/markdown-it/markdown-it-emoji#change-output) with twemoji.
-
-
-### [Subscript](https://github.com/markdown-it/markdown-it-sub) / [Superscript](https://github.com/markdown-it/markdown-it-sup)
-
-- 19^th^
-- H~2~O
-
-
-### [\<ins>](https://github.com/markdown-it/markdown-it-ins)
-
-++Inserted text++
-
-
-### [\<mark>](https://github.com/markdown-it/markdown-it-mark)
-
-==Marked text==
 
 
 ### [Footnotes](https://github.com/markdown-it/markdown-it-footnote)
 
-Footnote 1 link[^first].
+脚注 1 link[^first].
 
-Footnote 2 link[^second].
+脚注 2 link[^second].
 
-Inline footnote^[Text of inline footnote] definition.
+Inline 脚注^[行内直接加脚注] definition.
 
 Duplicated footnote reference[^second].
 
-[^first]: Footnote **can have markup**
+[^first]: 脚注 **遵守 markdown 格式**
 
-    and multiple paragraphs.
+    并且可以有多行。
 
-[^second]: Footnote text.
+[^second]: 脚注 2 的内容.
 
-
-### [Definition lists](https://github.com/markdown-it/markdown-it-deflist)
-
-Term 1
-
-:   Definition 1
-with lazy continuation.
-
-Term 2 with *inline markup*
-
-:   Definition 2
-
-        { some code, part of Definition 2 }
-
-    Third paragraph of definition 2.
-
-_Compact style:_
-
-Term 1
-  ~ Definition 1
-
-Term 2
-  ~ Definition 2a
-  ~ Definition 2b
-
-
-### [Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
-
-This is HTML abbreviation example.
-
-It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
-
-*[HTML]: Hyper Text Markup Language
-
-### [Custom containers](https://github.com/markdown-it/markdown-it-container)
-
-::: warning
-*here be dragons*
-:::
