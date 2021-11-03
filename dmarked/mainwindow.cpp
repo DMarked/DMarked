@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     DMainWindow(parent)
 {
     resize(1200, 740);
+    setWindowIcon(QIcon(":/images/dmarked.svg"));
 
     m_search_edit = new DSearchEdit(this);
     titlebar()->setCustomWidget(m_search_edit);

@@ -47,14 +47,11 @@ isEmpty(PREFIX){
 
 isEmpty(DSRDIR):DSRDIR=/usr/share/dmarked
 
-
 target.path = $${PREFIX}/bin
-
 
 system("lrelease translations/*.ts")
 qm_file.files = translations/*.qm
 qm_file.path = $${DSRDIR}/translations/
-
 
 INSTALLS += target qm_file
 
@@ -62,5 +59,6 @@ INSTALLS += target qm_file
 LIBS += -lQMarkdownTextedit -L$$OUT_PWD
 INCLUDEPATH += $$PWD/../3rdparty/qmarkdowntextedit
 DEPENDPATH += $$PWD/../3rdparty/qmarkdowntextedit
+
 
 

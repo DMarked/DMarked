@@ -50,8 +50,7 @@ int main(int argc, char *argv[])
     app.setApplicationName("DMarked");
     app.setApplicationDisplayName("Markdown Editor");
     app.setApplicationVersion(DApplication::buildVersion("0.0.1"));
-    // TODO 临时借用一下 logo
-    app.setProductIcon(QIcon::fromTheme("deepin-editor"));
+    app.setProductIcon(QIcon(":/images/dmarked.svg"));
     app.setProductName(DApplication::translate("MainWindow", "Markdown Editor"));
     app.setApplicationDescription(DApplication::translate("MainWindow", descriptionText) + "\n");
     app.setApplicationAcknowledgementPage("https://github.com/wineee/DMarked");
