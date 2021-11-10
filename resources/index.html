@@ -35,7 +35,7 @@
   <link  rel="stylesheet" href="3rdscripts/math/texmath.min.css">
 
   <script src="3rdscripts/highlight/highlight.min.js"></script>
-  <link rel="stylesheet" href="3rdscripts/highlight/default.min.css">
+  <div id="highlightplaceholder"></div>
 
   <script src="3rdscripts/mermaid.min.js"></script>
 
@@ -43,11 +43,15 @@
   <link rel="stylesheet" type="text/css" href="scrollbars.css">
 
   <script>
-  function setMdTheme(theme) {
+  function setMarkdownTheme(theme) {
     if (theme == 'none')
       document.getElementById('cssplaceholder').innerHTML = '';
     else
       document.getElementById('cssplaceholder').innerHTML = '<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/' + theme + '.css\">';
+  }
+  function setHighlightTheme(theme) {
+      document.getElementById('highlightplaceholder').innerHTML =
+        '<link rel=\"stylesheet\" type=\"text/css\" href=\"3rdscripts/highlight/' + theme + '.css\">';
   }
   </script>
 

@@ -42,8 +42,16 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
     connect(this, &QWebEngineView::loadFinished, [this](bool success) {
         if (success) {
             bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
-            setMdTheme(isDark ? MdTheme::dark_current_theme : MdTheme::light_current_theme);
+            setMarkdownTheme(isDark ? MdTheme::dark_current_theme : MdTheme::light_current_theme);
+            setHighlightTheme(isDark ? "monokai-sublime" : "default.min");
         }
+    });
+
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged,
+            [this](DGuiApplicationHelper::ColorType themeType){
+        bool isDark = themeType == DGuiApplicationHelper::ColorType::DarkType;
+        setHighlightTheme(isDark ? "monokai-sublime" : "default.min");
+        // MarkdownTheme update at ddropdownmenu.cpp
     });
 
     connect(m_page, &QWebEnginePage::pdfPrintingFinished,
@@ -59,8 +67,13 @@ void PreviewWidget::setText(const QString &content) {
     m_content.setText(content);
 }
 
-void PreviewWidget::setMdTheme(const QString &theme) {
-    QString method = "setMdTheme(\'" + theme + "\')";
+void PreviewWidget::setMarkdownTheme(const QString &theme) {
+    QString method = "setMarkdownTheme(\'" + theme + "\')";
+    m_page->runJavaScript(method);
+}
+
+void PreviewWidget::setHighlightTheme(const QString &theme) {
+    QString method = "setHighlightTheme(\'" + theme + "\')";
     m_page->runJavaScript(method);
 }
 

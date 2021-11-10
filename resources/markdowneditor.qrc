@@ -81,5 +81,6 @@
         <file>3rdscripts/markdown-it/markdown-it-container.scss</file>
         <file>scrollbars.css</file>
         <file>images/dmarked.svg</file>
+        <file>3rdscripts/highlight/monokai-sublime.css</file>
     </qresource>
 </RCC>

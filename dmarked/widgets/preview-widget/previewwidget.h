@@ -42,7 +42,8 @@ public:
     void convert2Html(const QString &filePath);
 
 public Q_SLOTS:
-    void setMdTheme(const QString &theme);
+    void setMarkdownTheme(const QString &theme);
+    void setHighlightTheme(const QString &theme);
     void pdfPrintingFinished(const QString &filePath, bool success);
 
 private:

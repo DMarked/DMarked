@@ -1,4 +1,4 @@
-## markdown-it
+## markdown-it [ MIT License ]
 - https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.2.0/markdown-it.min.js
 - https://unpkg.com/markdown-it-anchor/dist/markdownItAnchor.umd.js
 - https://unpkg.com/markdown-it-toc-done-right/dist/markdownItTocDoneRight.umd.js
@@ -15,9 +15,11 @@
 - https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js
 - https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css
 
-## mermaid
+## mermaid  [ MIT License ]
 - https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js
 
-## pica
-- https://cdn.bootcdn.net/ajax/libs/pica/1.0.4/pica.min.js
-
+## highlight.js  [ BSD-3-Clause License ] 
+- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js
+#### Theme
+- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css
+- https://highlightjs.org/static/demo/styles/monokai-sublime.css

@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
         m_bottom_bar->updatePosition(cursor.blockNumber()+1, cursor.columnNumber()+1);
     });
     connect(m_bottom_bar, &BottomBar::currentMdThemeChanged, [this](const QString &theme) {
-       m_central_widget->m_preview_widget->setMdTheme(theme);
+       m_central_widget->m_preview_widget->setMarkdownTheme(theme);
     });
     connect(m_bottom_bar, &BottomBar::currentModeChanged, [this](const QString &mode) {
         m_central_widget->setMode(mode);

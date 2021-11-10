@@ -49,7 +49,6 @@ int main(int argc, char *argv[])
     app.setApplicationName("DMarked");
     app.setApplicationVersion(DApplication::buildVersion("0.0.1"));
     app.setProductIcon(QIcon(":/images/dmarked.svg"));
-
     app.setProductName(DApplication::translate("AppMain", "Markdown Editor"));
     app.setApplicationDisplayName(DApplication::translate("AppMain", "Markdown Editor"));
     app.setApplicationDescription(DApplication::translate("AppMain",
