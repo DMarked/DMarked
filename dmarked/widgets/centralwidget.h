@@ -49,7 +49,7 @@ private:
     QMarkdownTextEdit *m_editor_widget;
     PreviewWidget *m_preview_widget;
     DSplitter *m_splitter;
-    QLayout *m_central_layout;
+    QHBoxLayout *m_central_layout;
 
     QString m_file_path;
     bool m_is_sync = false;

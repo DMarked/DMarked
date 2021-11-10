@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
     app.setQuitOnLastWindowClosed(false);
 
     qputenv("DTK_USE_SEMAPHORE_SINGLEINSTANCE", "1");
-    qputenv("QTWEBENGINE_REMOTE_DEBUGGING", "7777");
+    //qputenv("QTWEBENGINE_REMOTE_DEBUGGING", "7777");
 
     /*
     DGuiApplicationHelper::instance()->setSingleInstanceInterval(-1);

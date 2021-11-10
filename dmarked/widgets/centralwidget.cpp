@@ -65,41 +65,60 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
           m_preview_widget->page()->runJavaScript(method);
       });
 
+
       m_splitter->addWidget(m_editor_widget);
       m_splitter->addWidget(m_preview_widget);
 
+      //m_splitter->setContentsMargins(200, 0, 200, 0);
+
       m_central_layout = new QHBoxLayout;
-      m_central_layout->addWidget(m_splitter);
+      m_central_layout->addStretch(1);
+      m_central_layout->addWidget(m_splitter, 5);
+      m_central_layout->addStretch(1);
+      m_central_layout->setStretch(0, 0);
+      m_central_layout->setStretch(2, 0);
       setLayout(m_central_layout);
 }
 
-void CentralWidget::setFilePath(const QString &path) {
+void CentralWidget::setFilePath(const QString &path)
+{
     m_file_path = path;
 }
 
-const QString & CentralWidget::getFilePath() {
+const QString & CentralWidget::getFilePath()
+{
     return  m_file_path;
 }
 
-void CentralWidget::setSync(bool enable) {
+void CentralWidget::setSync(bool enable)
+{
     m_is_sync = enable;
 }
 
-void CentralWidget::setMode(const QString &mode) {
-    if (mode == tr("Read Mode")) {
-        m_editor_widget->hide();
-        m_preview_widget->show();
-    } else if (mode == tr("Write Mode")) {
+void CentralWidget::setMode(const QString &mode)
+{
+    if (mode == tr("Read Mode") || mode == tr("Write Mode")) {
+        m_central_layout->setStretch(0, 1);
+        m_central_layout->setStretch(2, 1);
+        m_editor_widget->setFrameStyle(QFrame::NoFrame); // 去除控件边框线
+        if (mode == tr("Read Mode")) {
+            m_editor_widget->hide();
+            m_preview_widget->show();
+        } else if (mode == tr("Write Mode")) {
+            m_editor_widget->show();
+            m_preview_widget->hide();
+        }
+    } else {
+        m_central_layout->setStretch(0, 0);
+        m_central_layout->setStretch(2, 0);
+        m_editor_widget->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
         m_editor_widget->show();
-        m_preview_widget->hide();
-    } else if (mode ==tr("Preview Mode(S)")) {
-        m_editor_widget->show();
         m_preview_widget->show();
-        setSync(true);
-    } else if (mode == tr("Preview Mode(N)")) {
-        m_editor_widget->show();
-        m_preview_widget->show();
-        setSync(false);
+        if (mode ==tr("Preview Mode(S)")) {
+            setSync(true);
+        } else if (mode == tr("Preview Mode(N)")) {
+            setSync(false);
+        }
     }
 }
 
