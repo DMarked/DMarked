@@ -63,7 +63,13 @@ int main(int argc, char *argv[])
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
-    app.activateWindow();
 
+    QCommandLineParser parser;
+    const QCommandLineOption newWindowOption("w", "Open file in new window");
+    const QCommandLineOption helpOption = parser.addHelpOption();
+    parser.addOption(newWindowOption);
+    parser.process(app);
+
+    app.activateWindow();
     return app.exec();
 }

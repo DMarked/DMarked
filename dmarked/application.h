@@ -1,5 +1,6 @@
 /*
 * Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
+* Copyright (C) 2021 DMarked.
 *
 * Author:      V4fr3e <V4fr3e@deepin.io>
 * Maintainer： Lu Hongxu <lhongxu@outlook.com>

@@ -1,5 +1,6 @@
 /*
 * Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
+* Copyright (C) 2021 DMarked.
 *
 * Author:      V4fr3e <V4fr3e@deepin.io>
 * Maintainer： Lu Hongxu <lhongxu@outlook.com>
@@ -28,11 +29,11 @@
 #include <QAbstractButton>
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
+#include <QCommandLineParser>
 
 Application::Application(int &argc, char **argv)
     : DApplication(argc, argv)
 {
-
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &Application::onNewProcessInstance);
 }
 
@@ -44,11 +45,6 @@ void Application::activateWindow() {
     //Init Normal window at first time
     if (nullptr == m_qspMainWnd.get()) {
         m_qspMainWnd.reset(new MainWindow());
-        /*m_qspMainWnd->setMinimumSize(DEFAULT_WINDOWS_WIDTH, DEFAULT_WINDOWS_HEIGHT);
-        QByteArray mainWindowSize = setting::instance()->getOption(VNOTE_MAINWND_SZ_KEY).toByteArray();
-        if (!mainWindowSize.isEmpty()) {
-            m_qspMainWnd->restoreGeometry(mainWindowSize);
-        }*/
 
         //Should be called befor show
         Dtk::Widget::moveToCenter(m_qspMainWnd.get());
@@ -67,16 +63,11 @@ void Application::onNewProcessInstance(qint64 pid, const QStringList &arguments)
     Q_UNUSED(pid);
     Q_UNUSED(arguments);
 
-    //TODO:
-    //Parase comandline here
-
     activateWindow();
 }
 
 void Application::handleQuitAction() {
     if (mainWindow()->queryClose()) {
-        //QEvent event(QEvent::Close);
-        //DApplication::sendEvent(mainWindow(), &event);
         exit(0);
     }
 }
