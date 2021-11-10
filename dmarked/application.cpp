@@ -32,6 +32,7 @@
 Application::Application(int &argc, char **argv)
     : DApplication(argc, argv)
 {
+
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &Application::onNewProcessInstance);
 }
 

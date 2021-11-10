@@ -29,14 +29,13 @@
 #include <DMainWindow>
 #include <DLog>
 
+
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
     Application app(argc, argv);
-    const char *descriptionText = QT_TRANSLATE_NOOP(
-        "MainWindow", "Markdown Editor is a powerful tool for viewing and editing Markdown files.");
 
     app.setAttribute(Qt::AA_UseHighDpiPixmaps);
 
@@ -48,24 +47,18 @@ int main(int argc, char *argv[])
     app.loadTranslator();
     app.setOrganizationName("deepin");
     app.setApplicationName("DMarked");
-    app.setApplicationDisplayName("Markdown Editor");
     app.setApplicationVersion(DApplication::buildVersion("0.0.1"));
     app.setProductIcon(QIcon(":/images/dmarked.svg"));
-    app.setProductName(DApplication::translate("MainWindow", "Markdown Editor"));
-    app.setApplicationDescription(DApplication::translate("MainWindow", descriptionText) + "\n");
+
+    app.setProductName(DApplication::translate("AppMain", "Markdown Editor"));
+    app.setApplicationDisplayName(DApplication::translate("AppMain", "Markdown Editor"));
+    app.setApplicationDescription(DApplication::translate("AppMain",
+                                                           "Markdown Editor is a powerful tool for viewing and editing Markdown files."));
     app.setApplicationAcknowledgementPage("https://github.com/wineee/DMarked");
-    app.setQuitOnLastWindowClosed(false);
+    app.setQuitOnLastWindowClosed(true);
 
     qputenv("DTK_USE_SEMAPHORE_SINGLEINSTANCE", "1");
     //qputenv("QTWEBENGINE_REMOTE_DEBUGGING", "7777");
-
-    /*
-    DGuiApplicationHelper::instance()->setSingleInstanceInterval(-1);
-    if (!DGuiApplicationHelper::instance()->setSingleInstance(
-                app.applicationName(),
-                DGuiApplicationHelper::UserScope)) {
-        return 0;
-    }*/
 
     DApplicationSettings settings;
 

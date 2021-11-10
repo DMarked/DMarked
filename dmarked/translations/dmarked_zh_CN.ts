@@ -2,6 +2,17 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
+    <name>AppMain</name>
+    <message>
+        <source>Markdown Editor</source>
+        <translation>Markdown 编辑器</translation>
+    </message>
+    <message>
+        <source>Markdown Editor is a powerful tool for viewing and editing Markdown files.</source>
+        <translation>Markdown 编辑器是一个用于查看和编辑 Markdown 文件的工具。</translation>
+    </message>
+</context>
+<context>
     <name>BottomBar</name>
     <message>
         <source>Row</source>
@@ -39,7 +50,7 @@
     <name>DDropdownMenu</name>
     <message>
         <source>none</source>
-        <translation>无</translation>
+        <translation type="vanished">无</translation>
     </message>
     <message>
         <source>Read Mode</source>
@@ -60,14 +71,6 @@
 </context>
 <context>
     <name>MainWindow</name>
-    <message>
-        <source>Markdown Editor is a powerful tool for viewing and editing Markdown files.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Markdown Editor</source>
-        <translation></translation>
-    </message>
     <message>
         <source>New</source>
         <translation>新建</translation>
