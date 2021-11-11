@@ -65,10 +65,17 @@ int main(int argc, char *argv[])
     DLogManager::registerFileAppender();
 
     QCommandLineParser parser;
-    const QCommandLineOption newWindowOption("w", "Open file in new window");
-    const QCommandLineOption helpOption = parser.addHelpOption();
-    parser.addOption(newWindowOption);
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.addPositionalArgument("[source]", QCoreApplication::translate("main", "Source file to open."));
+    // parser.addPositionalArgument("[destination]", QCoreApplication::translate("main", "Destination directory."));
     parser.process(app);
+    const QStringList args = parser.positionalArguments();
+    // source is args.at(0), destination is args.at(1)
+    if(args.size() > 0) {
+        app.activateWindow();
+        app.mainWindow()->openFile(args.at(0));
+    }
 
     app.activateWindow();
     return app.exec();
