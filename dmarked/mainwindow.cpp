@@ -20,6 +20,7 @@
  */
 
 #include "mainwindow.h"
+#include "widgets/topdfdlg.h"
 
 #include <QFile>
 #include <DFileDialog>
@@ -68,10 +69,12 @@ MainWindow::MainWindow(QWidget *parent) :
     m_central_widget->m_editor_widget->setPlainText(defaultTextFile.readAll());
 }
 
-MainWindow::~MainWindow() {
+MainWindow::~MainWindow()
+{
 }
 
-void MainWindow::setupAction() {
+void MainWindow::setupAction()
+{
     QMenu *menu, *convert_menu;
     QAction *actionNew, *actionOpen, *actionSave, *actionSaveAs;
     QAction *action2Pdf, *action2Html;
@@ -106,7 +109,8 @@ void MainWindow::setupAction() {
     connect(action2Html, &QAction::triggered, this, &MainWindow::onToHtml);
 }
 
-void MainWindow::openFile(const QString &path) {
+void MainWindow::openFile(const QString &path)
+{
     QFile f(path);
     if (!f.open(QIODevice::ReadOnly)) {
         DMessageBox::warning(this, windowTitle(),
@@ -118,11 +122,13 @@ void MainWindow::openFile(const QString &path) {
     m_central_widget->m_editor_widget->setPlainText(f.readAll());
 }
 
-bool MainWindow::isModified() const {
+bool MainWindow::isModified() const
+{
     return m_central_widget->m_editor_widget->document()->isModified();
 }
 
-bool MainWindow::queryClose() {
+bool MainWindow::queryClose()
+{
     if (isModified()) {
         DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle(),
                              tr("You have unsaved changes. Do you want to exit anyway?"));
@@ -131,15 +137,30 @@ bool MainWindow::queryClose() {
     return true;
 }
 
-void MainWindow::onToPdf() {
+void MainWindow::onToPdf()
+{
+    ToPdfDlg dlg(this);
+    int res = dlg.exec();
+    if (res != QDialog::Accepted) {
+        return;
+    }
+
+    QPageLayout pageLayout(dlg.getPageSize()
+                         , dlg.getOrientation()
+                         , QMarginsF(dlg.getMarginLeft(),
+                                     dlg.getMarginTop(),
+                                     dlg.getMarginRight(),
+                                     dlg.getMarginButtom()));
+
     QString path = DFileDialog::getSaveFileName(this,
         tr("Convert to PDF"), "", tr("PDF File (*.pdf)"));
     if (path.isEmpty())
         return;
-    m_central_widget->m_preview_widget->convert2Pdf(path);
+    m_central_widget->m_preview_widget->convert2Pdf(path, pageLayout);
 }
 
-void MainWindow::onToHtml() {
+void MainWindow::onToHtml()
+{
     QString path = DFileDialog::getSaveFileName(this,
         tr("Convert to HTML"), "", tr("HTML File (*.html)"));
     if (path.isEmpty())
@@ -147,7 +168,8 @@ void MainWindow::onToHtml() {
     m_central_widget->m_preview_widget->convert2Html(path);
 }
 
-void MainWindow::onFileNew() {
+void MainWindow::onFileNew()
+{
     if (isModified()) {
         DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle(),
                              tr("You have unsaved changes. Do you want to create a new document anyway?"));
@@ -160,7 +182,8 @@ void MainWindow::onFileNew() {
     m_central_widget->m_editor_widget->document()->setModified(false);
 }
 
-void MainWindow::onFileOpen() {
+void MainWindow::onFileOpen()
+{
     if (isModified()) {
         DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle(),
                              tr("You have unsaved changes. Do you want to open a new document anyway?"));
@@ -176,7 +199,8 @@ void MainWindow::onFileOpen() {
     openFile(path);
 }
 
-void MainWindow::onFileSave() {
+void MainWindow::onFileSave()
+{
     if (m_central_widget->getFilePath().isEmpty()) {
         onFileSaveAs();
         return;
@@ -194,7 +218,8 @@ void MainWindow::onFileSave() {
     m_central_widget->m_editor_widget->document()->setModified(false);
 }
 
-void MainWindow::onFileSaveAs() {
+void MainWindow::onFileSaveAs()
+{
     QString path = DFileDialog::getSaveFileName(this,
         tr("Save MarkDown File"), "", tr("MarkDown File (*.md, *.markdown)"));
     if (path.isEmpty())

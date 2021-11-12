@@ -22,6 +22,7 @@ HEADERS += \
     widgets/preview-widget/previewwidget.h \
     widgets/dropdown-menu/mdtheme.h \
     utils/mdexport.h \
+    widgets/topdfdlg.h
 
 SOURCES = \
     main.cpp \
@@ -34,7 +35,8 @@ SOURCES = \
     widgets/preview-widget/previewwidget.cpp \
     application.cpp \
     widgets/dropdown-menu/mdtheme.cpp \
-    utils/mdexport.cpp
+    utils/mdexport.cpp \
+    widgets/topdfdlg.cpp
 
 RESOURCES = \
     ../resources/markdowneditor.qrc \
@@ -59,6 +61,9 @@ INSTALLS += target qm_file
 LIBS += -lQMarkdownTextedit -L$$OUT_PWD
 INCLUDEPATH += $$PWD/../3rdparty/qmarkdowntextedit
 DEPENDPATH += $$PWD/../3rdparty/qmarkdowntextedit
+
+FORMS += \
+    widgets/topdfdlg.ui
 
 
 

@@ -34,7 +34,6 @@ public:
     explicit Application(int &argc, char **argv);
     ~Application() override;
 
-    // 激活窗口
     void activateWindow();
 
     MainWindow *mainWindow() const;
@@ -47,7 +46,6 @@ public slots:
 protected:
     // 重写标题栏退出事件
     virtual void handleQuitAction() override;
-
     // 让无法响应的对象强行响应
     bool notify(QObject *object, QEvent *event) override;
 
