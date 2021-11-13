@@ -3,7 +3,7 @@
 
 /**
  * @brief The MdExport class
- * @todo 实现 wkhtmltopdf，uos-browser，pondoc 的支持
+ * @todo 实现 wkhtmltopdf，uos-browser/chrome，pondoc 的支持
  */
 class MdExport
 {

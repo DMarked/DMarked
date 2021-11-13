@@ -28,7 +28,7 @@
 #include <DGuiApplicationHelper>
 #include <DMainWindow>
 #include <DLog>
-
+#include <dpathbuf.h>
 
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
@@ -67,15 +67,78 @@ int main(int argc, char *argv[])
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
-    parser.addPositionalArgument("[source]", QCoreApplication::translate("main", "Source file to open."));
-    // parser.addPositionalArgument("[destination]", QCoreApplication::translate("main", "Destination directory."));
+
+    QCommandLineOption write_md_file(QStringList() << "w" << "write", "open markdown file in DMarked", "file");
+    parser.addOption(write_md_file);
+    //
+    QCommandLineOption out_put_format(QStringList() << "f" << "format", "convert markdown file to pdf/html", "pdf");
+    parser.addOption(out_put_format);
+    QCommandLineOption use_landscape(QStringList() << "L" << "use-landscape", "Set orientation to Landscape, which Portrait");
+    parser.addOption(use_landscape);
+    QCommandLineOption page_size(QStringList() << "s" << "page-size", "Set paper size to: A4, Letter, etc.", "A4");
+    parser.addOption(page_size);
+    QCommandLineOption margin_left(QStringList() << "l" << "margin-left", "Set left margin", "10");
+    parser.addOption(margin_left);
+    QCommandLineOption margin_top(QStringList() << "t" << "margin-top", "Set top margin", "10");
+    parser.addOption(margin_top);
+    QCommandLineOption margin_right(QStringList() << "r" << "margin-right", "Set right margin", "10");
+    parser.addOption(margin_right);
+    QCommandLineOption margin_bottom(QStringList() << "b" << "margin-bottom", "Set bottom margin", "10");
+    parser.addOption(margin_bottom);
+    QCommandLineOption max_depth(QStringList() << "d" << "max-depth", "Maximum depth of search directory", "1");
+    parser.addOption(max_depth);
+    //
+    parser.addPositionalArgument("source", DApplication::translate("AppMain", "Source file to copy."));
+    parser.addPositionalArgument("[destination]", DApplication::translate("AppMain", "Destination directory."));
     parser.process(app);
-    const QStringList args = parser.positionalArguments();
-    // source is args.at(0), destination is args.at(1)
-    if(args.size() > 0) {
+
+    /*      case0:  open a markdown file.        */
+    if (parser.isSet(write_md_file)) {
+        QString wfile = parser.value("w");
         app.activateWindow();
-        app.mainWindow()->openFile(args.at(0));
+        app.mainWindow()->openFile(wfile);
+        return app.exec();
     }
+
+    /*      case1:  convert a markdown file.        */
+    if (parser.isSet(out_put_format)) {
+        QString format = parser.value("f");
+        int mDepth = parser.isSet("d") ? parser.value("d").toInt() : 1;
+        const QStringList args = parser.positionalArguments();
+        if (args.empty()) {
+            dError() << "Input File is Empty";
+            return -1;
+        }
+        bool isfile = args[0].right(3) == ".md";
+        if (isfile)
+            mDepth = 0;
+        QString soure(args[0]), destination;
+        if (args.length() < 2) {
+            destination = isfile ? args[0].left(args[0].length()-3)+".pdf" : args[0];
+        } else {
+            destination = args[1];
+        }
+        if (format == "html") {
+            dWarning() << "to html";
+        }
+        else if (format == "pdf") {
+            bool isLandscape = parser.isSet("L");
+            QString pSize = parser.isSet("s") ? parser.value("s") : "A4";
+
+            int mL = parser.isSet("l") ? parser.value("l").toInt() : 10;
+            int mT = parser.isSet("t") ? parser.value("t").toInt() : 10;
+            int mR = parser.isSet("r") ? parser.value("r").toInt() : 10;
+            int mB = parser.isSet("b") ? parser.value("b").toInt() : 10;
+
+            dWarning() << "toPdf: " << isLandscape << " " << pSize << mL << mT << mR << mB << soure << destination << mDepth;
+        } else {
+            dError() << "Don't support format: " << format;
+            return -1;
+        }
+        return 0;
+    }
+
+    // source is args.at(0), destination is args.at(1)
 
     app.activateWindow();
     return app.exec();
