@@ -64,18 +64,27 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 }
 
-void PreviewWidget::setText(const QString &content) {
+void PreviewWidget::setText(const QString &content)
+{
     m_content.setText(content);
 }
 
-void PreviewWidget::setMarkdownTheme(const QString &theme) {
+void PreviewWidget::setMarkdownTheme(const QString &theme)
+{
     QString method = "setMarkdownTheme(\'" + theme + "\')";
     m_page->runJavaScript(method);
 }
 
-void PreviewWidget::setHighlightTheme(const QString &theme) {
+void PreviewWidget::setHighlightTheme(const QString &theme)
+{
     QString method = "setHighlightTheme(\'" + theme + "\')";
     m_page->runJavaScript(method);
+}
+
+void PreviewWidget::setNoGui()
+{
+    /* Call this function when running on the command line */
+    isGui = false;
 }
 
 /**
@@ -85,31 +94,38 @@ void PreviewWidget::setHighlightTheme(const QString &theme) {
  * @todo rm code about qtchannel
  */
 void PreviewWidget::convert2Html(const QString &filePath) {
-    QWebEngineCallback<const QString &> resultCallback([filePath](const QString &html) {
+    bool tmpIsGui = this->isGui;
+    QWebEngineCallback<const QString &> resultCallback([filePath, tmpIsGui](const QString &html) {
         //DMessageBox::warning(nullptr, tr("Warn"), html);
         QFile f(filePath);
-        if (!f.open(QIODevice::WriteOnly | QIODevice::Text))  {
-            DMessageBox::warning(nullptr, tr("toHtml"),
-                                 tr("Could not write to file %1: %2").arg(
-                                     QDir::toNativeSeparators(filePath), f.errorString()));
+        if (!f.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QString warn_info = tr("Could not write to file %1: %2").arg(
+                        QDir::toNativeSeparators(filePath), f.errorString());
+            if (tmpIsGui)
+                DMessageBox::warning(nullptr, tr("toHtml"), warn_info);
             return;
         }
         QTextStream str(&f);
         str << html;
-        DDesktopServices::showFileItem(filePath);
+        if (tmpIsGui)
+            DDesktopServices::showFileItem(filePath);
     });
     m_page->toHtml(resultCallback);
 }
 
-void PreviewWidget::convert2Pdf(const QString &filePath, const QPageLayout &layout) {
+void PreviewWidget::convert2Pdf(const QString &filePath, const QPageLayout &layout)
+{
     m_page->printToPdf(filePath, layout);
 }
 
-void PreviewWidget::pdfPrintingFinished(const QString &filePath, bool success) {
-    if (success) {
-        DDesktopServices::showFileItem(filePath);
-    } else {
-        DMessageBox::warning(this, tr("Warning"), tr("fail convert to PDF!"));
+void PreviewWidget::pdfPrintingFinished(const QString &filePath, bool success)
+{
+    if (isGui) {
+        if (success) {
+            DDesktopServices::showFileItem(filePath);
+        } else {
+            DMessageBox::warning(this, tr("Warning"), tr("fail convert to PDF!"));
+        }
     }
 }
 

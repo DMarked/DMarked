@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
         //
         if (format == "html") {
             app.activateWindow(false);
-            app.md2html(soure, "/home/rewine/qtproject/DMarked/build-/a.html", mDepth);
+            app.md2html(soure, destination, mDepth);
             dWarning() << "to html";
         }
         else if (format == "pdf") {

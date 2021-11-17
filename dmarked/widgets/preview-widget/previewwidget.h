@@ -40,6 +40,7 @@ public:
     void setText(const QString &content);
     void convert2Pdf(const QString &filePath, const QPageLayout &layout = QPageLayout(QPageSize(QPageSize::A4), QPageLayout::Portrait, QMarginsF()));
     void convert2Html(const QString &filePath);
+    void setNoGui();
 
 public Q_SLOTS:
     void setMarkdownTheme(const QString &theme);
@@ -53,6 +54,7 @@ private:
     Document m_content;
     PreviewPage *m_page;
     QWebChannel *m_channel;
+    bool isGui = true;
 };
 
 #endif // PREVIEWWIDGET_H

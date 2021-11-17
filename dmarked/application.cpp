@@ -50,6 +50,8 @@ void Application::activateWindow(bool willShow)
         if (willShow) {
             Dtk::Widget::moveToCenter(m_qspMainWnd.get());
             m_qspMainWnd->show();
+        } else {
+            m_qspMainWnd->setNoGui();
         }
     } else {
         m_qspMainWnd->setWindowState(Qt::WindowActive);
@@ -64,8 +66,6 @@ MainWindow *Application::mainWindow() const
 
 void Application::md2html(QString from, QString to, int depth)
 {
-    if (nullptr == m_qspMainWnd.get())
-        m_qspMainWnd.reset(new MainWindow());
     if (depth == 0) {
         m_qspMainWnd->md2html(from, to);
     }
@@ -73,13 +73,10 @@ void Application::md2html(QString from, QString to, int depth)
 
 void Application::md2pdf(QString from, QString to, int depth)
 {
-    if (nullptr == m_qspMainWnd.get())
-        m_qspMainWnd.reset(new MainWindow());
     if (depth == 0) {
         m_qspMainWnd->md2pdf(from, to);
     }
 }
-
 
 void Application::onNewProcessInstance(qint64 pid, const QStringList &arguments)
 {

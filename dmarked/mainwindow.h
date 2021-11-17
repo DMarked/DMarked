@@ -59,6 +59,7 @@ private slots:
 public:
     bool isModified() const;
     bool queryClose();
+    void setNoGui();
 
 private:
     void setupAction();

@@ -111,6 +111,12 @@ void MainWindow::setupAction()
     connect(action2Html, &QAction::triggered, this, &MainWindow::onToHtml);
 }
 
+void MainWindow::setNoGui()
+{
+    /* Call this function when running on the command line */
+    m_central_widget->m_preview_widget->setNoGui();
+}
+
 bool MainWindow::md2html(QString mdpath, QString htmlpath) {
     QFile f(mdpath);
     if (!f.open(QIODevice::ReadOnly)) {
