@@ -136,7 +136,10 @@ bool MainWindow::md2pdf(QString mdpath, QString pdfpath) {
     }
     m_central_widget->setFilePath(mdpath);
     m_central_widget->m_editor_widget->setPlainText(f.readAll());
-    m_central_widget->m_preview_widget->convert2Pdf(pdfpath);
+    connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownThemeChanged,
+             [this, pdfpath]() {
+        m_central_widget->m_preview_widget->convert2Pdf(pdfpath);
+    });
     return true;
 }
 

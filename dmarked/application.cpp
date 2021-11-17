@@ -64,8 +64,8 @@ MainWindow *Application::mainWindow() const
 
 void Application::md2html(QString from, QString to, int depth)
 {
-//    if (nullptr == m_qspMainWnd.get())
-//        m_qspMainWnd.reset(new MainWindow());
+    if (nullptr == m_qspMainWnd.get())
+        m_qspMainWnd.reset(new MainWindow());
     if (depth == 0) {
         m_qspMainWnd->md2html(from, to);
     }
@@ -73,8 +73,8 @@ void Application::md2html(QString from, QString to, int depth)
 
 void Application::md2pdf(QString from, QString to, int depth)
 {
-//    if (nullptr == m_qspMainWnd.get())
-//        m_qspMainWnd.reset(new MainWindow());
+    if (nullptr == m_qspMainWnd.get())
+        m_qspMainWnd.reset(new MainWindow());
     if (depth == 0) {
         m_qspMainWnd->md2pdf(from, to);
     }
