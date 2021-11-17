@@ -22,7 +22,8 @@ HEADERS += \
     widgets/preview-widget/previewwidget.h \
     widgets/dropdown-menu/mdtheme.h \
     utils/mdexport.h \
-    widgets/topdfdlg.h
+    widgets/topdfdlg.h \
+    utils/mappagesize.h
 
 SOURCES = \
     main.cpp \
@@ -36,7 +37,8 @@ SOURCES = \
     application.cpp \
     widgets/dropdown-menu/mdtheme.cpp \
     utils/mdexport.cpp \
-    widgets/topdfdlg.cpp
+    widgets/topdfdlg.cpp \
+    utils/mappagesize.cpp
 
 RESOURCES = \
     ../resources/markdowneditor.qrc \

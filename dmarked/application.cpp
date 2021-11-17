@@ -71,10 +71,10 @@ void Application::md2html(QString from, QString to, int depth)
     }
 }
 
-void Application::md2pdf(QString from, QString to, int depth)
+void Application::md2pdf(QString from, QString to, QPageLayout pageLayout, int depth)
 {
     if (depth == 0) {
-        m_qspMainWnd->md2pdf(from, to);
+        m_qspMainWnd->md2pdf(from, to, pageLayout);
     }
 }
 

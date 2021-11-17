@@ -36,7 +36,7 @@ public:
 
     void activateWindow(bool willShow = true);
     void md2html(QString from, QString to, int depth);
-    void md2pdf(QString from, QString to, int depth);
+    void md2pdf(QString from, QString to, QPageLayout pageLayout, int depth);
 
     MainWindow *mainWindow() const;
 signals:

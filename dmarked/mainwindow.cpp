@@ -133,7 +133,7 @@ bool MainWindow::md2html(QString mdpath, QString htmlpath) {
     return true;
 }
 
-bool MainWindow::md2pdf(QString mdpath, QString pdfpath) {
+bool MainWindow::md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout) {
     QFile f(mdpath);
     if (!f.open(QIODevice::ReadOnly)) {
         qDebug() << tr("Could not open file %1: %2").arg(
@@ -143,8 +143,8 @@ bool MainWindow::md2pdf(QString mdpath, QString pdfpath) {
     m_central_widget->setFilePath(mdpath);
     m_central_widget->m_editor_widget->setPlainText(f.readAll());
     connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownThemeChanged,
-             [this, pdfpath]() {
-        m_central_widget->m_preview_widget->convert2Pdf(pdfpath);
+             [this, pdfpath, pageLayout]() {
+        m_central_widget->m_preview_widget->convert2Pdf(pdfpath, pageLayout);
     });
     return true;
 }

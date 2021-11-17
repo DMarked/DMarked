@@ -46,7 +46,7 @@ public:
     void openFile(const QString &path);
 
     bool md2html(QString mdpath, QString htmlpath);
-    bool md2pdf(QString mdpath, QString pdfpath);
+    bool md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout);
 
 private slots:
     void onFileNew();

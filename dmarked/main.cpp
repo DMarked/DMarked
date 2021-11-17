@@ -28,7 +28,8 @@
 #include <DGuiApplicationHelper>
 #include <DMainWindow>
 #include <DLog>
-#include <dpathbuf.h>
+#include <QPageLayout>
+#include "utils/mappagesize.h"
 
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
@@ -133,7 +134,10 @@ int main(int argc, char *argv[])
             int mR = parser.isSet("r") ? parser.value("r").toInt() : 10;
             int mB = parser.isSet("b") ? parser.value("b").toInt() : 10;
             app.activateWindow(false);
-            app.md2pdf(soure, destination, mDepth);
+            QPageLayout pageLayout(QPageSize(MapPageSize::getInstance()->mapPageSize.value(pSize))
+                                 , isLandscape ? QPageLayout::Landscape : QPageLayout::Portrait
+                                 , QMarginsF(mL, mT, mR, mB));
+            app.md2pdf(soure, destination, pageLayout, mDepth);
             dWarning() << "toPdf: " << isLandscape << " " << pSize << mL << mT << mR << mB << soure << destination << mDepth;
         } else {
             dError() << "Don't support format: " << format;
@@ -141,8 +145,6 @@ int main(int argc, char *argv[])
         }
         return app.exec();
     }
-
-    // source is args.at(0), destination is args.at(1)
 
     app.activateWindow();
     return app.exec();

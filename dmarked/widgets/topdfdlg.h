@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include <QPageLayout>
-#include <QMap>
 
 namespace Ui {
 class ToPdfDlg;
@@ -23,10 +22,7 @@ public:
     double getMarginRight();
     double getMarginButtom();
 
-
 private:
-    QMap<QString, QPageSize::PageSizeId> mapPageSize;
-
     Ui::ToPdfDlg *ui;
 };
 
