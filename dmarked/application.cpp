@@ -41,38 +41,62 @@ Application::~Application()
 {
 }
 
-void Application::activateWindow() {
+void Application::activateWindow(bool willShow)
+{
     //Init Normal window at first time
     if (nullptr == m_qspMainWnd.get()) {
         m_qspMainWnd.reset(new MainWindow());
-
         //Should be called befor show
-        Dtk::Widget::moveToCenter(m_qspMainWnd.get());
-        m_qspMainWnd->show();
+        if (willShow) {
+            Dtk::Widget::moveToCenter(m_qspMainWnd.get());
+            m_qspMainWnd->show();
+        }
     } else {
         m_qspMainWnd->setWindowState(Qt::WindowActive);
         m_qspMainWnd->activateWindow();
     }
 }
 
-MainWindow *Application::mainWindow() const {
+MainWindow *Application::mainWindow() const
+{
     return m_qspMainWnd.get();
 }
 
-void Application::onNewProcessInstance(qint64 pid, const QStringList &arguments) {
+void Application::md2html(QString from, QString to, int depth)
+{
+//    if (nullptr == m_qspMainWnd.get())
+//        m_qspMainWnd.reset(new MainWindow());
+    if (depth == 0) {
+        m_qspMainWnd->md2html(from, to);
+    }
+}
+
+void Application::md2pdf(QString from, QString to, int depth)
+{
+//    if (nullptr == m_qspMainWnd.get())
+//        m_qspMainWnd.reset(new MainWindow());
+    if (depth == 0) {
+        m_qspMainWnd->md2pdf(from, to);
+    }
+}
+
+
+void Application::onNewProcessInstance(qint64 pid, const QStringList &arguments)
+{
     Q_UNUSED(pid);
     Q_UNUSED(arguments);
-
     activateWindow();
 }
 
-void Application::handleQuitAction() {
+void Application::handleQuitAction()
+{
     if (mainWindow()->queryClose()) {
         exit(0);
     }
 }
 
-bool Application::notify(QObject *object, QEvent *event) {
+bool Application::notify(QObject *object, QEvent *event)
+{
     if (event->type() == QEvent::KeyPress) {
         //让所有按钮响应回车 DPushButton不响应回车 DIconButton会默认响应
         QKeyEvent *keyevent = static_cast<QKeyEvent *>(event);

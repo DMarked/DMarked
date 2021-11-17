@@ -68,9 +68,11 @@ var updateText = function (text) {
   mermaid.initialize({ startOnLoad: true });
 }
 
+var content;
+
 const dmarked_setup = () => new QWebChannel(qt.webChannelTransport,
   function (channel) {
-    var content = channel.objects.content;
+    content = channel.objects.content;
     updateText(content.text);
     content.textChanged.connect(updateText);
   }

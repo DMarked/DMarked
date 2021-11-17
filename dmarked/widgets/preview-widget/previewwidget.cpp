@@ -38,6 +38,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
     m_page->setWebChannel(m_channel);
 
     setUrl(QUrl("qrc:/index.html"));
+    connect(&m_content, &Document::markdownThemeChanged, this, &PreviewWidget::markdownThemeChanged);
 
     connect(this, &QWebEngineView::loadFinished, [this](bool success) {
         if (success) {

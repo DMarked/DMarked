@@ -57,3 +57,8 @@ void Document::setText(const QString &text)
     m_text = text;
     emit textChanged(m_text);
 }
+
+void Document::onMdThemeChanged()
+{
+    Q_EMIT markdownThemeChanged();
+}

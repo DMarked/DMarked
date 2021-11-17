@@ -27,6 +27,8 @@
 #include <DMessageBox>
 #include <QTextStream>
 #include <QLayout>
+#include <DLog>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     DMainWindow(parent)
@@ -107,6 +109,35 @@ void MainWindow::setupAction()
 
     connect(action2Pdf, &QAction::triggered, this, &MainWindow::onToPdf);
     connect(action2Html, &QAction::triggered, this, &MainWindow::onToHtml);
+}
+
+bool MainWindow::md2html(QString mdpath, QString htmlpath) {
+    QFile f(mdpath);
+    if (!f.open(QIODevice::ReadOnly)) {
+        qDebug() << tr("Could not open file %1: %2").arg(
+                                 QDir::toNativeSeparators(mdpath), f.errorString());
+        return false;
+    }
+    m_central_widget->setFilePath(mdpath);
+    m_central_widget->m_editor_widget->setPlainText(f.readAll());
+    connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownThemeChanged,
+            [this, htmlpath]() {
+        m_central_widget->m_preview_widget->convert2Html(htmlpath);
+    });
+    return true;
+}
+
+bool MainWindow::md2pdf(QString mdpath, QString pdfpath) {
+    QFile f(mdpath);
+    if (!f.open(QIODevice::ReadOnly)) {
+        qDebug() << tr("Could not open file %1: %2").arg(
+                                 QDir::toNativeSeparators(mdpath), f.errorString());
+        return false;
+    }
+    m_central_widget->setFilePath(mdpath);
+    m_central_widget->m_editor_widget->setPlainText(f.readAll());
+    m_central_widget->m_preview_widget->convert2Pdf(pdfpath);
+    return true;
 }
 
 void MainWindow::openFile(const QString &path)

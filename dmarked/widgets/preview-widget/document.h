@@ -57,7 +57,7 @@
 class Document : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged FINAL) // important for QWebChannel
+    Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged NOTIFY markdownThemeChanged FINAL) // important for QWebChannel
 public:
     explicit Document(QObject *parent = nullptr) : QObject(parent) {}
 
@@ -65,6 +65,10 @@ public:
 
 signals:
     void textChanged(const QString &text);
+    void markdownThemeChanged();
+
+public slots:
+    void onMdThemeChanged();
 
 private:
     QString m_text;

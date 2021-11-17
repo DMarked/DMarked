@@ -114,11 +114,14 @@ int main(int argc, char *argv[])
             mDepth = 0;
         QString soure(args[0]), destination;
         if (args.length() < 2) {
-            destination = isfile ? args[0].left(args[0].length()-3)+".pdf" : args[0];
+            destination = isfile ? args[0].left(args[0].length()-3)+"."+format : args[0];
         } else {
             destination = args[1];
         }
+        //
         if (format == "html") {
+            app.activateWindow();
+            app.md2html(soure, "/home/rewine/qtproject/DMarked/build-/a.html", mDepth);
             dWarning() << "to html";
         }
         else if (format == "pdf") {
@@ -129,13 +132,14 @@ int main(int argc, char *argv[])
             int mT = parser.isSet("t") ? parser.value("t").toInt() : 10;
             int mR = parser.isSet("r") ? parser.value("r").toInt() : 10;
             int mB = parser.isSet("b") ? parser.value("b").toInt() : 10;
+            app.md2pdf(soure, destination, mDepth);
 
             dWarning() << "toPdf: " << isLandscape << " " << pSize << mL << mT << mR << mB << soure << destination << mDepth;
         } else {
             dError() << "Don't support format: " << format;
             return -1;
         }
-        return 0;
+        return app.exec();
     }
 
     // source is args.at(0), destination is args.at(1)

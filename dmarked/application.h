@@ -34,7 +34,9 @@ public:
     explicit Application(int &argc, char **argv);
     ~Application() override;
 
-    void activateWindow();
+    void activateWindow(bool willShow = true);
+    void md2html(QString from, QString to, int depth);
+    void md2pdf(QString from, QString to, int depth);
 
     MainWindow *mainWindow() const;
 signals:
