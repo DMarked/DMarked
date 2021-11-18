@@ -47,8 +47,11 @@ public Q_SLOTS:
     void setHighlightTheme(const QString &theme);
     void pdfPrintingFinished(const QString &filePath, bool success);
 
-signals:
+Q_SIGNALS:
     void markdownThemeChanged();
+    void markdownLoadFinished();
+    void convert2HtmlFinish(bool success);
+    void convert2PdfFinish(bool success);
 
 private:
     Document m_content;

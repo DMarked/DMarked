@@ -39,6 +39,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 
     setUrl(QUrl("qrc:/index.html"));
     connect(&m_content, &Document::markdownThemeChanged, this, &PreviewWidget::markdownThemeChanged);
+    connect(&m_content, &Document::markdownLoadFinished, this, &PreviewWidget::markdownLoadFinished);
 
     connect(this, &QWebEngineView::loadFinished, [this](bool success) {
         if (success) {
@@ -94,21 +95,23 @@ void PreviewWidget::setNoGui()
  * @todo rm code about qtchannel
  */
 void PreviewWidget::convert2Html(const QString &filePath) {
-    bool tmpIsGui = this->isGui;
-    QWebEngineCallback<const QString &> resultCallback([filePath, tmpIsGui](const QString &html) {
+    PreviewWidget *pw = this;
+    QWebEngineCallback<const QString &> resultCallback([filePath, pw](const QString &html) {
         //DMessageBox::warning(nullptr, tr("Warn"), html);
         QFile f(filePath);
         if (!f.open(QIODevice::WriteOnly | QIODevice::Text)) {
             QString warn_info = tr("Could not write to file %1: %2").arg(
                         QDir::toNativeSeparators(filePath), f.errorString());
-            if (tmpIsGui)
+            if (pw->isGui)
                 DMessageBox::warning(nullptr, tr("toHtml"), warn_info);
+            Q_EMIT pw->convert2HtmlFinish(false);
             return;
         }
         QTextStream str(&f);
         str << html;
-        if (tmpIsGui)
+        if (pw->isGui)
             DDesktopServices::showFileItem(filePath);
+        Q_EMIT pw->convert2HtmlFinish(true);
     });
     m_page->toHtml(resultCallback);
 }
@@ -127,5 +130,6 @@ void PreviewWidget::pdfPrintingFinished(const QString &filePath, bool success)
             DMessageBox::warning(this, tr("Warning"), tr("fail convert to PDF!"));
         }
     }
+    Q_EMIT convert2PdfFinish(success);
 }
 

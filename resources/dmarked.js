@@ -66,6 +66,7 @@ var updateText = function (text) {
 
   document.getElementById('placeholder').innerHTML = md.render(text);
   mermaid.initialize({ startOnLoad: true });
+  content.onMdLoadFinished();
 }
 
 var content;

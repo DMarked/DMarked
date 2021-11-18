@@ -62,3 +62,8 @@ void Document::onMdThemeChanged()
 {
     Q_EMIT markdownThemeChanged();
 }
+
+void Document::onMdLoadFinished()
+{
+    Q_EMIT markdownLoadFinished();
+}

@@ -143,7 +143,7 @@ int main(int argc, char *argv[])
             dError() << "Don't support format: " << format;
             return -1;
         }
-        return app.exec();
+        return 0;
     }
 
     app.activateWindow();

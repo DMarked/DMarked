@@ -75,6 +75,7 @@ void Application::md2html(QString from, QString to, int depth)
             return;
         dInfo() << "2html: " << from << " " << to;
         m_qspMainWnd->md2html(from, to);
+        return;
     }
 
     QDir dir(from);
@@ -106,6 +107,7 @@ void Application::md2pdf(QString from, QString to, QPageLayout pageLayout, int d
         if (from.right(3) != ".md")
             return;
         m_qspMainWnd->md2pdf(from, to, pageLayout);
+        return;
     }
 
     QDir dir(from);

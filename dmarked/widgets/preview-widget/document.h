@@ -1,6 +1,8 @@
 /****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2021 DMarked
+**
 ** Contact: https://www.qt.io/licensing/
 **
 ** This file is part of the examples of the Qt Toolkit, Now it used by DMarked
@@ -57,18 +59,20 @@
 class Document : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged NOTIFY markdownThemeChanged FINAL) // important for QWebChannel
+    Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged NOTIFY markdownThemeChanged NOTIFY markdownLoadFinished FINAL) // important for QWebChannel
 public:
     explicit Document(QObject *parent = nullptr) : QObject(parent) {}
 
     void setText(const QString &text);
 
-signals:
+Q_SIGNALS:
     void textChanged(const QString &text);
     void markdownThemeChanged();
+    void markdownLoadFinished();
 
 public slots:
     void onMdThemeChanged();
+    void onMdLoadFinished();
 
 private:
     QString m_text;

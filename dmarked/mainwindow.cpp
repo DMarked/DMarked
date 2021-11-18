@@ -28,7 +28,9 @@
 #include <QTextStream>
 #include <QLayout>
 #include <DLog>
+#include <QEventLoop>
 
+DCORE_USE_NAMESPACE
 
 MainWindow::MainWindow(QWidget *parent) :
     DMainWindow(parent)
@@ -125,15 +127,27 @@ bool MainWindow::md2html(QString mdpath, QString htmlpath) {
         return false;
     }
     m_central_widget->setFilePath(mdpath);
-    m_central_widget->m_editor_widget->setPlainText(f.readAll());
-    connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownThemeChanged,
+    connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownLoadFinished,
             [this, htmlpath]() {
         m_central_widget->m_preview_widget->convert2Html(htmlpath);
     });
+
+    // wait for finish
+    int timeout = 30 * 1000;
+    QTimer timer ;
+    QEventLoop q;
+    timer.setSingleShot(true);
+    connect(&timer, &QTimer::timeout, &q, &QEventLoop::quit);  // 异步调用超时退出
+    connect(m_central_widget->m_preview_widget, &PreviewWidget::convert2HtmlFinish, &q, &QEventLoop::quit);  // 异步调用完成退出
+    timer.start(timeout);
+    m_central_widget->m_editor_widget->setPlainText(f.readAll());
+    q.exec();
+    //
     return true;
 }
 
 bool MainWindow::md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout) {
+    dError() << "In2pdf: " << mdpath << pdfpath;
     QFile f(mdpath);
     if (!f.open(QIODevice::ReadOnly)) {
         qDebug() << tr("Could not open file %1: %2").arg(
@@ -141,11 +155,24 @@ bool MainWindow::md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout)
         return false;
     }
     m_central_widget->setFilePath(mdpath);
-    m_central_widget->m_editor_widget->setPlainText(f.readAll());
-    connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownThemeChanged,
+    connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownLoadFinished,
              [this, pdfpath, pageLayout]() {
         m_central_widget->m_preview_widget->convert2Pdf(pdfpath, pageLayout);
     });
+
+    // wait for finish
+    int timeout = 30 * 1000;
+    QTimer timer ;
+    QEventLoop q;
+    timer.setSingleShot(true);
+    connect(&timer, &QTimer::timeout, &q, &QEventLoop::quit);  // 异步调用超时退出
+    connect(m_central_widget->m_preview_widget, &PreviewWidget::convert2PdfFinish, &q, &QEventLoop::quit);  // 异步调用完成退出
+    timer.start(timeout);
+    m_central_widget->m_editor_widget->setPlainText(f.readAll());
+    q.exec();
+    //
+    dError() << "Out2pdf: " << mdpath << pdfpath;
+
     return true;
 }
 
