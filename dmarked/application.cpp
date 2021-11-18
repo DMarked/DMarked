@@ -30,6 +30,10 @@
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
 #include <QCommandLineParser>
+#include <DLog>
+#include <DPathBuf>
+
+DCORE_USE_NAMESPACE
 
 Application::Application(int &argc, char **argv)
     : DApplication(argc, argv)
@@ -67,14 +71,62 @@ MainWindow *Application::mainWindow() const
 void Application::md2html(QString from, QString to, int depth)
 {
     if (depth == 0) {
+        if (from.right(3) != ".md")
+            return;
+        dInfo() << "2html: " << from << " " << to;
         m_qspMainWnd->md2html(from, to);
+    }
+
+    QDir dir(from);
+    DPathBuf topath(to), frompath(from);
+
+    dir.setFilter(QDir::Files | QDir::NoSymLinks | QDir::Readable);
+    QStringList fileList = dir.entryList();
+    for (const QString &file : fileList) {
+        if (file.right(3) == ".md") {
+            QString tofile = file.left(file.length()-3)+".html";
+            md2html((frompath/file).toString(), (topath/tofile).toString(), 0);
+        }
+    }
+
+    dir.setFilter(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot | QDir::Readable);
+    QStringList subDirs = dir.entryList();
+    if (depth > 1) {
+        for (const QString &sdir : subDirs) {
+            dWarning() << sdir;
+            md2html((frompath/sdir).toString(), (topath/sdir).toString(), depth-1);
+        }
     }
 }
 
 void Application::md2pdf(QString from, QString to, QPageLayout pageLayout, int depth)
-{
+{   
     if (depth == 0) {
+        dInfo() << "2pdf: " << from << " " << to;
+        if (from.right(3) != ".md")
+            return;
         m_qspMainWnd->md2pdf(from, to, pageLayout);
+    }
+
+    QDir dir(from);
+    DPathBuf topath(to), frompath(from);
+
+    dir.setFilter(QDir::Files | QDir::NoSymLinks | QDir::Readable);
+    QStringList fileList = dir.entryList();
+    for (const QString &file : fileList) {
+        if (file.right(3) == ".md") {
+            QString tofile = file.left(file.length()-3)+".pdf";
+            md2pdf((frompath/file).toString(), (topath/tofile).toString(), pageLayout, 0);
+        }
+    }
+
+    dir.setFilter(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot | QDir::Readable);
+    QStringList subDirs = dir.entryList();
+    if (depth > 1) {
+        for (const QString &sdir : subDirs) {
+            dWarning() << sdir;
+            md2pdf((frompath/sdir).toString(), (topath/sdir).toString(), pageLayout, depth-1);
+        }
     }
 }
 
@@ -95,7 +147,7 @@ void Application::handleQuitAction()
 bool Application::notify(QObject *object, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
-        //让所有按钮响应回车 DPushButton不响应回车 DIconButton会默认响应
+        // 让所有按钮响应回车 DPushButton不响应回车 DIconButton会默认响应
         QKeyEvent *keyevent = static_cast<QKeyEvent *>(event);
         if ((object->inherits("QAbstractButton")) && (keyevent->key() == Qt::Key_Return || keyevent->key() == Qt::Key_Enter)) {
             QAbstractButton *pushButton = dynamic_cast<QAbstractButton *>(object);
@@ -105,7 +157,7 @@ bool Application::notify(QObject *object, QEvent *event)
             }
         }
 
-        //alt+m 模拟右击菜单
+        // alt+m 模拟右击菜单
         if ((keyevent->modifiers() == Qt::AltModifier) && keyevent->key() == Qt::Key_M) {
             // 光标中心点
             QPoint pos = QPoint(static_cast<int>(qApp->inputMethod()->cursorRectangle().x() + qApp->inputMethod()->cursorRectangle().width() / 2),
