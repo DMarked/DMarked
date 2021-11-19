@@ -211,6 +211,10 @@
         <source>Setting</source>
         <translation>设置</translation>
     </message>
+    <message>
+        <source>Help</source>
+        <translation>帮助</translation>
+    </message>
 </context>
 <context>
     <name>PreviewWidget</name>

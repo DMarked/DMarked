@@ -71,10 +71,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_settings = Settings::instance();
 
-    QFile defaultTextFile(":/default.md");
-    defaultTextFile.open(QIODevice::ReadOnly);
-    m_central_widget->m_editor_widget->setPlainText(defaultTextFile.readAll());
-
     // code about convert files in cli
     ct.state = CLI_STATE::NONE;
     connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownLoadFinished,
@@ -98,7 +94,7 @@ MainWindow::~MainWindow()
 void MainWindow::setupAction()
 {
     QMenu *menu, *convert_menu;
-    QAction *actionNew, *actionOpen, *actionSave, *actionSaveAs, *actionSetting;
+    QAction *actionNew, *actionOpen, *actionSave, *actionSaveAs, *actionSetting, *actionHelp;
     QAction *action2Pdf, *action2Html;
 
     actionNew = new QAction(tr("New"));
@@ -108,6 +104,8 @@ void MainWindow::setupAction()
     action2Pdf = new QAction(tr("Pdf"));
     action2Html = new QAction(tr("Html"));
     actionSetting = new QAction(tr("Setting"));
+    actionHelp = new QAction(tr("Help"));
+
 
     menu = new QMenu;
     menu->addAction(actionNew);
@@ -119,6 +117,7 @@ void MainWindow::setupAction()
     menu->addAction(actionSave);
     menu->addAction(actionSaveAs);
     menu->addAction(actionSetting);
+    menu->addAction(actionHelp);
 
     titlebar()->setMenu(menu);
 
@@ -129,7 +128,11 @@ void MainWindow::setupAction()
     connect(m_central_widget->m_editor_widget->document(), &QTextDocument::modificationChanged,
           actionSave, &QAction::setEnabled);
     connect(actionSetting, &QAction::triggered, this, &MainWindow::popupSettingsDialog);
-
+    connect(actionHelp, &QAction::triggered, this, [this]() {
+        QFile helpFile(":/default.md");
+        helpFile.open(QIODevice::ReadOnly);
+        m_central_widget->m_editor_widget->setPlainText(helpFile.readAll());
+    });
     connect(action2Pdf, &QAction::triggered, this, &MainWindow::onToPdf);
     connect(action2Html, &QAction::triggered, this, &MainWindow::onToHtml);
 }
