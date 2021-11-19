@@ -82,5 +82,6 @@
         <file>scrollbars.css</file>
         <file>images/dmarked.svg</file>
         <file>3rdscripts/highlight/monokai-sublime.css</file>
+        <file>settings.json</file>
     </qresource>
 </RCC>

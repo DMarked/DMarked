@@ -34,6 +34,7 @@
 
 #include "widgets/centralwidget.h"
 #include "widgets/bottombar.h"
+#include "settings.h"
 
 DWIDGET_USE_NAMESPACE
 
@@ -80,6 +81,7 @@ public:
 private:
     void setupAction();
 
+    Settings *m_settings;
     DSearchEdit *m_search_edit;
     CentralWidget *m_central_widget;
     BottomBar *m_bottom_bar;

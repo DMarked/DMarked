@@ -67,6 +67,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(base_widget);
     setupAction();
 
+    m_settings = Settings::instance();
+
     QFile defaultTextFile(":/default.md");
     defaultTextFile.open(QIODevice::ReadOnly);
     m_central_widget->m_editor_widget->setPlainText(defaultTextFile.readAll());
