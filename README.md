@@ -25,13 +25,13 @@
 - [x] 导出成 html 文件
 - [x] 可以切换 css 主题，分浅色，深色两类
 - [ ] 多文件，文件列表，文件树
-- [ ] 完善对命令行支持，可以在命令行中打开文件，批量转换HTML，PDF
+- [X] 完善对命令行支持，可以在命令行中打开文件，批量转换HTML，PDF
 - [ ] 完善快捷键
 - [ ] 图床工具 --picgo
 - [X] 增加 markdown-it 引擎
-- [X] highlight.js
+- [X] 代码高亮 highlight.js
 - [X] 画图 Mermaid.js 
-- [X] 数学 katex
+- [X] 数学公式 katex
 - [ ] 使用配置文件保存配置
 - [ ] 增加设置面板（字体，快捷键，自动保存等）
 - [ ] 进行打包工作
@@ -52,6 +52,6 @@
 - [CuteMarkEd-NG](https://github.com/Waqar144/CuteMarkEd-NG)
 
 代码部分参考了：
-- [deepin-editor](https://github.com/linuxdeepin/deepin-editor)
-- [WebEngine Markdown Editor Example](https://doc.qt.io/qt-5/qtwebengine-webenginewidgets-markdowneditor-example.html)
+- [deepin-editor](https://github.com/linuxdeepin/deepin-editor) GPL-3.0
+- [WebEngine Markdown Editor Example](https://doc.qt.io/qt-5/qtwebengine-webenginewidgets-markdowneditor-example.html) BSD
 
