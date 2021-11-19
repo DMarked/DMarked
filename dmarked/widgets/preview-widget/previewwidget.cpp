@@ -86,6 +86,7 @@ void PreviewWidget::setNoGui()
 {
     /* Call this function when running on the command line */
     isGui = false;
+    m_content.setNoGui();
 }
 
 /**
@@ -109,6 +110,7 @@ void PreviewWidget::convert2Html(const QString &filePath) {
         }
         QTextStream str(&f);
         str << html;
+        str.flush();
         if (pw->isGui)
             DDesktopServices::showFileItem(filePath);
         Q_EMIT pw->convert2HtmlFinish(true);

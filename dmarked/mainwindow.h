@@ -29,11 +29,27 @@
 #include <DMainWindow>
 #include <DGuiApplicationHelper>
 #include <QAction>
+#include <QEventLoop>
+#include <QTimer>
 
 #include "widgets/centralwidget.h"
 #include "widgets/bottombar.h"
 
 DWIDGET_USE_NAMESPACE
+
+enum CLI_STATE {
+    NONE,
+    PDF,
+    HTML
+};
+
+struct CliTool {
+    QEventLoop loop;
+    QTimer timer;
+    QString topath;
+    QPageLayout pageLayout;
+    CLI_STATE state;
+};
 
 class MainWindow : public DMainWindow
 {
@@ -67,6 +83,7 @@ private:
     DSearchEdit *m_search_edit;
     CentralWidget *m_central_widget;
     BottomBar *m_bottom_bar;
+    CliTool ct;
 };
 
 #endif // MAINWINDOW_H

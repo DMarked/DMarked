@@ -52,7 +52,8 @@
 
 void Document::setText(const QString &text)
 {
-    if (text == m_text)
+    // in cli, need markdownLoadFinished singal to notify it's ready for file conversion
+    if (isGui && text == m_text)
         return;
     m_text = text;
     emit textChanged(m_text);
@@ -66,4 +67,9 @@ void Document::onMdThemeChanged()
 void Document::onMdLoadFinished()
 {
     Q_EMIT markdownLoadFinished();
+}
+
+void Document::setNoGui()
+{
+    isGui = false;
 }

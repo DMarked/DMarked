@@ -64,6 +64,7 @@ public:
     explicit Document(QObject *parent = nullptr) : QObject(parent) {}
 
     void setText(const QString &text);
+    void setNoGui();
 
 Q_SIGNALS:
     void textChanged(const QString &text);
@@ -76,6 +77,7 @@ public slots:
 
 private:
     QString m_text;
+    bool isGui = true;
 };
 
 #endif // DOCUMENT_H

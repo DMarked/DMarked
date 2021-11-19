@@ -28,7 +28,6 @@
 #include <QTextStream>
 #include <QLayout>
 #include <DLog>
-#include <QEventLoop>
 
 DCORE_USE_NAMESPACE
 
@@ -71,6 +70,21 @@ MainWindow::MainWindow(QWidget *parent) :
     QFile defaultTextFile(":/default.md");
     defaultTextFile.open(QIODevice::ReadOnly);
     m_central_widget->m_editor_widget->setPlainText(defaultTextFile.readAll());
+
+    //
+    ct.state = CLI_STATE::NONE;
+    connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownLoadFinished,
+             [this]() {
+        dInfo() << "LoadFinish: " << ct.topath;
+        if (ct.state == CLI_STATE::PDF)
+            m_central_widget->m_preview_widget->convert2Pdf(ct.topath, ct.pageLayout);
+        else if (ct.state == CLI_STATE::HTML)
+            m_central_widget->m_preview_widget->convert2Html(ct.topath);
+    });
+    ct.timer.setSingleShot(true);
+    connect(&ct.timer, &QTimer::timeout, &ct.loop, &QEventLoop::quit);  // 异步调用超时退出
+    connect(m_central_widget->m_preview_widget, &PreviewWidget::convert2PdfFinish, &ct.loop, &QEventLoop::quit);  // 异步调用完成退出
+    connect(m_central_widget->m_preview_widget, &PreviewWidget::convert2HtmlFinish, &ct.loop, &QEventLoop::quit);
 }
 
 MainWindow::~MainWindow()
@@ -120,6 +134,8 @@ void MainWindow::setNoGui()
 }
 
 bool MainWindow::md2html(QString mdpath, QString htmlpath) {
+    ct.state = CLI_STATE::HTML;
+    ct.topath = htmlpath;
     QFile f(mdpath);
     if (!f.open(QIODevice::ReadOnly)) {
         qDebug() << tr("Could not open file %1: %2").arg(
@@ -127,27 +143,22 @@ bool MainWindow::md2html(QString mdpath, QString htmlpath) {
         return false;
     }
     m_central_widget->setFilePath(mdpath);
-    connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownLoadFinished,
-            [this, htmlpath]() {
-        m_central_widget->m_preview_widget->convert2Html(htmlpath);
-    });
+    m_central_widget->m_editor_widget->setPlainText(f.readAll());
 
     // wait for finish
-    int timeout = 30 * 1000;
-    QTimer timer ;
-    QEventLoop q;
-    timer.setSingleShot(true);
-    connect(&timer, &QTimer::timeout, &q, &QEventLoop::quit);  // 异步调用超时退出
-    connect(m_central_widget->m_preview_widget, &PreviewWidget::convert2HtmlFinish, &q, &QEventLoop::quit);  // 异步调用完成退出
-    timer.start(timeout);
-    m_central_widget->m_editor_widget->setPlainText(f.readAll());
-    q.exec();
-    //
+    const int timeout = 30 * 1000;
+    ct.timer.start(timeout);
+    ct.loop.exec();
+    ct.timer.stop();
     return true;
 }
 
 bool MainWindow::md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout) {
-    dError() << "In2pdf: " << mdpath << pdfpath;
+    //dError() << "In2pdf: " << mdpath << pdfpath;
+    ct.state = CLI_STATE::PDF;
+    ct.topath = pdfpath;
+    ct.pageLayout = pageLayout;
+
     QFile f(mdpath);
     if (!f.open(QIODevice::ReadOnly)) {
         qDebug() << tr("Could not open file %1: %2").arg(
@@ -155,24 +166,14 @@ bool MainWindow::md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout)
         return false;
     }
     m_central_widget->setFilePath(mdpath);
-    connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownLoadFinished,
-             [this, pdfpath, pageLayout]() {
-        m_central_widget->m_preview_widget->convert2Pdf(pdfpath, pageLayout);
-    });
+    m_central_widget->m_editor_widget->setPlainText(f.readAll());
 
     // wait for finish
-    int timeout = 30 * 1000;
-    QTimer timer ;
-    QEventLoop q;
-    timer.setSingleShot(true);
-    connect(&timer, &QTimer::timeout, &q, &QEventLoop::quit);  // 异步调用超时退出
-    connect(m_central_widget->m_preview_widget, &PreviewWidget::convert2PdfFinish, &q, &QEventLoop::quit);  // 异步调用完成退出
-    timer.start(timeout);
-    m_central_widget->m_editor_widget->setPlainText(f.readAll());
-    q.exec();
-    //
-    dError() << "Out2pdf: " << mdpath << pdfpath;
-
+    const int timeout = 30 * 1000;
+    ct.timer.start(timeout);
+    ct.loop.exec();
+    ct.timer.stop();
+    //dError() << "Out2pdf: " << mdpath << pdfpath;
     return true;
 }
 
