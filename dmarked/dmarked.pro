@@ -21,7 +21,6 @@ HEADERS += \
     widgets/preview-widget/previewpage.h \
     widgets/preview-widget/previewwidget.h \
     widgets/dropdown-menu/mdtheme.h \
-    utils/mdexport.h \
     widgets/topdfdlg.h \
     utils/mappagesize.h \
     settings.h
@@ -37,7 +36,6 @@ SOURCES = \
     widgets/preview-widget/previewwidget.cpp \
     application.cpp \
     widgets/dropdown-menu/mdtheme.cpp \
-    utils/mdexport.cpp \
     widgets/topdfdlg.cpp \
     utils/mappagesize.cpp \
     settings.cpp
