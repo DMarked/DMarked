@@ -31,6 +31,10 @@
 #include <QAction>
 #include <QEventLoop>
 #include <QTimer>
+#include <DSettingsWidgetFactory>
+#include <DSettingsGroup>
+#include <DSettings>
+#include <DSettingsOption>
 
 #include "widgets/centralwidget.h"
 #include "widgets/bottombar.h"
@@ -61,9 +65,10 @@ public:
     ~MainWindow() override;
 
     void openFile(const QString &path);
+    void popupSettingsDialog();
 
-    bool md2html(QString mdpath, QString htmlpath);
-    bool md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout);
+    bool md2html(QString mdpath, QString htmlpath); // only use in cli
+    bool md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout);    
 
 private slots:
     void onFileNew();

@@ -28,8 +28,10 @@
 #include <QTextStream>
 #include <QLayout>
 #include <DLog>
+#include <DSettingsDialog>
 
 DCORE_USE_NAMESPACE
+DWIDGET_USE_NAMESPACE
 
 MainWindow::MainWindow(QWidget *parent) :
     DMainWindow(parent)
@@ -96,7 +98,7 @@ MainWindow::~MainWindow()
 void MainWindow::setupAction()
 {
     QMenu *menu, *convert_menu;
-    QAction *actionNew, *actionOpen, *actionSave, *actionSaveAs;
+    QAction *actionNew, *actionOpen, *actionSave, *actionSaveAs, *actionSetting;
     QAction *action2Pdf, *action2Html;
 
     actionNew = new QAction(tr("New"));
@@ -105,6 +107,7 @@ void MainWindow::setupAction()
     actionSaveAs = new QAction(tr("SaveAs"));
     action2Pdf = new QAction(tr("Pdf"));
     action2Html = new QAction(tr("Html"));
+    actionSetting = new QAction(tr("Setting"));
 
     menu = new QMenu;
     menu->addAction(actionNew);
@@ -115,6 +118,7 @@ void MainWindow::setupAction()
     menu->addMenu(convert_menu);
     menu->addAction(actionSave);
     menu->addAction(actionSaveAs);
+    menu->addAction(actionSetting);
 
     titlebar()->setMenu(menu);
 
@@ -124,9 +128,24 @@ void MainWindow::setupAction()
     connect(actionSaveAs, &QAction::triggered, this, &MainWindow::onFileSaveAs);
     connect(m_central_widget->m_editor_widget->document(), &QTextDocument::modificationChanged,
           actionSave, &QAction::setEnabled);
+    connect(actionSetting, &QAction::triggered, this, &MainWindow::popupSettingsDialog);
 
     connect(action2Pdf, &QAction::triggered, this, &MainWindow::onToPdf);
     connect(action2Html, &QAction::triggered, this, &MainWindow::onToHtml);
+}
+
+void MainWindow::popupSettingsDialog()
+{
+    DSettingsDialog *dialog = new DSettingsDialog(this);
+    dialog->widgetFactory()->registerWidget("fontcombobox", Settings::createFontComBoBoxHandle);
+    dialog->widgetFactory()->registerWidget("keySequenceEdit", Settings::createKeySequenceEditHandle);
+
+    m_settings->setSettingDialog(dialog);
+    dialog->updateSettings(m_settings->settings);
+    dialog->exec();
+
+    delete dialog;
+    m_settings->settings->sync();
 }
 
 void MainWindow::setNoGui()
