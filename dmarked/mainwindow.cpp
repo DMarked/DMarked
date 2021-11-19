@@ -36,6 +36,7 @@ DWIDGET_USE_NAMESPACE
 MainWindow::MainWindow(QWidget *parent) :
     DMainWindow(parent)
 {
+
     resize(1200, 740);
     setWindowIcon(QIcon(":/images/dmarked.svg"));
 
@@ -71,6 +72,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_settings = Settings::instance();
 
+    connect(m_settings, &Settings::sigSetLineNumberShow, this, [this](bool bIsShow) {
+        m_central_widget->m_editor_widget->setLineNumberEnabled(bIsShow);
+    });
+
+    // open a default file
+    QFile helpFile(":/default.md");
+    helpFile.open(QIODevice::ReadOnly);
+    m_central_widget->m_editor_widget->setPlainText(helpFile.readAll());
+    //
+
     // code about convert files in cli
     ct.state = CLI_STATE::NONE;
     connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownLoadFinished,
@@ -105,7 +116,6 @@ void MainWindow::setupAction()
     action2Html = new QAction(tr("Html"));
     actionSetting = new QAction(tr("Setting"));
     actionHelp = new QAction(tr("Help"));
-
 
     menu = new QMenu;
     menu->addAction(actionNew);

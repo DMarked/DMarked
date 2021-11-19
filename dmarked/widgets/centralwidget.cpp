@@ -20,13 +20,14 @@
  */
 
 #include "centralwidget.h"
+#include "settings.h"
+
 #include <QFontDatabase>
 #include <QColor>
-
 #include <QScrollBar>
 #include <QWebEnginePage>
 #include <QWebEngineSettings>
-
+#include <DSettingsOption>
 
 CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
 {
@@ -45,7 +46,7 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
       m_editor_widget->setFocusPolicy(Qt::StrongFocus);
       m_editor_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
       m_editor_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-      m_editor_widget->setLineNumberEnabled(true);
+      m_editor_widget->setLineNumberEnabled(Settings::instance()->settings->option("base.font.showlinenumber")->value().toBool());
       QColor a = QColor::fromRgb(255, 0, 0);
       m_editor_widget->setLineNumbersCurrentLineColor(a);
 
