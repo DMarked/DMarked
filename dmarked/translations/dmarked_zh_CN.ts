@@ -11,6 +11,58 @@
         <source>Markdown Editor is a powerful tool for viewing and editing Markdown files.</source>
         <translation>Markdown 编辑器是一个用于查看和编辑 Markdown 文件的工具。</translation>
     </message>
+    <message>
+        <source>open markdown file in DMarked</source>
+        <translation type="unfinished">在 DMarked 中打开 markdown 文件</translation>
+    </message>
+    <message>
+        <source>convert markdown file to pdf/html</source>
+        <translation>把 markdown 文件转换为 pdf/html</translation>
+    </message>
+    <message>
+        <source>Set orientation to Landscape, which default Portrait</source>
+        <translation>设置为横向，默认纵向</translation>
+    </message>
+    <message>
+        <source>Set paper size to: A4, Letter, etc.</source>
+        <translation type="vanished">设置页面大小为 A4，Letter  等.</translation>
+    </message>
+    <message>
+        <source>Set left margin</source>
+        <translation>设置左边距</translation>
+    </message>
+    <message>
+        <source>Set top margin</source>
+        <translation>设置上边距</translation>
+    </message>
+    <message>
+        <source>Set right margin</source>
+        <translation>设置右边距</translation>
+    </message>
+    <message>
+        <source>Set bottom margin</source>
+        <translation>设置下边距</translation>
+    </message>
+    <message>
+        <source>Maximum depth of search directory</source>
+        <translation>批量转换时文件的最大深度</translation>
+    </message>
+    <message>
+        <source>Source file/directory to conver</source>
+        <translation>需要转换的文件或其所在目录</translation>
+    </message>
+    <message>
+        <source>Destination file/directory.</source>
+        <translation type="vanished">转换后文件的位置</translation>
+    </message>
+    <message>
+        <source>Set paper size to: A4, Letter, etc</source>
+        <translation type="unfinished">设置页面大小为 A4，Letter 等</translation>
+    </message>
+    <message>
+        <source>Destination file/directory</source>
+        <translation>转换后文件的位置</translation>
+    </message>
 </context>
 <context>
     <name>BottomBar</name>
@@ -155,6 +207,10 @@
         <source>MarkDown File (*.md, *.markdown)</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Setting</source>
+        <translation>设置</translation>
+    </message>
 </context>
 <context>
     <name>PreviewWidget</name>
@@ -173,6 +229,80 @@
     <message>
         <source>fail convert to PDF!</source>
         <translation>导出为PDF失败！</translation>
+    </message>
+</context>
+<context>
+    <name>Settings</name>
+    <message>
+        <source>Standard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Customize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This shortcut conflicts with system shortcut %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This shortcut conflicts with %1, click on Replace to make this shortcut effective immediately</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The shortcut %1 is invalid, please set another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ToPdfDlg</name>
+    <message>
+        <source>Convert To PDF</source>
+        <translation>转换为 PDF</translation>
+    </message>
+    <message>
+        <source>PageSize</source>
+        <translation>页面大小</translation>
+    </message>
+    <message>
+        <source>PageLayout</source>
+        <translation>页面布局</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation>纵向</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation>横向</translation>
+    </message>
+    <message>
+        <source>Margins(pt)</source>
+        <translation>页边距</translation>
     </message>
 </context>
 </TS>

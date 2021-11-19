@@ -75,11 +75,11 @@ MainWindow::MainWindow(QWidget *parent) :
     defaultTextFile.open(QIODevice::ReadOnly);
     m_central_widget->m_editor_widget->setPlainText(defaultTextFile.readAll());
 
-    //
+    // code about convert files in cli
     ct.state = CLI_STATE::NONE;
     connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownLoadFinished,
              [this]() {
-        dInfo() << "LoadFinish: " << ct.topath;
+        // dInfo() << "LoadFinish: " << ct.topath;
         if (ct.state == CLI_STATE::PDF)
             m_central_widget->m_preview_widget->convert2Pdf(ct.topath, ct.pageLayout);
         else if (ct.state == CLI_STATE::HTML)

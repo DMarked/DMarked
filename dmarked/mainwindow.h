@@ -68,7 +68,7 @@ public:
     void popupSettingsDialog();
 
     bool md2html(QString mdpath, QString htmlpath); // only use in cli
-    bool md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout);    
+    bool md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout);
 
 private slots:
     void onFileNew();

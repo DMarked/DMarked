@@ -69,28 +69,45 @@ int main(int argc, char *argv[])
     parser.addHelpOption();
     parser.addVersionOption();
 
-    QCommandLineOption write_md_file(QStringList() << "w" << "write", "open markdown file in DMarked", "file");
+    QCommandLineOption write_md_file(QStringList() << "w" << "write",
+                                     DApplication::translate("AppMain", "open markdown file in DMarked"),
+                                     "file");
     parser.addOption(write_md_file);
     //
-    QCommandLineOption out_put_format(QStringList() << "f" << "format", "convert markdown file to pdf/html", "pdf");
+    QCommandLineOption out_put_format(QStringList() << "f" << "format",
+                                      DApplication::translate("AppMain", "convert markdown file to pdf/html"),
+                                      "pdf");
     parser.addOption(out_put_format);
-    QCommandLineOption use_landscape(QStringList() << "L" << "use-landscape", "Set orientation to Landscape, which Portrait");
+    QCommandLineOption use_landscape(QStringList() << "L" << "use-landscape",
+                                     DApplication::translate("AppMain", "Set orientation to Landscape, which default Portrait"));
     parser.addOption(use_landscape);
-    QCommandLineOption page_size(QStringList() << "s" << "page-size", "Set paper size to: A4, Letter, etc.", "A4");
+    QCommandLineOption page_size(QStringList() << "s" << "page-size",
+                                 DApplication::translate("AppMain", "Set paper size to: A4, Letter, etc"),
+                                 "A4");
     parser.addOption(page_size);
-    QCommandLineOption margin_left(QStringList() << "l" << "margin-left", "Set left margin", "10");
+    QCommandLineOption margin_left(QStringList() << "l" << "margin-left",
+                                   DApplication::translate("AppMain", "Set left margin"),
+                                   "10");
     parser.addOption(margin_left);
-    QCommandLineOption margin_top(QStringList() << "t" << "margin-top", "Set top margin", "10");
+    QCommandLineOption margin_top(QStringList() << "t" << "margin-top",
+                                  DApplication::translate("AppMain", "Set top margin"),
+                                  "10");
     parser.addOption(margin_top);
-    QCommandLineOption margin_right(QStringList() << "r" << "margin-right", "Set right margin", "10");
+    QCommandLineOption margin_right(QStringList() << "r" << "margin-right",
+                                    DApplication::translate("AppMain", "Set right margin"),
+                                    "10");
     parser.addOption(margin_right);
-    QCommandLineOption margin_bottom(QStringList() << "b" << "margin-bottom", "Set bottom margin", "10");
+    QCommandLineOption margin_bottom(QStringList() << "b" << "margin-bottom",
+                                    DApplication::translate("AppMain", "Set bottom margin"),
+                                     "10");
     parser.addOption(margin_bottom);
-    QCommandLineOption max_depth(QStringList() << "d" << "max-depth", "Maximum depth of search directory", "1");
+    QCommandLineOption max_depth(QStringList() << "d" << "max-depth",
+                                 DApplication::translate("AppMain", "Maximum depth of search directory"),
+                                 "1");
     parser.addOption(max_depth);
     //
-    parser.addPositionalArgument("source", DApplication::translate("AppMain", "Source file to copy."));
-    parser.addPositionalArgument("[destination]", DApplication::translate("AppMain", "Destination directory."));
+    parser.addPositionalArgument("source", DApplication::translate("AppMain", "Source file/directory to conver"));
+    parser.addPositionalArgument("[destination]", DApplication::translate("AppMain", "Destination file/directory"));
     parser.process(app);
 
     /*      case0:  open a markdown file.        */
