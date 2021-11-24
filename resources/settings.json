@@ -1549,6 +1549,12 @@
                             "hide": true,
                             "reset": true,
                             "default": "xiaolai"
+                        },
+                        {
+                            "key": "editor_mode",
+                            "hide": true,
+                            "reset": false,
+                            "default": 3
                         }
                     ]
                 }

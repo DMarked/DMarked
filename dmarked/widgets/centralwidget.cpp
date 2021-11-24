@@ -76,6 +76,12 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
       m_central_layout->setStretch(0, 0);
       m_central_layout->setStretch(2, 0);
       setLayout(m_central_layout);
+      switch (Settings::instance()->settings->option("advance.editor.editor_mode")->value().toInt()) {
+      case 0: setMode(tr("Read Mode")); break;
+      case 1: setMode(tr("Write Mode")); break;
+      case 2: setMode(tr("Preview Mode(S)")); break;
+      case 3: setMode(tr("Preview Mode(N)")); break;
+      }
 }
 
 void CentralWidget::setFilePath(const QString &path)
@@ -95,14 +101,17 @@ void CentralWidget::setSync(bool enable)
 
 void CentralWidget::setMode(const QString &mode)
 {
+
     if (mode == tr("Read Mode") || mode == tr("Write Mode")) {
         m_central_layout->setStretch(0, 1);
         m_central_layout->setStretch(2, 1);
         m_editor_widget->setFrameStyle(QFrame::NoFrame); // 去除控件边框线
         if (mode == tr("Read Mode")) {
+            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(0);
             m_editor_widget->hide();
             m_preview_widget->show();
         } else if (mode == tr("Write Mode")) {
+            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(1);
             m_editor_widget->show();
             m_preview_widget->hide();
         }
@@ -113,8 +122,10 @@ void CentralWidget::setMode(const QString &mode)
         m_editor_widget->show();
         m_preview_widget->show();
         if (mode ==tr("Preview Mode(S)")) {
+            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(2);
             setSync(true);
         } else if (mode == tr("Preview Mode(N)")) {
+            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(3);
             setSync(false);
         }
     }

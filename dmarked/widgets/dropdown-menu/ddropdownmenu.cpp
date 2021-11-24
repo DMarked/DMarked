@@ -21,6 +21,7 @@
 
 #include "ddropdownmenu.h"
 #include "mdtheme.h"
+#include "settings.h"
 
 #include <QHBoxLayout>
 #include <QMouseEvent>
@@ -33,6 +34,7 @@
 #include <DApplicationHelper>
 #include <QtSvg/QSvgRenderer>
 #include <QActionGroup>
+#include <DSettingsOption>
 
 using namespace Dtk::Core;
 
@@ -168,10 +170,17 @@ DDropdownMenu *DDropdownMenu::createModeMenu() {
     m_pModeMenu->m_actionGroup->addAction(act4);
     act4->setCheckable(true);
 
-    act4->setChecked(true);
-
     m_pModeMenu->setMenu(m_pMenu);
-    m_pModeMenu->setCurrentTextOnly(tr("Preview Mode(N)"));
+
+    QAction *act = nullptr;
+    switch (Settings::instance()->settings->option("advance.editor.editor_mode")->value().toInt()) {
+    case 0: act = act1; break;
+    case 1: act = act2; break;
+    case 2: act = act3; break;
+    default: act = act4;
+    }
+    act->setChecked(true);
+    m_pModeMenu->setCurrentTextOnly(act->text());
 
     connect(m_pMenu, &DMenu::triggered, m_pModeMenu, [m_pModeMenu](QAction *action) {
         if (m_pModeMenu->m_text != action->text()) {
