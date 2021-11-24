@@ -104,10 +104,11 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     });
 
+    QString history = m_settings->settings->option("advance.editor.browsing_history_file")->value().toString();
     // open a default file
-    QFile helpFile(":/default.md");
-    helpFile.open(QIODevice::ReadOnly);
-    m_central_widget->m_editor_widget->setPlainText(helpFile.readAll());
+    QFile defaultFile(history.isEmpty() ? ":/default.md" : history);
+    defaultFile.open(QIODevice::ReadOnly);
+    m_central_widget->m_editor_widget->setPlainText(defaultFile.readAll());
 
     /***        code about convert files in cli         ***/
     ct.state = CLI_STATE::NONE;
@@ -249,6 +250,7 @@ void MainWindow::openFile(const QString &path)
     }
     m_central_widget->setFilePath(path);
     m_central_widget->m_editor_widget->setPlainText(f.readAll());
+    m_settings->settings->option("advance.editor.browsing_history_file")->setValue(path);
 }
 
 bool MainWindow::isModified() const
