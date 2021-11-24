@@ -30,8 +30,12 @@ public:
     MdTheme() = default;
     static const QStringList light_themes;
     static const QStringList dark_themes;
-    static QString light_current_theme;
-    static QString dark_current_theme;
+//    static QString light_current_theme;
+//    static QString dark_current_theme;
+    static QString getCurrentLightTheme();
+    static QString getCurrentDarkTheme();
+    static void setCurrentLightTheme(const QString &theme);
+    static void setCurrentDarkTheme(const QString &theme);
 };
 
 #endif // MDTHEME_H

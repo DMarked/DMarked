@@ -20,6 +20,9 @@
  */
 
 #include "mdtheme.h"
+#include "settings.h"
+
+#include <DSettingsOption>
 
 const QStringList MdTheme::light_themes = { "apollo",        "infoq",      "markdown", "simple",  "less"
                                           , "wecatch-code"   "ocean",      "style",    "wecatch", "erye"
@@ -28,6 +31,25 @@ const QStringList MdTheme::light_themes = { "apollo",        "infoq",      "mark
 
 const QStringList MdTheme::dark_themes = { "darkdown", "solarized-dark", "clearness-dark", "byword-dark" };
 
-QString MdTheme::light_current_theme = "xiaolai";
-QString MdTheme::dark_current_theme = "darkdown";
+//QString MdTheme::light_current_theme = "xiaolai";
+//QString MdTheme::dark_current_theme = "darkdown";
 
+QString MdTheme::getCurrentLightTheme()
+{
+    return Settings::instance()->settings->option("advance.editor.mdtheme_light")->value().toString();
+}
+
+QString MdTheme::getCurrentDarkTheme()
+{
+    return Settings::instance()->settings->option("advance.editor.mdtheme_dark")->value().toString();
+}
+
+void MdTheme::setCurrentLightTheme(const QString &theme)
+{
+    Settings::instance()->settings->option("advance.editor.mdtheme_light")->setValue(theme);
+}
+
+void MdTheme::setCurrentDarkTheme(const QString &theme)
+{
+    Settings::instance()->settings->option("advance.editor.mdtheme_dark")->setValue(theme);
+}

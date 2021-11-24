@@ -1545,10 +1545,16 @@
                             "default": ""
                         },
                         {
-                            "key": "theme",
+                            "key": "mdtheme_dark",
                             "hide": true,
                             "reset": true,
-                            "default": "/usr/share/deepin-editor/themes/deepin.theme"
+                            "default": "darkdown"
+                        },
+                        {
+                            "key": "mdtheme_light",
+                            "hide": true,
+                            "reset": true,
+                            "default": "xiaolai"
                         }
                     ]
                 }

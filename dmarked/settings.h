@@ -66,9 +66,7 @@ signals:
     void sigAdjustFont(QString name);
     void sigAdjustFontSize(int fontSize);
     void sigAdjustTabSpaceNumber(int number);
-    //void sigShowBlankCharacter(bool enable);
     void sigHightLightCurrentLine(bool enable);
-    void sigThemeChanged(const QString &theme);
     void sigSetLineNumberShow(bool bIsShow);
     void sigChangeWindowSize(QString mode);
 

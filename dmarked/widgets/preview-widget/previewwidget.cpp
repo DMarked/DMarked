@@ -44,7 +44,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
     connect(this, &QWebEngineView::loadFinished, [this](bool success) {
         if (success) {
             bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
-            setMarkdownTheme(isDark ? MdTheme::dark_current_theme : MdTheme::light_current_theme);
+            setMarkdownTheme(isDark ? MdTheme::getCurrentDarkTheme() : MdTheme::getCurrentLightTheme());
             setHighlightTheme(isDark ? "monokai-sublime" : "default.min");
         }
     });

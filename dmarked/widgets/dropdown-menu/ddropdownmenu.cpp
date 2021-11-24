@@ -76,7 +76,7 @@ DDropdownMenu::DDropdownMenu(QWidget *parent)
 
     connect(this, &DDropdownMenu::requestContextMenu, this, &DDropdownMenu::slotRequestMenu);
 
-    //设置字体自适应大小 设置界面大小根据内容大小自适应 梁卫东 2020.7.7
+    // 设置字体自适应大小 设置界面大小根据内容大小自适应 梁卫东 2020.7.7
     connect(qApp, &DApplication::fontChanged,this,&DDropdownMenu::OnFontChangedSlot);
 }
 
@@ -103,7 +103,7 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
         m_pThemeMenu->m_actionGroup->addAction(act);
         act->setCheckable(true);
         act->setVisible(!isDark);
-        if (!isDark && theme == MdTheme::light_current_theme)
+        if (!isDark && theme == MdTheme::getCurrentLightTheme())
             act->setChecked(true);
     }
     foreach(const QString &theme, MdTheme::dark_themes) {
@@ -111,12 +111,12 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
         m_pThemeMenu->m_actionGroup->addAction(act);
         act->setCheckable(true);
         act->setVisible(isDark);
-        if (isDark && theme == MdTheme::dark_current_theme)
+        if (isDark && theme == MdTheme::getCurrentDarkTheme())
             act->setChecked(true);
     }
 
     m_pThemeMenu->setMenu(m_pMenu);
-    m_pThemeMenu->setCurrentTextOnly(isDark ? MdTheme::dark_current_theme : MdTheme::light_current_theme);
+    m_pThemeMenu->setCurrentTextOnly(isDark ? MdTheme::getCurrentDarkTheme() : MdTheme::getCurrentLightTheme());
 
 
     connect(m_pMenu, &DMenu::triggered, m_pThemeMenu, [m_pThemeMenu](QAction *action) {
@@ -136,8 +136,8 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
                 action->setVisible(isUnknown || !isDark);
             else
                 action->setVisible(isUnknown || isDark);
-            if ((!isDark && action->text() == MdTheme::light_current_theme)
-                    || (isDark && action->text() == MdTheme::dark_current_theme)) {
+            if ((!isDark && action->text() == MdTheme::getCurrentLightTheme())
+                    || (isDark && action->text() == MdTheme::getCurrentDarkTheme())) {
                 m_pThemeMenu->setCurrentTextOnly(action->text());
                 emit m_pThemeMenu->currentActionChanged(action);
             }

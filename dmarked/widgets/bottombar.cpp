@@ -76,9 +76,14 @@ BottomBar::BottomBar(QWidget *parent)
 
     setFixedHeight(32);
 
-    // 切换 CSS
+    // 切换 MdTheme
     connect(m_pThemeMenu, &DDropdownMenu::currentActionChanged, [this](QAction* pAct) {
         m_pThemeMenu->setCurrentTextOnly(pAct->text());
+        bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
+        if (isDark)
+            MdTheme::setCurrentDarkTheme(pAct->text());
+        else
+            MdTheme::setCurrentLightTheme(pAct->text());
         emit this->currentMdThemeChanged(pAct->text());
     });
 
@@ -178,7 +183,8 @@ DDropdownMenu *BottomBar::getThemeMenu()
     return m_pThemeMenu;
 }
 
-DDropdownMenu *BottomBar::getModeMenu() {
+DDropdownMenu *BottomBar::getModeMenu()
+{
     return m_pModeMenu;
 }
 
