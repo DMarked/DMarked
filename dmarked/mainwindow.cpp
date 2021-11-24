@@ -109,6 +109,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QFile defaultFile(history.isEmpty() ? ":/default.md" : history);
     defaultFile.open(QIODevice::ReadOnly);
     m_central_widget->m_editor_widget->setPlainText(defaultFile.readAll());
+    m_central_widget->setFilePath(history);
 
     /***        code about convert files in cli         ***/
     ct.state = CLI_STATE::NONE;
