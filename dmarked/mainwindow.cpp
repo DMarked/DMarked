@@ -81,9 +81,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_settings, &Settings::sigSetLineNumberShow, this, [this](bool bIsShow) {
         m_central_widget->m_editor_widget->setLineNumberEnabled(bIsShow);
     });
-
     connect(m_settings, &Settings::sigAdjustTabSpaceNumber, this, [this](int number) {
         m_central_widget->setTabSpaceNumber(number);
+    });
+    connect(m_settings, &Settings::sigHightLightCurrentLine, this, [this](bool enable) {
+        m_central_widget->m_editor_widget->setHighlightCurrentLineEnabled(enable);
     });
 
     // open a default file

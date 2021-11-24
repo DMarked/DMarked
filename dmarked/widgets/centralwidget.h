@@ -26,9 +26,8 @@
 #include <DSplitter>
 #include <QLayout>
 
-#include <qmarkdowntextedit.h>
+#include "editorwidget.h"
 #include "preview-widget/previewwidget.h"
-
 
 DWIDGET_USE_NAMESPACE
 
@@ -51,7 +50,7 @@ public:
     const QString &getFilePath();
 
 private:
-    QMarkdownTextEdit *m_editor_widget;
+    EditorWidget *m_editor_widget;
     PreviewWidget *m_preview_widget;
     DSplitter *m_splitter;
     QHBoxLayout *m_central_layout;

@@ -23,7 +23,8 @@ HEADERS += \
     widgets/dropdown-menu/mdtheme.h \
     widgets/topdfdlg.h \
     utils/mappagesize.h \
-    settings.h
+    settings.h \
+    widgets/editorwidget.h
 
 SOURCES = \
     main.cpp \
@@ -38,7 +39,8 @@ SOURCES = \
     widgets/dropdown-menu/mdtheme.cpp \
     widgets/topdfdlg.cpp \
     utils/mappagesize.cpp \
-    settings.cpp
+    settings.cpp \
+    widgets/editorwidget.cpp
 
 RESOURCES = \
     ../resources/markdowneditor.qrc \

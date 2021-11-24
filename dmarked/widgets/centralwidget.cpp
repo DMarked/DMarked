@@ -31,7 +31,7 @@
 
 CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
 {
-      m_editor_widget = new QMarkdownTextEdit;
+      m_editor_widget = new EditorWidget;
       m_preview_widget = new PreviewWidget;
       m_splitter = new QSplitter;
 
@@ -46,14 +46,8 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
       updateFont();
 
       m_editor_widget->setGeometry(0, 0, 600, 740);
-      m_editor_widget->setContentsMargins(0, 0, 0, 0);
-      m_editor_widget->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-      m_editor_widget->setFocusPolicy(Qt::StrongFocus);
-      m_editor_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-      m_editor_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
       m_editor_widget->setLineNumberEnabled(Settings::instance()->settings->option("base.font.showlinenumber")->value().toBool());
-      QColor a = QColor::fromRgb(255, 0, 0);
-      m_editor_widget->setLineNumbersCurrentLineColor(a);
+      m_editor_widget->setHighlightCurrentLineEnabled(Settings::instance()->settings->option("base.font.hightlightcurrentline")->value().toBool());
 
       m_preview_widget->setGeometry(0, 0, 600, 740);
 
@@ -155,4 +149,3 @@ void CentralWidget::updateFont()
     m_preview_widget->setFontFamily(m_font_name);
     m_editor_widget->setTabStopDistance(m_tab_space_number * QFontMetrics(font).width(QChar(0x2192)));
 }
-
