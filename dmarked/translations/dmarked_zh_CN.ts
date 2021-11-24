@@ -13,7 +13,7 @@
     </message>
     <message>
         <source>open markdown file in DMarked</source>
-        <translation type="unfinished">在 DMarked 中打开 markdown 文件</translation>
+        <translation>在 DMarked 中打开 markdown 文件</translation>
     </message>
     <message>
         <source>convert markdown file to pdf/html</source>
@@ -57,7 +57,7 @@
     </message>
     <message>
         <source>Set paper size to: A4, Letter, etc</source>
-        <translation type="unfinished">设置页面大小为 A4，Letter 等</translation>
+        <translation>设置页面大小为 A4，Letter 等</translation>
     </message>
     <message>
         <source>Destination file/directory</source>
@@ -239,47 +239,51 @@
     <name>Settings</name>
     <message>
         <source>Standard</source>
-        <translation type="unfinished"></translation>
+        <translation>标准</translation>
     </message>
     <message>
         <source>Customize</source>
-        <translation type="unfinished"></translation>
+        <translation>自定义</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>正常窗口</translation>
     </message>
     <message>
         <source>Maximum</source>
-        <translation type="unfinished"></translation>
+        <translation>最大化</translation>
     </message>
     <message>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>全屏</translation>
     </message>
     <message>
         <source>This shortcut conflicts with system shortcut %1</source>
-        <translation type="unfinished"></translation>
+        <translation>此快捷键与系统快捷键%1冲突</translation>
     </message>
     <message>
         <source>This shortcut conflicts with %1, click on Replace to make this shortcut effective immediately</source>
-        <translation type="unfinished"></translation>
+        <translation>此快捷键与%1冲突，点击替换使这个快捷键立即生效</translation>
     </message>
     <message>
         <source>The shortcut %1 is invalid, please set another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1为无效快捷键，请重新设置</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>取消</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>替换</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>确定</translation>
+    </message>
+    <message>
+        <source>The shortcut %1 is invalid, please set another one</source>
+        <translation>%1为无效快捷键，请重新设置</translation>
     </message>
 </context>
 <context>

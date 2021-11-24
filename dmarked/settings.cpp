@@ -426,7 +426,7 @@ bool Settings::checkShortcutValid(const QString &Name, QString Key, QString &Rea
         //F1-F12是允许的，这个正则不够精确，但是没关系。
         QRegExp regexp("^F[0-9]{1,2}$");
         if (!Key.contains(regexp)) {
-            Reason = tr("The shortcut %1 is invalid, please set another one.").arg(style);
+            Reason = tr("The shortcut %1 is invalid, please set another one").arg(style);
             bIsConflicts = false;
             return  false;
         }
