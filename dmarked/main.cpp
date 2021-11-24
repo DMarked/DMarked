@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     app.setProductName(DApplication::translate("AppMain", "Markdown Editor"));
     app.setApplicationDisplayName(DApplication::translate("AppMain", "Markdown Editor"));
     app.setApplicationDescription(DApplication::translate("AppMain",
-                                                           "Markdown Editor is a powerful tool for viewing and editing Markdown files."));
+                                                          "Markdown Editor is a powerful tool for viewing and editing Markdown files."));
     app.setApplicationAcknowledgementPage("https://github.com/wineee/DMarked");
     app.setQuitOnLastWindowClosed(true);
 

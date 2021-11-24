@@ -174,9 +174,9 @@ DDropdownMenu *DDropdownMenu::createModeMenu() {
 
     QAction *act = nullptr;
     switch (Settings::instance()->settings->option("advance.editor.editor_mode")->value().toInt()) {
-    case 0: act = act1; break;
-    case 1: act = act2; break;
-    case 2: act = act3; break;
+    case 1: act = act1; break;
+    case 2: act = act2; break;
+    case 3: act = act3; break;
     default: act = act4;
     }
     act->setChecked(true);

@@ -26,7 +26,7 @@ EditorWidget::EditorWidget(QWidget *parent):
 {
     setContentsMargins(0, 0, 0, 0);
     setFocusPolicy(Qt::StrongFocus);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setLineNumbersCurrentLineColor(QColor::fromRgb(255, 0, 0));

@@ -1554,7 +1554,7 @@
                             "key": "editor_mode",
                             "hide": true,
                             "reset": false,
-                            "default": 3
+                            "default": 4
                         }
                     ]
                 }

@@ -38,7 +38,7 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
       m_splitter->setOrientation(Qt::Horizontal);
       m_splitter->setOpaqueResize(true);
       m_splitter->setHandleWidth(0);
-      m_splitter->setChildrenCollapsible(true);
+      m_splitter->setChildrenCollapsible(false);
 
       m_font_name = Settings::instance()->settings->option("base.font.family")->value().toString();
       m_font_size = Settings::instance()->settings->option("base.font.size")->value().toInt();
@@ -77,10 +77,10 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
       m_central_layout->setStretch(2, 0);
       setLayout(m_central_layout);
       switch (Settings::instance()->settings->option("advance.editor.editor_mode")->value().toInt()) {
-      case 0: setMode(tr("Read Mode")); break;
-      case 1: setMode(tr("Write Mode")); break;
-      case 2: setMode(tr("Preview Mode(S)")); break;
-      case 3: setMode(tr("Preview Mode(N)")); break;
+      case 1: setMode(tr("Read Mode")); break;
+      case 2: setMode(tr("Write Mode")); break;
+      case 3: setMode(tr("Preview Mode(S)")); break;
+      case 4: setMode(tr("Preview Mode(N)")); break;
       }
 }
 
@@ -107,11 +107,11 @@ void CentralWidget::setMode(const QString &mode)
         m_central_layout->setStretch(2, 1);
         m_editor_widget->setFrameStyle(QFrame::NoFrame); // 去除控件边框线
         if (mode == tr("Read Mode")) {
-            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(0);
+            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(1);
             m_editor_widget->hide();
             m_preview_widget->show();
         } else if (mode == tr("Write Mode")) {
-            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(1);
+            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(2);
             m_editor_widget->show();
             m_preview_widget->hide();
         }
@@ -122,10 +122,10 @@ void CentralWidget::setMode(const QString &mode)
         m_editor_widget->show();
         m_preview_widget->show();
         if (mode ==tr("Preview Mode(S)")) {
-            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(2);
+            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(3);
             setSync(true);
         } else if (mode == tr("Preview Mode(N)")) {
-            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(3);
+            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(4);
             setSync(false);
         }
     }
