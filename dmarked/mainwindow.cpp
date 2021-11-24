@@ -44,6 +44,11 @@ MainWindow::MainWindow(QWidget *parent) :
     m_search_edit = new DSearchEdit(this);
     titlebar()->setCustomWidget(m_search_edit);
     m_search_edit->setFixedWidth(400);
+    connect(m_search_edit, &DSearchEdit::textChanged/*editingFinished*/, [this]() {
+        QString context = m_search_edit->text();
+        if (!context.isEmpty())
+           m_central_widget->m_editor_widget->doSearch(context);
+    });
 
     m_central_widget = new CentralWidget;
     m_bottom_bar = new BottomBar;
