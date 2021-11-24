@@ -50,7 +50,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
     });
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged,
-            [this](DGuiApplicationHelper::ColorType themeType){
+            [this](DGuiApplicationHelper::ColorType themeType) {
         bool isDark = themeType == DGuiApplicationHelper::ColorType::DarkType;
         setHighlightTheme(isDark ? "monokai-sublime" : "default.min");
         // MarkdownTheme update at ddropdownmenu.cpp
@@ -134,4 +134,18 @@ void PreviewWidget::pdfPrintingFinished(const QString &filePath, bool success)
     }
     Q_EMIT convert2PdfFinish(success);
 }
+
+void PreviewWidget::setFontSize(int size)
+{
+    QWebEngineSettings *setting = m_page->settings();
+    setting->setFontSize(QWebEngineSettings::MinimumFontSize, size);
+}
+
+void PreviewWidget::setFontFamily(const QString &fontName)
+{
+    QWebEngineSettings *setting = m_page->settings();
+    setting->setFontFamily(QWebEngineSettings::StandardFont, fontName);
+}
+
+
 

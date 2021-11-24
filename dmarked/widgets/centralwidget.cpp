@@ -40,6 +40,11 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
       m_splitter->setHandleWidth(0);
       m_splitter->setChildrenCollapsible(true);
 
+      m_font_name = Settings::instance()->settings->option("base.font.family")->value().toString();
+      m_font_size = Settings::instance()->settings->option("base.font.size")->value().toInt();
+      m_tab_space_number = Settings::instance()->settings->option("advance.editor.tabspacenumber")->value().toInt();
+      updateFont();
+
       m_editor_widget->setGeometry(0, 0, 600, 740);
       m_editor_widget->setContentsMargins(0, 0, 0, 0);
       m_editor_widget->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
@@ -66,10 +71,8 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
           m_preview_widget->page()->runJavaScript(method);
       });
 
-
       m_splitter->addWidget(m_editor_widget);
       m_splitter->addWidget(m_preview_widget);
-
       //m_splitter->setContentsMargins(200, 0, 200, 0);
 
       m_central_layout = new QHBoxLayout;
@@ -121,5 +124,35 @@ void CentralWidget::setMode(const QString &mode)
             setSync(false);
         }
     }
+}
+
+void CentralWidget::setFontSize(int size)
+{
+    m_font_size = size;
+    updateFont();
+}
+
+void CentralWidget::setFontFamily(const QString &fontName)
+{
+    m_font_name = fontName;
+    updateFont();
+}
+
+void CentralWidget::setTabSpaceNumber(int num)
+{
+    m_tab_space_number = num;
+    updateFont();
+}
+
+void CentralWidget::updateFont()
+{
+    QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+    font.setFixedPitch(true);
+    font.setPointSize(m_font_size);
+    font.setFamily(m_font_name);
+    m_editor_widget->setFont(font);
+    m_preview_widget->setFontSize(m_font_size);
+    m_preview_widget->setFontFamily(m_font_name);
+    m_editor_widget->setTabStopDistance(m_tab_space_number * QFontMetrics(font).width(QChar(0x2192)));
 }
 

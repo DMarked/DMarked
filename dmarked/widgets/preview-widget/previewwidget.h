@@ -28,6 +28,7 @@
 #include <QWebChannel>
 #include <QWebEngineView>
 #include <DApplicationHelper>
+#include <QWebEngineSettings>
 
 DWIDGET_USE_NAMESPACE
 
@@ -41,6 +42,9 @@ public:
     void convert2Pdf(const QString &filePath, const QPageLayout &layout = QPageLayout(QPageSize(QPageSize::A4), QPageLayout::Portrait, QMarginsF()));
     void convert2Html(const QString &filePath);
     void setNoGui();
+
+    void setFontSize(int size);
+    void setFontFamily(const QString &fontName);
 
 public Q_SLOTS:
     void setMarkdownTheme(const QString &theme);

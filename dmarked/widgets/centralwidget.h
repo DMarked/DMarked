@@ -42,6 +42,11 @@ public:
     void setMode(const QString &mode);
     void setSync(bool enable);
 
+    void setFontSize(int size);
+    void setFontFamily(const QString &fontName);
+    void setTabSpaceNumber(int num);
+    void updateFont();
+
     void setFilePath(const QString &path);
     const QString &getFilePath();
 
@@ -53,6 +58,10 @@ private:
 
     QString m_file_path;
     bool m_is_sync = false;
+
+    QString m_font_name;
+    int m_font_size;
+    int m_tab_space_number;
 };
 
 #endif // CENTRALWIDGET_H

@@ -70,19 +70,28 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(base_widget);
     setupAction();
 
+    /***        setting         ***/
     m_settings = Settings::instance();
-
+    connect(m_settings, &Settings::sigAdjustFont, this, [this](QString fontName) {
+        m_central_widget->setFontFamily(fontName);
+    });
+    connect(m_settings, &Settings::sigAdjustFontSize, this, [this](int size) {
+        m_central_widget->setFontSize(size);
+    });
     connect(m_settings, &Settings::sigSetLineNumberShow, this, [this](bool bIsShow) {
         m_central_widget->m_editor_widget->setLineNumberEnabled(bIsShow);
+    });
+
+    connect(m_settings, &Settings::sigAdjustTabSpaceNumber, this, [this](int number) {
+        m_central_widget->setTabSpaceNumber(number);
     });
 
     // open a default file
     QFile helpFile(":/default.md");
     helpFile.open(QIODevice::ReadOnly);
     m_central_widget->m_editor_widget->setPlainText(helpFile.readAll());
-    //
 
-    // code about convert files in cli
+    /***        code about convert files in cli         ***/
     ct.state = CLI_STATE::NONE;
     connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownLoadFinished,
              [this]() {
