@@ -1,29 +1,31 @@
-@mixin base {
+.success {
   margin: 10px 0;
   padding: 10px 10px;
   border-radius: 5px;
-}
-
-.success {
-  @include base();
   color: #3A6F3A;
   background-color: #DAEDD2;
 }
 
 .info {
-  @include base();
+  margin: 10px 0;
+  padding: 10px 10px;
+  border-radius: 5px;
   color: #2B6584;
   background-color: #D3EAF6;
 }
 
 .warning {
-  @include base();
+  margin: 10px 0;
+  padding: 10px 10px;
+  border-radius: 5px;
   color: #AF9C75;
   background-color: #FCF7DF;
 }
 
 .danger {
-  @include base();
+  margin: 10px 0;
+  padding: 10px 10px;
+  border-radius: 5px;
   color: #9F3B3A;
   background-color: #F0D9D9;
 }
