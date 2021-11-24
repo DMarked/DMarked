@@ -70,7 +70,7 @@ public:
     bool md2html(QString mdpath, QString htmlpath); // only use in cli
     bool md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout);
 
-private slots:
+private Q_SLOTS:
     void onFileNew();
     void onFileOpen();
     void onFileSave();
@@ -82,6 +82,7 @@ public:
     bool isModified() const;
     bool queryClose();
     void setNoGui();
+    void showCenterWindow(bool bIsCenter);
 
 private:
     void setupAction();

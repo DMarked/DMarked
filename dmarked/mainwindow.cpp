@@ -29,6 +29,7 @@
 #include <QLayout>
 #include <DLog>
 #include <DSettingsDialog>
+#include <DWidgetUtil>
 
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
@@ -86,6 +87,16 @@ MainWindow::MainWindow(QWidget *parent) :
     });
     connect(m_settings, &Settings::sigHightLightCurrentLine, this, [this](bool enable) {
         m_central_widget->m_editor_widget->setHighlightCurrentLineEnabled(enable);
+    });
+    connect(m_settings, &Settings::sigChangeWindowSize, this, [ = ](QString mode) {
+        if (mode == "fullscreen") {
+            this->showFullScreen();
+        } else if (mode == "window_maximum") {
+            this->showNormal();
+            this->showMaximized();
+        } else {
+            this->showNormal();
+        }
     });
 
     // open a default file
@@ -339,4 +350,22 @@ void MainWindow::onFileSaveAs()
         return;
     m_central_widget->setFilePath(path);
     onFileSave();
+}
+
+void MainWindow::showCenterWindow(bool bIsCenter)
+{
+    // Init window state with config.
+    QString windowState = Settings::instance()->settings->option("advance.window.windowstate")->value().toString();
+
+    if (bIsCenter) {
+        Dtk::Widget::moveToCenter(this);
+    }
+    // init window state.
+    if (windowState == "window_maximum") {
+        showMaximized();
+    } else if (windowState == "fullscreen") {
+        showFullScreen();
+    } else {
+        showNormal();
+    }
 }

@@ -37,11 +37,9 @@
 #include <QLabel>
 #include <QPushButton>
 
-
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 DTK_USE_NAMESPACE
-
 
 class Settings : public QObject
 {
@@ -108,11 +106,11 @@ public:
 protected:
     inline bool eventFilter(QObject *object, QEvent *event)
     {
-        //设置界面　回车键和空格键　切换输入 梁卫东　２０２０－０８－２１　１６：２８：３１
+        //设置界面　回车键和空格键　切换输入 梁卫东
         if (object == this) {
             if (event->type() == QEvent::KeyPress) {
                 QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
-               //判断是否包含组合键　梁卫东　２０２０－０９－０２　１５：０３：５６
+               //判断是否包含组合键　梁卫东
                 Qt::KeyboardModifiers modifiers = keyEvent->modifiers();
                 bool bHasModifier = (modifiers & Qt::ShiftModifier ||modifiers & Qt::ControlModifier ||
                                      modifiers & Qt::AltModifier);

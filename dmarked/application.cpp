@@ -33,8 +33,6 @@
 #include <DLog>
 #include <DPathBuf>
 
-DCORE_USE_NAMESPACE
-
 Application::Application(int &argc, char **argv)
     : DApplication(argc, argv)
 {
@@ -52,8 +50,7 @@ void Application::activateWindow(bool willShow)
         m_qspMainWnd.reset(new MainWindow());
         //Should be called befor show
         if (willShow) {
-            Dtk::Widget::moveToCenter(m_qspMainWnd.get());
-            m_qspMainWnd->show();
+            m_qspMainWnd->showCenterWindow(true);
         } else {
             m_qspMainWnd->setNoGui();
         }
