@@ -421,7 +421,7 @@ bool Settings::checkShortcutValid(const QString &Name, QString Key, QString &Rea
     QString style = QString("<span style=\"color: rgba(255, 87, 54, 1);\">[%1]</span>").arg(Key);
     // 单键
     if (Key.count("+") == 0) {
-        // F1-F12是允许的，这个正则不够精确，但是没关系。
+        // F1-F12是允许的
         QRegExp regexp("^F[0-9]{1,2}$");
         if (!Key.contains(regexp)) {
             Reason = tr("The shortcut %1 is invalid, please set another one").arg(style);
@@ -432,9 +432,18 @@ bool Settings::checkShortcutValid(const QString &Name, QString Key, QString &Rea
     // 小键盘单键都不允许
     QRegExp regexpNum("^Num+.*");
     if (Key.contains(regexpNum)) {
-        Reason = tr("The shortcut %1 is invalid, please set another one.").arg(style);
+        Reason = tr("The shortcut %1 is invalid, please set another one").arg(style);
         bIsConflicts = false;
-        return  false;
+        return false;
+    }
+
+    // 功能由上游 QMarkdownTextEdit 实现，暂时不支持修改
+    QStringList blacklist;
+    blacklist << "shortcuts.window.replace" << "shortcuts.window.find" << "shortcuts.window.escape";
+    if (blacklist.contains(Name)) {
+        Reason = tr("%1 does not support modification shortcut key").arg(Name);
+        bIsConflicts = false;
+        return false;
     }
 
 //    // 与设置里的快捷键冲突检测
@@ -453,7 +462,7 @@ bool Settings::isShortcutConflict(const QString &Name, const QString &Key)
     for (QString tmpKey : settings->keys()) {
         if (settings->value(tmpKey).toString() == Key/* && tmpKey.contains("customize")*/) {
             if (Name != tmpKey) {
-                return  true;
+                return true;
             }
         }
     }

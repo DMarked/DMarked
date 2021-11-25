@@ -27,14 +27,14 @@
                             "name": "Show line number",
                             "type": "checkbox",
                             "text": "Show line numbers",
-                            "default": "true"
+                            "default": "false"
                         },
                         {
                             "key": "hightlightcurrentline",
                             "name": "hightlight current line",
                             "type": "checkbox",
                             "text": "Highlight current line",
-                            "default": "true"
+                            "default": "false"
                         }
                     ]
                 }
@@ -60,12 +60,6 @@
                     "key": "window",
                     "name": "Window",
                     "options": [
-                        {
-                            "key": "newwindow",
-                            "name": "New window",
-                            "type": "keySequenceEdit",
-                            "default":  "Ctrl+N"
-                        },
                         {
                             "key": "savefile",
                             "name": "Save",
@@ -124,25 +118,7 @@
                             "key": "replace",
                             "name": "Replace",
                             "type": "keySequenceEdit",
-                            "default":  "Ctrl+H"
-                        },
-                        {
-                            "key": "jumptoline",
-                            "name": "Go to line",
-                            "type": "keySequenceEdit",
-                            "default":  "Ctrl+G"
-                        },
-                        {
-                            "key": "saveposition",
-                            "name": "Save cursor position",
-                            "type": "keySequenceEdit",
-                            "default":  "Ctrl+Shift+>"
-                        },
-                        {
-                            "key": "restoreposition",
-                            "name": "Reset cursor position",
-                            "type": "keySequenceEdit",
-                            "default":  "Ctrl+Shift+<"
+                            "default":  "Ctrl+R"
                         },
                         {
                             "key": "escape",
@@ -176,12 +152,6 @@
                     "name": "Standard window keymap",
                     "hide" : true,
                     "options": [
-                        {
-                            "key": "newwindow",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+N"
-                        },
                         {
                             "key": "savefile",
                             "hide" : true,
@@ -243,24 +213,6 @@
                             "default":  "Ctrl+H"
                         },
                         {
-                            "key": "jumptoline",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+G"
-                        },
-                        {
-                            "key": "saveposition",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Shift+>"
-                        },
-                        {
-                            "key": "restoreposition",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Shift+<"
-                        },
-                        {
                             "key": "escape",
                             "hide" : true,
                             "reset" : false,
@@ -294,12 +246,6 @@
                     "name": "Customize window keymap",
                     "hide" : true,
                     "options": [
-                        {
-                            "key": "newwindow",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+N"
-                        },
                         {
                             "key": "savefile",
                             "hide" : true,
@@ -359,24 +305,6 @@
                             "hide" : true,
                             "reset" : false,
                             "default":  "Ctrl+H"
-                        },
-                        {
-                            "key": "jumptoline",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+G"
-                        },
-                        {
-                            "key": "saveposition",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Shift+>"
-                        },
-                        {
-                            "key": "restoreposition",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Shift+<"
                         },
                         {
                             "key": "escape",

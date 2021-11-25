@@ -171,11 +171,7 @@ void MainWindow::setupAction()
     connect(m_central_widget->m_editor_widget->document(), &QTextDocument::modificationChanged,
           actionSave, &QAction::setEnabled);
     connect(actionSetting, &QAction::triggered, this, &MainWindow::popupSettingsDialog);
-    connect(actionHelp, &QAction::triggered, this, [this]() {
-        QFile helpFile(":/default.md");
-        helpFile.open(QIODevice::ReadOnly);
-        m_central_widget->m_editor_widget->setPlainText(helpFile.readAll());
-    });
+    connect(actionHelp, &QAction::triggered, this, &MainWindow::onOpenHelpFile);
     connect(action2Pdf, &QAction::triggered, this, &MainWindow::onToPdf);
     connect(action2Html, &QAction::triggered, this, &MainWindow::onToHtml);
 }
@@ -364,6 +360,13 @@ void MainWindow::onFileSaveAs()
     onFileSave();
 }
 
+void MainWindow::onOpenHelpFile()
+{
+    QFile helpFile(":/default.md");
+    helpFile.open(QIODevice::ReadOnly);
+    m_central_widget->m_editor_widget->setPlainText(helpFile.readAll());
+}
+
 void MainWindow::showCenterWindow(bool bIsCenter)
 {
     // Init window state with config.
@@ -408,14 +411,100 @@ void MainWindow::incrementFontSize()
     m_settings->settings->option("base.font.size")->setValue(size);
 }
 
+void MainWindow::displayShortcuts()
+{
+    QRect rect = window()->geometry();
+    QPoint pos(rect.x() + rect.width() / 2,
+               rect.y() + rect.height() / 2);
+
+    /* Show Window Keymaps */
+    QStringList windowKeymaps;
+    windowKeymaps << "savefile" << "openfile" << "incrementfontsize" << "decrementfontsize"
+                  << "resetfontsize" << "togglefullscreen" << "find" << "replace" << "escape"
+                  << "print";
+
+    QJsonObject shortcutObj;
+    QJsonArray jsonGroups;
+
+    QJsonObject windowJsonGroup;
+    windowJsonGroup.insert("groupName", QObject::tr("Window"));
+    QJsonArray windowJsonItems;
+
+    for (const QString &keymap : windowKeymaps) {
+        auto option = m_settings->settings->group("shortcuts.window")->option(QString("shortcuts.window.%1").arg(keymap));
+        QJsonObject jsonItem;
+        jsonItem.insert("name", QObject::tr(option->name().toUtf8().data()));
+        if (keymap != "incrementfontsize" && keymap != "decrementfontsize") {
+            jsonItem.insert("value", option->value().toString().replace("Meta", "Super"));
+        } else if (keymap == "incrementfontsize") {
+            QString strIncrementfontValue = QString(tr("Ctrl+'='"));
+            jsonItem.insert("value", strIncrementfontValue.replace("Meta", "Super"));
+        } else if (keymap == "decrementfontsize" && option->value().toString() == "Ctrl+-") {
+            QString strDecrementfontValue = QString(tr("Ctrl+'-'"));
+            jsonItem.insert("value", strDecrementfontValue.replace("Meta", "Super"));
+        }
+
+        windowJsonItems.append(jsonItem);
+    }
+
+    windowJsonGroup.insert("groupItems", windowJsonItems);
+    jsonGroups.append(windowJsonGroup);
+
+    /* Show Editor  */
+    QStringList editorKeymaps;
+    //editorKeymaps << "indentline" << "backindentline" << "forwardchar";
+
+    QJsonObject editorJsonGroup;
+    editorJsonGroup.insert("groupName", tr("Editor"));
+    QJsonArray editorJsonItems;
+
+    for (const QString &keymap : editorKeymaps) {
+        auto option = m_settings->settings->group("shortcuts.editor")->option(QString("shortcuts.editor.%1").arg(keymap));
+        QJsonObject jsonItem;
+        jsonItem.insert("name", QObject::tr(option->name().toUtf8().data()));
+        jsonItem.insert("value", option->value().toString().replace("Meta", "Super"));
+        editorJsonItems.append(jsonItem);
+    }
+    editorJsonGroup.insert("groupItems", editorJsonItems);
+    jsonGroups.append(editorJsonGroup);
+
+
+    /* Show Setting Keymaps */
+    QStringList setupKeymaps;
+    setupKeymaps << "help" << "displayshortcuts";
+
+    QJsonObject setupJsonGroup;
+    setupJsonGroup.insert("groupName", tr("Settings"));
+    QJsonArray setupJsonItems;
+
+    for (const QString &keymap : setupKeymaps) {
+        auto option = m_settings->settings->group("shortcuts.window")->option(QString("shortcuts.window.%1").arg(keymap));
+        QJsonObject jsonItem;
+        jsonItem.insert("name", QObject::tr(option->name().toUtf8().data()));
+        jsonItem.insert("value", option->value().toString().replace("Meta", "Super"));
+        setupJsonItems.append(jsonItem);
+    }
+    setupJsonGroup.insert("groupItems", setupJsonItems);
+    jsonGroups.append(setupJsonGroup);
+
+    shortcutObj.insert("shortcut", jsonGroups);
+
+    QJsonDocument doc(shortcutObj);
+    QStringList shortcutString;
+    QString param1 = "-j=" + QString(doc.toJson().data());
+    QString param2 = "-p=" + QString::number(pos.x()) + "," + QString::number(pos.y());
+    shortcutString << param1 << param2;
+
+    m_shortcutViewProcess = new QProcess();
+    m_shortcutViewProcess->startDetached("deepin-shortcut-viewer", shortcutString);
+
+    connect(m_shortcutViewProcess, SIGNAL(finished(int)), m_shortcutViewProcess, SLOT(deleteLater()));
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
     QString key = Utils::getKeyshortcut(e);
     do {
-        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "newwindow")) {
-            //emit newWindow();
-            break;
-        }
         if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "savefile")) {
             onFileSave();
             break;
@@ -453,36 +542,16 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             }
             break;
         }
-        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "find")) {
-            //popupFindBar();
-            break;
-        }
-        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "replace")) {
-            //popupReplaceBar();
-            break;
-        }
-        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "jumptoline")) {
-            //popupJumpLineBar();
-            break;
-        }
-        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "saveposition")) {
-            //remberPositionSave();
-            break;
-        }
-        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "restoreposition")) {
-            //remberPositionRestore();
-            break;
-        }
-        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "escape")) {
-            //emit pressEsc();
-            break;
-        }
         if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "displayshortcuts")) {
-            //displayShortcuts();
+            displayShortcuts();
             break;
         }
         if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "print")) {
             onToPdf();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "help")) {
+            onOpenHelpFile();
             break;
         }
         // Post event to window widget if match Alt+0 ~ Alt+9

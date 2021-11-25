@@ -35,6 +35,7 @@
 #include <DSettingsGroup>
 #include <DSettings>
 #include <DSettingsOption>
+#include <QProcess>
 
 #include "widgets/centralwidget.h"
 #include "widgets/bottombar.h"
@@ -77,6 +78,7 @@ private Q_SLOTS:
     void onFileSaveAs();
     void onToPdf();
     void onToHtml();
+    void onOpenHelpFile();
 
 public:
     bool isModified() const;
@@ -88,6 +90,7 @@ public:
     void resetFontSize();
     void incrementFontSize();
     void decrementFontSize();
+    void displayShortcuts();
 
 private:
     void setupAction();
@@ -99,7 +102,7 @@ private:
     CliTool ct;
 
     int m_font_size;
-
+    QProcess *m_shortcutViewProcess = nullptr;
     // QWidget interface
 protected:
     virtual void keyPressEvent(QKeyEvent *event) override;
