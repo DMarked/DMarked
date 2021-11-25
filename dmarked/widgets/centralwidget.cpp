@@ -157,6 +157,10 @@ void CentralWidget::updateFont()
     font.setFamily(m_font_name);
     m_editor_widget->setFont(font);
     m_preview_widget->setFontSize(m_font_size);
-    m_preview_widget->setFontFamily(m_font_name);
-    m_editor_widget->setTabStopDistance(m_tab_space_number * QFontMetrics(font).width(QChar(0x2192)));
+    m_preview_widget->setFontFamily(m_font_name);    
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
+    m_editor_widget->setTabStopWidth(tabStop * metrics.width(' '));
+#else
+    m_editor_widget->setTabStopDistance(m_tab_space_number * QFontMetrics(font).horizontalAdvance(QLatin1Char(' ')));
+#endif
 }
