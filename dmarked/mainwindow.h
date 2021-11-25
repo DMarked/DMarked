@@ -84,6 +84,11 @@ public:
     void setNoGui();
     void showCenterWindow(bool bIsCenter);
 
+    void toggleFullscreen();
+    void resetFontSize();
+    void incrementFontSize();
+    void decrementFontSize();
+
 private:
     void setupAction();
 
@@ -92,6 +97,12 @@ private:
     CentralWidget *m_central_widget;
     BottomBar *m_bottom_bar;
     CliTool ct;
+
+    int m_font_size;
+
+    // QWidget interface
+protected:
+    virtual void keyPressEvent(QKeyEvent *event) override;
 };
 
 #endif // MAINWINDOW_H

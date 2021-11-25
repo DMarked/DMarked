@@ -21,6 +21,7 @@
 
 #include "mainwindow.h"
 #include "widgets/topdfdlg.h"
+#include "utils/utils.h"
 
 #include <QFile>
 #include <DFileDialog>
@@ -29,6 +30,7 @@
 #include <QLayout>
 #include <DLog>
 #include <DSettingsDialog>
+#include <DSettingsOption>
 #include <DWidgetUtil>
 
 DCORE_USE_NAMESPACE
@@ -81,7 +83,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_settings, &Settings::sigAdjustFont, this, [this](QString fontName) {
         m_central_widget->setFontFamily(fontName);
     });
+    m_font_size = Settings::instance()->settings->option("base.font.size")->value().toInt();
     connect(m_settings, &Settings::sigAdjustFontSize, this, [this](int size) {
+        m_font_size = size;
         m_central_widget->setFontSize(size);
     });
     connect(m_settings, &Settings::sigSetLineNumberShow, this, [this](bool bIsShow) {
@@ -376,4 +380,126 @@ void MainWindow::showCenterWindow(bool bIsCenter)
     } else {
         showNormal();
     }
+}
+
+void MainWindow::toggleFullscreen()
+{
+    if (!window()->windowState().testFlag(Qt::WindowFullScreen)) {
+        window()->setWindowState(windowState() | Qt::WindowFullScreen);
+    } else {
+        window()->setWindowState(windowState() & ~Qt::WindowFullScreen);
+    }
+}
+
+void MainWindow::resetFontSize()
+{
+    m_settings->settings->option("base.font.size")->setValue(m_settings->m_iDefaultFontSize);
+}
+
+void MainWindow::decrementFontSize()
+{
+    int size = std::max(m_font_size - 1, m_settings->m_iMinFontSize);
+    m_settings->settings->option("base.font.size")->setValue(size);
+}
+
+void MainWindow::incrementFontSize()
+{
+    int size = std::min(m_font_size + 1, m_settings->m_iMaxFontSize);
+    m_settings->settings->option("base.font.size")->setValue(size);
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *e)
+{
+    QString key = Utils::getKeyshortcut(e);
+    do {
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "newwindow")) {
+            //emit newWindow();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "savefile")) {
+            onFileSave();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "saveasfile")) {
+            onFileSaveAs();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "openfile")) {
+            onFileOpen();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "incrementfontsize")) {
+            incrementFontSize();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "decrementfontsize")) {
+            decrementFontSize();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "resetfontsize")) {
+            resetFontSize();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "togglefullscreen")) {
+            DIconButton *minBtn = titlebar()->findChild<DIconButton *>("DTitlebarDWindowMinButton");
+            DIconButton *quitFullBtn = titlebar()->findChild<DIconButton *>("DTitlebarDWindowQuitFullscreenButton");
+            quitFullBtn->setFocusPolicy(Qt::TabFocus);
+            DIconButton *maxBtn = titlebar()->findChild<DIconButton *>("DTitlebarDWindowMaxButton");
+            if (minBtn->hasFocus() || maxBtn->hasFocus()) {
+                toggleFullscreen();
+                quitFullBtn->setFocus();
+            } else {
+                toggleFullscreen();
+            }
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "find")) {
+            //popupFindBar();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "replace")) {
+            //popupReplaceBar();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "jumptoline")) {
+            //popupJumpLineBar();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "saveposition")) {
+            //remberPositionSave();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "restoreposition")) {
+            //remberPositionRestore();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "escape")) {
+            //emit pressEsc();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "displayshortcuts")) {
+            //displayShortcuts();
+            break;
+        }
+        if (key == Utils::getKeyshortcutFromKeymap(m_settings, "window", "print")) {
+            onToPdf();
+            break;
+        }
+        // Post event to window widget if match Alt+0 ~ Alt+9
+        /*
+        QRegularExpression re("^Alt\\+\\d");
+        QRegularExpressionMatch match = re.match(key);
+        if (match.hasMatch()) {
+            auto tabIndex = key.replace("Alt+", "").toInt();
+            if (tabIndex == 9) {
+                 if (m_tabbar->count() > 1) {
+                     activeTab(m_tabbar->count() - 1);
+                 }
+            } else {
+                 if (tabIndex <= m_tabbar->count()) {
+                     activeTab(tabIndex - 1);
+                 }
+            }
+        }*/
+    } while(false);
 }

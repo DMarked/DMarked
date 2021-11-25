@@ -24,7 +24,7 @@
 
 #include "settings.h"
 
-#include "dthememanager.h"
+#include <DThemeManager>
 #include <DSettings>
 #include <DSettingsGroup>
 #include <DSettingsWidgetFactory>
@@ -33,7 +33,6 @@
 #include <QFontDatabase>
 #include <QApplication>
 #include <QComboBox>
-#include <QDebug>
 #include <QDir>
 #include <QStandardPaths>
 
@@ -66,7 +65,7 @@ Settings::Settings(QWidget *parent)
         emit sigSetLineNumberShow(value.toBool());
     });
 
-    //hightlightcurrentline
+    // hightlightcurrentline
     auto hightlightCurrentLine = settings->option("base.font.hightlightcurrentline");
     connect(hightlightCurrentLine, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
         emit sigHightLightCurrentLine(value.toBool());
@@ -88,7 +87,7 @@ Settings::Settings(QWidget *parent)
         updateAllKeysWithKeymap(value.toString());
     });
 
-    //only used by new window
+    // Only used by new window
     auto windowState = settings->option("advance.window.windowstate");
     connect(windowState, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
         emit sigChangeWindowSize(value.toString());
@@ -99,7 +98,7 @@ Settings::Settings(QWidget *parent)
     windowStateMap.insert("values", QStringList() << tr("Normal") << tr("Maximum") << tr("Fullscreen"));
     windowState->setData("items", windowStateMap);
 
-    connect(settings, &Dtk::Core::DSettings::valueChanged, this, [ = ](const QString & key, const QVariant & value) {
+    connect(settings, &Dtk::Core::DSettings::valueChanged, this, [ = ](const QString &key, const QVariant &value) {
 
         // Change keymap to customize once user change any keyshortcut.
         if (!m_bUserChangeKey && key.startsWith("shortcuts.") && key != "shortcuts.keymap.keymap" && !key.contains("_keymap_")) {
@@ -115,7 +114,7 @@ Settings::Settings(QWidget *parent)
             if (currentKeymap == "customize") {
                 settings->option(customizeKey)->setValue(value);
             }
-            // If current kemap is not "customize".
+            // If current keymap is not "customize".
             // Copy all customize keys from current keymap, and then update customize key just user input.
             // Then change keymap name.
             else {
@@ -153,7 +152,6 @@ void Settings::dtkThemeWorkaround(QWidget *parent, const QString &theme)
     }
 }*/
 
-// QWidget *Settings::createFontComBoBoxHandle(QObject *obj)
 QPair<QWidget *, QWidget *> Settings::createFontComBoBoxHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
@@ -423,7 +421,7 @@ bool Settings::checkShortcutValid(const QString &Name, QString Key, QString &Rea
     QString style = QString("<span style=\"color: rgba(255, 87, 54, 1);\">[%1]</span>").arg(Key);
     // 单键
     if (Key.count("+") == 0) {
-        //F1-F12是允许的，这个正则不够精确，但是没关系。
+        // F1-F12是允许的，这个正则不够精确，但是没关系。
         QRegExp regexp("^F[0-9]{1,2}$");
         if (!Key.contains(regexp)) {
             Reason = tr("The shortcut %1 is invalid, please set another one").arg(style);

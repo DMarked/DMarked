@@ -24,7 +24,8 @@ HEADERS += \
     widgets/topdfdlg.h \
     utils/mappagesize.h \
     settings.h \
-    widgets/editorwidget.h
+    widgets/editorwidget.h \
+    utils/utils.h
 
 SOURCES = \
     main.cpp \
@@ -40,7 +41,8 @@ SOURCES = \
     widgets/topdfdlg.cpp \
     utils/mappagesize.cpp \
     settings.cpp \
-    widgets/editorwidget.cpp
+    widgets/editorwidget.cpp \
+    utils/utils.cpp
 
 RESOURCES = \
     ../resources/markdowneditor.qrc \
