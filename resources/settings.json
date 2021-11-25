@@ -61,12 +61,6 @@
                     "name": "Window",
                     "options": [
                         {
-                            "key": "addblanktab",
-                            "name": "New tab",
-                            "type": "keySequenceEdit",
-                            "default":  "Ctrl+T"
-                        },
-                        {
                             "key": "newwindow",
                             "name": "New window",
                             "type": "keySequenceEdit",
@@ -83,36 +77,6 @@
                             "name": "Save as",
                             "type": "keySequenceEdit",
                             "default":  "Ctrl+Shift+S"
-                        },
-                        {
-                            "key": "selectnexttab",
-                            "name": "Next tab",
-                            "type": "keySequenceEdit",
-                            "default":  "Ctrl+Tab"
-                        },
-                        {
-                            "key": "selectprevtab",
-                            "name": "Previous tab",
-                            "type": "keySequenceEdit",
-                            "default":  "Ctrl+Shift+Backtab"
-                        },
-                        {
-                            "key": "closetab",
-                            "name": "Close tab",
-                            "type": "keySequenceEdit",
-                            "default":  "Ctrl+W"
-                        },
-                        {
-                            "key": "closeothertabs",
-                            "name": "Close other tabs",
-                            "type": "keySequenceEdit",
-                            "default":  "Ctrl+Shift+W"
-                        },
-                        {
-                            "key": "restoretab",
-                            "name": "Restore tab",
-                            "type": "keySequenceEdit",
-                            "default":  "Ctrl+Shift+T"
                         },
                         {
                             "key": "openfile",
@@ -519,12 +483,6 @@
                     "hide" : true,
                     "options": [
                         {
-                            "key": "addblanktab",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+T"
-                        },
-                        {
                             "key": "newwindow",
                             "hide" : true,
                             "reset" : false,
@@ -541,36 +499,6 @@
                             "hide" : true,
                             "reset" : false,
                             "default":  "Ctrl+Shift+S"
-                        },
-                        {
-                            "key": "selectnexttab",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Tab"
-                        },
-                        {
-                            "key": "selectprevtab",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Shift+Backtab"
-                        },
-                        {
-                            "key": "closetab",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+W"
-                        },
-                        {
-                            "key": "closeothertabs",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Shift+W"
-                        },
-                        {
-                            "key": "restoretab",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Shift+T"
                         },
                         {
                             "key": "openfile",
@@ -1002,12 +930,6 @@
                     "hide" : true,
                     "options": [
                         {
-                            "key": "addblanktab",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+T"
-                        },
-                        {
                             "key": "newwindow",
                             "hide" : true,
                             "reset" : false,
@@ -1024,36 +946,6 @@
                             "hide" : true,
                             "reset" : false,
                             "default":  "Ctrl+Shift+S"
-                        },
-                        {
-                            "key": "selectnexttab",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Tab"
-                        },
-                        {
-                            "key": "selectprevtab",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Shift+Backtab"
-                        },
-                        {
-                            "key": "closetab",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+W"
-                        },
-                        {
-                            "key": "closeothertabs",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Shift+W"
-                        },
-                        {
-                            "key": "restoretab",
-                            "hide" : true,
-                            "reset" : false,
-                            "default":  "Ctrl+Shift+T"
                         },
                         {
                             "key": "openfile",
