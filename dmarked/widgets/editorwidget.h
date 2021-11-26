@@ -36,6 +36,7 @@ public Q_SLOTS:
 
 private:
     bool m_bHighlightCurrentLine;
+    QColor m_highlightLineColor;
 };
 
 #endif // EDITORWIDGET_H

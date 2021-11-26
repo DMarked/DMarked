@@ -21,6 +21,9 @@
 
 #include "editorwidget.h"
 
+#include <DGuiApplicationHelper>
+using DTK_NAMESPACE::Gui::DGuiApplicationHelper;
+
 EditorWidget::EditorWidget(QWidget *parent):
     QMarkdownTextEdit (parent)
 {
@@ -31,7 +34,18 @@ EditorWidget::EditorWidget(QWidget *parent):
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setLineNumbersCurrentLineColor(QColor::fromRgb(255, 0, 0));
     setLineNumbersOtherLineColor(QColor::fromRgb(0, 0, 255));
+
+    bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
+    m_highlightLineColor = isDark ? QColor(Qt::darkGray).darker(160)
+                                  : QColor(Qt::darkGray).lighter(160);
     connect(this, &EditorWidget::cursorPositionChanged, this, &EditorWidget::highlightCurrentLine);
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged,
+            [this](DGuiApplicationHelper::ColorType themeType) {
+        bool isDark = themeType == DGuiApplicationHelper::ColorType::DarkType;
+        m_highlightLineColor = isDark ? QColor(Qt::darkGray).darker(160)
+                                      : QColor(Qt::darkGray).lighter(160);
+        highlightCurrentLine();
+    });
 
     setExtraSelections({});
 }
@@ -53,10 +67,7 @@ void EditorWidget::highlightCurrentLine()
 
         if (!isReadOnly()) {
             QTextEdit::ExtraSelection selection;
-
-            QColor lineColor = QColor(Qt::yellow).lighter(160);
-
-            selection.format.setBackground(lineColor);
+            selection.format.setBackground(m_highlightLineColor);
             selection.format.setProperty(QTextFormat::FullWidthSelection, true);
             selection.cursor = textCursor();
             selection.cursor.clearSelection();
