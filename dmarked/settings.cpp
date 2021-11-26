@@ -440,7 +440,7 @@ bool Settings::checkShortcutValid(const QString &Name, QString Key, QString &Rea
     // 功能由上游 QMarkdownTextEdit 实现，暂时不支持修改
     QStringList blacklist;
     blacklist << "shortcuts.window.replace" << "shortcuts.window.find" << "shortcuts.window.escape";
-    if (blacklist.contains(Name)) {
+    if (blacklist.contains(Name) || Name.contains("shortcuts.editor")) {
         Reason = tr("%1 does not support modification shortcut key").arg(Name);
         bIsConflicts = false;
         return false;

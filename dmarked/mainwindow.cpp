@@ -452,8 +452,17 @@ void MainWindow::displayShortcuts()
 
     /* Show Editor  */
     QStringList editorKeymaps;
-    //editorKeymaps << "indentline" << "backindentline" << "forwardchar";
-
+    editorKeymaps << "indentline" << "backindentline"
+                  << "forwardchar" << "backwardchar"
+                  << "forwardword" << "backwardword"
+                  << "nextline" << "prevline"
+                  << "newline" << "opennewlinebelow" << "killline"
+                  << "swaplineup" << "swaplinedown"
+                  << "scrollup" << "scrolldown"
+                  << "movetoendofline" << "movetostartofline"
+                  << "movetoend" << "movetostart"
+                  << "selectall" << "copy" << "cut"
+                  << "paste" << "undo" << "redo";
     QJsonObject editorJsonGroup;
     editorJsonGroup.insert("groupName", tr("Editor"));
     QJsonArray editorJsonItems;
