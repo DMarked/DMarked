@@ -40,7 +40,8 @@
   <script src="3rdscripts/mermaid.min.js"></script>
 
   <script src="qrc:/qtwebchannel/qwebchannel.js"></script>
-  <link rel="stylesheet" type="text/css" href="scrollbars.css">
+  <div id="scrollbarsplaceholder"></div>
+
 
   <script>
   function setMarkdownTheme(theme) {
@@ -53,6 +54,10 @@
   function setHighlightTheme(theme) {
       document.getElementById('highlightplaceholder').innerHTML =
         '<link rel=\"stylesheet\" type=\"text/css\" href=\"3rdscripts/highlight/' + theme + '.css\">';
+  }
+  function setScrollbarsTheme(theme) {
+      document.getElementById('scrollbarsplaceholder').innerHTML =
+        '<link rel=\"stylesheet\" type=\"text/css\" href=\"' + theme + '.css\">';
   }
   </script>
 

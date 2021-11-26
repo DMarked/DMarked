@@ -49,6 +49,7 @@ public:
 public Q_SLOTS:
     void setMarkdownTheme(const QString &theme);
     void setHighlightTheme(const QString &theme);
+    void setScrollbarsTheme(const QString &theme);
     void pdfPrintingFinished(const QString &filePath, bool success);
 
 Q_SIGNALS:

@@ -79,9 +79,10 @@
         <file>3rdscripts/markdown-it/markdown-it-deflist.min.js</file>
         <file>3rdscripts/markdown-it/markdown-it-abbr.min.js</file>
         <file>3rdscripts/markdown-it/markdown-it-container.css</file>
-        <file>scrollbars.css</file>
         <file>images/dmarked.svg</file>
         <file>3rdscripts/highlight/monokai-sublime.css</file>
         <file>settings.json</file>
+        <file>scrollbars_dark.css</file>
+        <file>scrollbars_light.css</file>
     </qresource>
 </RCC>

@@ -1,11 +1,8 @@
 /* 浏览器滚动条样式 */
 
-::-webkit-scrollbar-button{/*...*/}
-::-webkit-scrollbar-track-piece{/*...*/}
-::-webkit-scrollbar-corner{/*...*/}
-::-webkit-resizer{/*...*/}
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -14,5 +11,5 @@
 }
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background:rgba(0,0,0,0.4);
+    background: #B3B3B3;
 }
