@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     app.loadTranslator();
     app.setOrganizationName("deepin");
     app.setApplicationName("DMarked");
-    app.setApplicationVersion(DApplication::buildVersion("0.0.1"));
+    app.setApplicationVersion(DApplication::buildVersion("0.1.0"));
     app.setProductIcon(QIcon(":/images/dmarked.svg"));
     app.setProductName(DApplication::translate("AppMain", "Markdown Editor"));
     app.setApplicationDisplayName(DApplication::translate("AppMain", "Markdown Editor"));
