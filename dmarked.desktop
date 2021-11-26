@@ -1,0 +1,14 @@
+[Desktop Entry]
+Categories=Utility;TextEditor;
+Comment=Simple and easy to use markdown editor
+Comment[zh_CN]=简单好用的 Markdown 编辑器
+Exec=dmarked %F
+GenericName=Dtk Markdown editor
+GenericName[zh_CN]=Dtk Markdown 编辑器
+Icon=dmarked
+MimeType=text/markdown;text/x-markdown;
+Name=DMarked
+Name[zh_CN]=DMarked
+StartupNotify=false
+Type=Application
+X-MultipleArgs=true
