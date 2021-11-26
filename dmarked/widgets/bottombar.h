@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2021 DMarked.
  *
  * Author:     rekols <rekols@foxmail.com>
  * Maintainer： Lu Hongxu <lhongxu@outlook.com>

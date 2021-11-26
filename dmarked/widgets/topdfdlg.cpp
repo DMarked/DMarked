@@ -1,7 +1,7 @@
 /*
  * DMarked
  *
- * Copyright (C) 2021. Lu Hongxu
+ * Copyright (C) 2021 DMarked.
  * Authors: Lu Hongxu <lhongxu@outlook.com>
  *
  * This library is free software; you can redistribute it and/or
