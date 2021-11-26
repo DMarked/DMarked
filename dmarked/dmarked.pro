@@ -50,19 +50,23 @@ RESOURCES = \
     translations.qrc
 
 # install
-isEmpty(PREFIX){
-    PREFIX = /usr
-}
-
+isEmpty(BINDIR):BINDIR=/usr/bin
+isEmpty(APPDIR):APPDIR=/usr/share/applications
 isEmpty(DSRDIR):DSRDIR=/usr/share/dmarked
 
-target.path = $${PREFIX}/bin
+target.path = $$INSTROOT$$BINDIR
+desktop.path = $$INSTROOT$$APPDIR
+desktop.files = $$PWD/../dmarked.desktop
+
+ICONDIR=/usr/share/icons
+icon.path = $$INSTROOT$$ICONDIR
+icon.files = $$PWD/../resources/images/dmarked.svg
 
 system("lrelease translations/*.ts")
 qm_file.files = translations/*.qm
 qm_file.path = $${DSRDIR}/translations/
 
-INSTALLS += target qm_file
+INSTALLS += target qm_file icon desktop
 
 # qmarkdowntextedit
 LIBS += -lQMarkdownTextedit -L$$OUT_PWD
