@@ -42,7 +42,8 @@ SOURCES = \
     utils/mappagesize.cpp \
     settings.cpp \
     widgets/editorwidget.cpp \
-    utils/utils.cpp
+    utils/utils.cpp \
+    utils/settingsdialog.cpp
 
 RESOURCES = \
     ../resources/markdowneditor.qrc \
