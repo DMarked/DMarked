@@ -359,7 +359,7 @@
                             "key": "replace",
                             "hide" : true,
                             "reset" : false,
-                            "default":  "Ctrl+H"
+                            "default":  "Ctrl+G"
                         },
                         {
                             "key": "escape",
@@ -602,7 +602,7 @@
                             "key": "replace",
                             "hide" : true,
                             "reset" : false,
-                            "default":  "Ctrl+H"
+                            "default":  "Ctrl+G"
                         },
                         {
                             "key": "escape",
