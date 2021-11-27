@@ -2,7 +2,7 @@
 Categories=Application;Utility;TextEditor;
 Comment=Simple and easy to use markdown editor
 Comment[zh_CN]=简单好用的 Markdown 编辑器
-Exec=/usr/bin/dmarked
+Exec=/usr/bin/dmarked %f
 GenericName=Dtk Markdown editor
 GenericName[zh_CN]=Dtk Markdown 编辑器
 Icon=/usr/share/icons/dmarked.svg

@@ -164,5 +164,9 @@ int main(int argc, char *argv[])
     }
 
     app.activateWindow();
+    /* open this file when not specified -f and soure is a .md file*/
+    const QStringList args = parser.positionalArguments();
+    if (!args.empty() && args[0].right(3)==".md")
+        app.mainWindow()->openFile(args[0]);
     return app.exec();
 }
