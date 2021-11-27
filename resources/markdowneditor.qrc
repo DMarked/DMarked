@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>default.md</file>
         <file>index.html</file>
-        <file>3rdscripts/marked/marked.js</file>
         <file>themes/apollo.css</file>
         <file>themes/erye.css</file>
         <file>themes/infoq.css</file>
