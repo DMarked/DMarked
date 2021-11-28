@@ -93,9 +93,9 @@ BottomBar::BottomBar(QWidget *parent)
         emit this->currentModeChanged(pAct->text());
     });
 
-    //编码按钮/文本类型按钮失去焦点后，设置光标回到文本框里
-    //connect(m_pModeMenu, &DDropdownMenu::sigSetTextEditFocus, this, &BottomBar::slotSetTextEditFocus);
-    //connect(m_pThemeMenu, &DDropdownMenu::sigSetTextEditFocus, this, &BottomBar::slotSetTextEditFocus);
+    // 按钮失去焦点后，设置光标回到文本框里
+    connect(m_pModeMenu, &DDropdownMenu::sigSetTextEditFocus, this, &BottomBar::bottombarLostFocus);
+    connect(m_pThemeMenu, &DDropdownMenu::sigSetTextEditFocus, this, &BottomBar::bottombarLostFocus);
 }
 
 BottomBar::~BottomBar()
@@ -208,7 +208,6 @@ void BottomBar::paintEvent(QPaintEvent *)
         if (bottombarBackgroundColor.name() != "#ffffff") {
             bottombarBackgroundColor = QColor("#ffffff");
         }
-
         bottombarBackgroundColor.setAlphaF(0.7);
     }
 
@@ -230,10 +229,4 @@ void BottomBar::paintEvent(QPaintEvent *)
         }
         splitLineColor.setAlphaF(0.5);
     }
-}
-
-void BottomBar::slotSetTextEditFocus()
-{
-    //Window *pWindow = static_cast<Window *>(m_pWrapper->window());
-    //emit pWindow->pressEsc();
 }

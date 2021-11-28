@@ -29,12 +29,13 @@
 #include <QWebEngineSettings>
 #include <DSettingsOption>
 
-CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
+CentralWidget::CentralWidget(DWidget *parent)
+    : DWidget (parent),
+      m_editor_widget(new EditorWidget),
+      m_preview_widget(new PreviewWidget),
+      m_splitter(new QSplitter),
+      m_central_layout(new QHBoxLayout)
 {
-      m_editor_widget = new EditorWidget;
-      m_preview_widget = new PreviewWidget;
-      m_splitter = new QSplitter;
-
       m_splitter->setOrientation(Qt::Horizontal);
       m_splitter->setOpaqueResize(true);
       m_splitter->setHandleWidth(0);
@@ -69,7 +70,6 @@ CentralWidget::CentralWidget(DWidget *parent): DWidget (parent)
       m_splitter->addWidget(m_preview_widget);
       //m_splitter->setContentsMargins(200, 0, 200, 0);
 
-      m_central_layout = new QHBoxLayout;
       m_central_layout->addStretch(1);
       m_central_layout->addWidget(m_splitter, 5);
       m_central_layout->addStretch(1);

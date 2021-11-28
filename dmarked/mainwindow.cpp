@@ -54,16 +54,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_central_widget = new CentralWidget;
     m_bottom_bar = new BottomBar;
+    // Make editor widget get focus when BottomBar lost it
+    connect(m_bottom_bar, &BottomBar::bottombarLostFocus, [this]() {
+      m_central_widget->m_editor_widget->setFocus();
+    });
+    // update WordCount in BottomBar
     connect(m_central_widget->m_editor_widget, &QMarkdownTextEdit::textChanged, [this]() {
         m_bottom_bar->updateWordCount(m_central_widget->m_editor_widget->toPlainText().length());
     });
+    // update Position in BottomBar
     connect(m_central_widget->m_editor_widget, &QMarkdownTextEdit::cursorPositionChanged, [this]() {
         QTextCursor cursor = m_central_widget->m_editor_widget->textCursor();
         m_bottom_bar->updatePosition(cursor.blockNumber()+1, cursor.columnNumber()+1);
     });
+    // Change Markdown Theme by DropDownMenu
     connect(m_bottom_bar, &BottomBar::currentMdThemeChanged, [this](const QString &theme) {
        m_central_widget->m_preview_widget->setMarkdownTheme(theme);
     });
+    // Change Read/Write Mode by DropDownMenu
     connect(m_bottom_bar, &BottomBar::currentModeChanged, [this](const QString &mode) {
         m_central_widget->setMode(mode);
     });

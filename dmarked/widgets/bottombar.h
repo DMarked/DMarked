@@ -64,13 +64,10 @@ private:
     QString m_columnStr {QString()};
     QString m_chrCountStr {QString()};
 
-public slots:
-    // 编码按钮/文本类型按钮失去焦点后，设置光标回到文本框里
-    void slotSetTextEditFocus();
-
-signals:
+Q_SIGNALS:
     void currentMdThemeChanged(const QString&);
     void currentModeChanged(const QString&);
+    void bottombarLostFocus();
 };
 
 #endif
