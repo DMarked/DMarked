@@ -7,6 +7,8 @@
 - https://unpkg.com/markdown-it-deflist@2.1.0/dist/markdown-it-deflist.min.js
 - https://unpkg.com/markdown-it-abbr@1.0.4/dist/markdown-it-abbr.min.js
 
+- https://twemoji.maxcdn.com/v/13.1.0/twemoji.min.js
+
 ## math
 [Doc](https://www.npmjs.com/package/markdown-it-texmath)
 - https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js

@@ -83,5 +83,6 @@
         <file>settings.json</file>
         <file>scrollbars_dark.css</file>
         <file>scrollbars_light.css</file>
+        <file>3rdscripts/twemoji.min.js</file>
     </qresource>
 </RCC>

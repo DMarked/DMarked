@@ -64,6 +64,11 @@ var updateText = function (text) {
    })  
    .use(window.markdownItTocDoneRight, { slugify: uslugify });
 
+  // Replace emoji codes with images
+  //md.renderer.rules.emoji = function(token, idx) {
+  //  return window.twemoji.parse(token[idx].content);
+  //};
+
   document.getElementById('placeholder').innerHTML = md.render(text);
   mermaid.initialize({ startOnLoad: true });
   content.onMdLoadFinished();
