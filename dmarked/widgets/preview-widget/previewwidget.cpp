@@ -105,7 +105,6 @@ void PreviewWidget::setNoGui()
  * @brief PreviewWidget::convert2Html
  * @param filePath
  * @todo add css theme
- * @todo rm code about qtchannel
  */
 void PreviewWidget::convert2Html(const QString &filePath) {
     PreviewWidget *pw = this;
@@ -120,8 +119,13 @@ void PreviewWidget::convert2Html(const QString &filePath) {
             Q_EMIT pw->convert2HtmlFinish(false);
             return;
         }
+
+        QRegExp ipjs(" *<script src=\".*\"></script> *\n");
+        QString output = html;
+        output.remove(ipjs);
+
         QTextStream str(&f);
-        str << html;
+        str << output;
         str.flush();
         if (pw->isGui)
             DDesktopServices::showFileItem(filePath);

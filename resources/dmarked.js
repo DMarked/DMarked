@@ -1,6 +1,29 @@
 var dmarked_isDark = false;
 var dmarked_content;
 
+/**************************************************************************/
+
+function setMarkdownTheme(theme) {
+  if (theme == 'none')
+    document.getElementById('cssplaceholder').innerHTML = '';
+  else
+    document.getElementById('cssplaceholder').innerHTML = '<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/' + theme + '.css\">';
+  dmarked_content.onMdThemeChanged();
+}
+function setHighlightTheme(theme) {
+    document.getElementById('highlightplaceholder').innerHTML =
+      '<link rel=\"stylesheet\" type=\"text/css\" href=\"3rdscripts/highlight/' + theme + '.css\">';
+}
+function setScrollbarsTheme(theme) {
+    document.getElementById('scrollbarsplaceholder').innerHTML =
+      '<link rel=\"stylesheet\" type=\"text/css\" href=\"' + theme + '.css\">';
+}
+function setMarkedIsDark(isDark) {
+    dmarked_isDark = isDark;
+    setScrollbarsTheme(isDark ? "scrollbars_dark" : "scrollbars_light");
+}
+/**************************************************************************/
+
 var updateText = function (text) {
   var defaults = {
     html:       true,          // Enable HTML tags in source

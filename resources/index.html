@@ -17,18 +17,6 @@
   <script src="3rdscripts/markdown-it/markdown-it-deflist.min.js"></script>
   <script src="3rdscripts/markdown-it/markdown-it-abbr.min.js"></script>
 
-  <style>
-  img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      margin: 1.5em auto 1.6em;
-  }
-  .emoji {
-    height: 1.2em;
-  }
-  </style>
-
   <script src="3rdscripts/markdown-it/markdownItAnchor.umd.js"></script>
   <script src="3rdscripts/markdown-it/markdownItTocDoneRight.umd.js"></script>
   <script src="3rdscripts/uslug.js"></script>
@@ -46,31 +34,21 @@
   <script src="qrc:/qtwebchannel/qwebchannel.js"></script>
   <div id="scrollbarsplaceholder"></div>
 
-
-  <script>
-  function setMarkdownTheme(theme) {
-    if (theme == 'none')
-      document.getElementById('cssplaceholder').innerHTML = '';
-    else
-      document.getElementById('cssplaceholder').innerHTML = '<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/' + theme + '.css\">';
-    dmarked_content.onMdThemeChanged();
-  }
-  function setHighlightTheme(theme) {
-      document.getElementById('highlightplaceholder').innerHTML =
-        '<link rel=\"stylesheet\" type=\"text/css\" href=\"3rdscripts/highlight/' + theme + '.css\">';
-  }
-  function setScrollbarsTheme(theme) {
-      document.getElementById('scrollbarsplaceholder').innerHTML =
-        '<link rel=\"stylesheet\" type=\"text/css\" href=\"' + theme + '.css\">';
-  }
-  function setMarkedIsDark(isDark) {
-      dmarked_isDark = isDark;
-      setScrollbarsTheme(isDark ? "scrollbars_dark" : "scrollbars_light");
-  }
-  </script>
-
   <script src="dmarked.js"></script>
+
+  <style>
+  img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 1.5em auto 1.6em;
+  }
+  .emoji {
+    height: 1.2em;
+  }
+  </style>
 </head>
+
 <body>
 
   <div id="placeholder"></div>
