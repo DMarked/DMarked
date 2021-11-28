@@ -1,18 +1,26 @@
+var dmarked_isDark = false;
+var dmarked_content;
+
 var updateText = function (text) {
   var defaults = {
-    html: true,                // Enable HTML tags in source
-    xhtmlOut: false,            // Use '/' to close single tags (<br />)
-    breaks: false,              // Convert '\n' in paragraphs into <br>
-    langPrefix: 'language-',    // CSS language prefix for fenced blocks
-    linkify: true,              // autoconvert URL-like texts to links
-    typographer: true,          // Enable smartypants and other sweet transforms
+    html:       true,          // Enable HTML tags in source
+    xhtmlOut:   false,         // Use '/' to close single tags (<br />)
+    breaks:     false,         // Convert '\n' in paragraphs into <br>
+    langPrefix: 'language-',   // CSS language prefix for fenced blocks
+    linkify:    true,          // autoconvert URL-like texts to links
+    typographer:true,          // Enable smartypants and other sweet transforms
+  };
+
+  var mermaidConfigs = {
+    startOnLoad:    true,
+    darkMode:       dmarked_isDark,
+    theme:          dmarked_isDark ? 'dark' : 'default',
+    securityLevel:  'strict'//'loose',
   };
 
   // 参考 https://github.com/yansenlei/markdown-it-mermaid
   const mermaidChart = (code) => {
     try {
-      // mermaid.parse(code)
-      // return `<div class="mermaid">${code}</div>`
       var needsUniqueId = "render" + (Math.floor(Math.random() * 10000)).toString();
       mermaid.mermaidAPI.render(needsUniqueId, code, sc => { code = sc })
       return `<div class="mermaid">${code}</div>`
@@ -70,16 +78,14 @@ var updateText = function (text) {
   //};
 
   document.getElementById('placeholder').innerHTML = md.render(text);
-  mermaid.initialize({ startOnLoad: true });
-  content.onMdLoadFinished();
+  mermaid.initialize(mermaidConfigs);
+  dmarked_content.onMdLoadFinished();
 }
-
-var content;
 
 const dmarked_setup = () => new QWebChannel(qt.webChannelTransport,
   function (channel) {
-    content = channel.objects.content;
-    updateText(content.text);
-    content.textChanged.connect(updateText);
+    dmarked_content = channel.objects.content;
+    updateText(dmarked_content.text);
+    dmarked_content.textChanged.connect(updateText);
   }
 );

@@ -45,7 +45,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
             bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
             setMarkdownTheme(isDark ? MdTheme::getCurrentDarkTheme() : MdTheme::getCurrentLightTheme());
             setHighlightTheme(isDark ? "monokai-sublime" : "default.min");
-            setScrollbarsTheme(isDark ? "scrollbars_dark" : "scrollbars_light");
+            setMarkedIsDark(isDark);
         }
     });
 
@@ -53,7 +53,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
             [this](DGuiApplicationHelper::ColorType themeType) {
         bool isDark = themeType == DGuiApplicationHelper::ColorType::DarkType;
         setHighlightTheme(isDark ? "monokai-sublime" : "default.min");
-        setScrollbarsTheme(isDark ? "scrollbars_dark" : "scrollbars_light");
+        setMarkedIsDark(isDark);
         // MarkdownTheme update at ddropdownmenu.cpp
     });
 
@@ -83,10 +83,15 @@ void PreviewWidget::setHighlightTheme(const QString &theme)
     m_page->runJavaScript(method);
 }
 
-void PreviewWidget::setScrollbarsTheme(const QString &theme)
+//void PreviewWidget::setScrollbarsTheme(const QString &theme)
+//{
+//    QString method = "setScrollbarsTheme(\'" + theme + "\')";
+//    m_page->runJavaScript(method);
+//}
+
+void PreviewWidget::setMarkedIsDark(bool isDark)
 {
-    QString method = "setScrollbarsTheme(\'" + theme + "\')";
-    m_page->runJavaScript(method);
+    m_page->runJavaScript(QString("setMarkedIsDark(%1)").arg(isDark));
 }
 
 void PreviewWidget::setNoGui()

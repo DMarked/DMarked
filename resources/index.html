@@ -53,7 +53,7 @@
       document.getElementById('cssplaceholder').innerHTML = '';
     else
       document.getElementById('cssplaceholder').innerHTML = '<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/' + theme + '.css\">';
-    content.onMdThemeChanged();
+    dmarked_content.onMdThemeChanged();
   }
   function setHighlightTheme(theme) {
       document.getElementById('highlightplaceholder').innerHTML =
@@ -62,6 +62,10 @@
   function setScrollbarsTheme(theme) {
       document.getElementById('scrollbarsplaceholder').innerHTML =
         '<link rel=\"stylesheet\" type=\"text/css\" href=\"' + theme + '.css\">';
+  }
+  function setMarkedIsDark(isDark) {
+      dmarked_isDark = isDark;
+      setScrollbarsTheme(isDark ? "scrollbars_dark" : "scrollbars_light");
   }
   </script>
 
