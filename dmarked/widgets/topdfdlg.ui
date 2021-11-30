@@ -87,6 +87,9 @@
            <height>0</height>
           </size>
          </property>
+         <property name="maximum">
+          <double>999.990000000000009</double>
+         </property>
          <property name="value">
           <double>10.000000000000000</double>
          </property>
@@ -96,6 +99,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <widget class="QDoubleSpinBox" name="doubleSpinBox_Left">
+           <property name="maximum">
+            <double>999.990000000000009</double>
+           </property>
            <property name="value">
             <double>10.000000000000000</double>
            </property>
@@ -103,6 +109,9 @@
          </item>
          <item>
           <widget class="QDoubleSpinBox" name="doubleSpinBox_Right">
+           <property name="maximum">
+            <double>999.990000000000009</double>
+           </property>
            <property name="value">
             <double>10.000000000000000</double>
            </property>
@@ -117,6 +126,9 @@
            <width>170</width>
            <height>0</height>
           </size>
+         </property>
+         <property name="maximum">
+          <double>999.990000000000009</double>
          </property>
          <property name="value">
           <double>10.000000000000000</double>
