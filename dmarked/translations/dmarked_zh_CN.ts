@@ -225,11 +225,11 @@
     </message>
     <message>
         <source>Editor</source>
-        <translation type="unfinished">编辑</translation>
+        <translation>编辑</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>设置</translation>
     </message>
 </context>
 <context>
@@ -601,7 +601,7 @@
     </message>
     <message>
         <source>Margins(pt)</source>
-        <translation>页边距</translation>
+        <translation>页边距(pt)</translation>
     </message>
 </context>
 </TS>
