@@ -26,7 +26,7 @@
 #include <DSplitter>
 #include <QLayout>
 
-#include "editorwidget.h"
+#include "editor-widget/editorwidget.h"
 #include "preview-widget/previewwidget.h"
 
 DWIDGET_USE_NAMESPACE

@@ -24,7 +24,7 @@ HEADERS += \
     widgets/topdfdlg.h \
     utils/mappagesize.h \
     settings.h \
-    widgets/editorwidget.h \
+    widgets/editor-widget/editorwidget.h \
     utils/utils.h
 
 SOURCES = \
@@ -41,7 +41,7 @@ SOURCES = \
     widgets/topdfdlg.cpp \
     utils/mappagesize.cpp \
     settings.cpp \
-    widgets/editorwidget.cpp \
+    widgets/editor-widget/editorwidget.cpp \
     utils/utils.cpp \
     utils/settingsdialog.cpp
 
