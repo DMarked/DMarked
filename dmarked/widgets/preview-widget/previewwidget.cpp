@@ -19,13 +19,15 @@
  *
  */
 #include "previewwidget.h"
-#include "../dropdown-menu/mdtheme.h"
+#include "widgets/dropdown-menu/mdtheme.h"
+#include "settings.h"
 
 #include <QWebEngineSettings>
 #include <DDesktopServices>
 #include <DMessageBox>
 #include <QFile>
 #include <QDir>
+#include <DSettingsOption>
 
 PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 {
@@ -37,6 +39,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
     m_page->setWebChannel(m_channel);
 
     setUrl(QUrl("qrc:/index.html"));
+
     connect(&m_content, &Document::markdownThemeChanged, this, &PreviewWidget::markdownThemeChanged);
     connect(&m_content, &Document::markdownLoadFinished, this, &PreviewWidget::markdownLoadFinished);
 
@@ -83,12 +86,6 @@ void PreviewWidget::setHighlightTheme(const QString &theme)
     m_page->runJavaScript(method);
 }
 
-//void PreviewWidget::setScrollbarsTheme(const QString &theme)
-//{
-//    QString method = "setScrollbarsTheme(\'" + theme + "\')";
-//    m_page->runJavaScript(method);
-//}
-
 void PreviewWidget::setMarkedIsDark(bool isDark)
 {
     m_page->runJavaScript(QString("setMarkedIsDark(%1)").arg(isDark));
@@ -123,6 +120,12 @@ void PreviewWidget::convert2Html(const QString &filePath) {
         QRegExp ipjs(" *<script src=\".*\"></script> *\n");
         QString output = html;
         output.remove(ipjs);
+
+        bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
+        QString mdtheme = isDark ? MdTheme::getCurrentDarkTheme() : MdTheme::getCurrentLightTheme();
+        QFile mdthemeFile(QString(":/themes/%1.css").arg(mdtheme));
+        mdthemeFile.open(QIODevice::ReadOnly);
+        output = QString("<style>").append(mdthemeFile.readAll()).append("</style>").append(output);
 
         QTextStream str(&f);
         str << output;
