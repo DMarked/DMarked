@@ -29,19 +29,19 @@
     </message>
     <message>
         <source>Set left margin</source>
-        <translation>设置左边距</translation>
+        <translation type="vanished">设置左边距</translation>
     </message>
     <message>
         <source>Set top margin</source>
-        <translation>设置上边距</translation>
+        <translation type="vanished">设置上边距</translation>
     </message>
     <message>
         <source>Set right margin</source>
-        <translation>设置右边距</translation>
+        <translation type="vanished">设置右边距</translation>
     </message>
     <message>
         <source>Set bottom margin</source>
-        <translation>设置下边距</translation>
+        <translation type="vanished">设置下边距</translation>
     </message>
     <message>
         <source>Maximum depth of search directory</source>
@@ -62,6 +62,22 @@
     <message>
         <source>Destination file/directory</source>
         <translation>转换后文件的位置</translation>
+    </message>
+    <message>
+        <source>Set left margin(pt)</source>
+        <translation>设置左边距(pt)</translation>
+    </message>
+    <message>
+        <source>Set top margin(pt)</source>
+        <translation>设置上边距(pt)</translation>
+    </message>
+    <message>
+        <source>Set right margin(pt)</source>
+        <translation>设置右边距(pt)</translation>
+    </message>
+    <message>
+        <source>Set bottom margin(pt)</source>
+        <translation>设置下边距(pt)</translation>
     </message>
 </context>
 <context>
@@ -214,14 +230,6 @@
     <message>
         <source>Help</source>
         <translation>帮助</translation>
-    </message>
-    <message>
-        <source>Ctrl+&apos;=&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ctrl+&apos;-&apos;</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Editor</source>

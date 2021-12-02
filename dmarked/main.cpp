@@ -86,19 +86,19 @@ int main(int argc, char *argv[])
                                  "A4");
     parser.addOption(page_size);
     QCommandLineOption margin_left(QStringList() << "l" << "margin-left",
-                                   DApplication::translate("AppMain", "Set left margin"),
+                                   DApplication::translate("AppMain", "Set left margin(pt)"),
                                    "10");
     parser.addOption(margin_left);
     QCommandLineOption margin_top(QStringList() << "t" << "margin-top",
-                                  DApplication::translate("AppMain", "Set top margin"),
+                                  DApplication::translate("AppMain", "Set top margin(pt)"),
                                   "10");
     parser.addOption(margin_top);
     QCommandLineOption margin_right(QStringList() << "r" << "margin-right",
-                                    DApplication::translate("AppMain", "Set right margin"),
+                                    DApplication::translate("AppMain", "Set right margin(pt)"),
                                     "10");
     parser.addOption(margin_right);
     QCommandLineOption margin_bottom(QStringList() << "b" << "margin-bottom",
-                                    DApplication::translate("AppMain", "Set bottom margin"),
+                                    DApplication::translate("AppMain", "Set bottom margin(pt)"),
                                      "10");
     parser.addOption(margin_bottom);
     QCommandLineOption max_depth(QStringList() << "d" << "max-depth",
