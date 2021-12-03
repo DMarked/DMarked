@@ -1,3 +1,5 @@
+'use strict';
+
 var dmarked_isDark = false;
 var dmarked_content;
 

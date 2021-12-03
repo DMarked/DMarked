@@ -28,13 +28,16 @@
 #include <QWebEnginePage>
 #include <QWebEngineSettings>
 #include <DSettingsOption>
+#include <DLog>
+#include <DMessageBox>
 
 CentralWidget::CentralWidget(DWidget *parent)
     : DWidget (parent),
       m_editor_widget(new EditorWidget),
       m_preview_widget(new PreviewWidget),
       m_splitter(new QSplitter),
-      m_central_layout(new QHBoxLayout)
+      m_central_layout(new QHBoxLayout),
+      m_fileWatcher(new DFileSystemWatcher)
 {
       m_splitter->setOrientation(Qt::Horizontal);
       m_splitter->setOpaqueResize(true);
@@ -82,16 +85,36 @@ CentralWidget::CentralWidget(DWidget *parent)
       case 3: setMode(tr("Preview Mode(S)")); break;
       case 4: setMode(tr("Preview Mode(N)")); break;
       }
+
+      // 监视文件修改
+      connect(m_fileWatcher, &DFileSystemWatcher::fileModified, this, &CentralWidget::onFileModified);
 }
 
 void CentralWidget::setFilePath(const QString &path)
 {
+    if (m_file_path != path) {
+        if (!m_file_path.isEmpty())
+            m_fileWatcher->removePath(m_file_path);
+        m_fileWatcher->addPath(path);
+    }
     m_file_path = path;
 }
 
 const QString & CentralWidget::getFilePath()
 {
-    return  m_file_path;
+    return m_file_path;
+}
+
+void CentralWidget::onFileModified(const QString &path, const QString &name)
+{
+    dInfo() << QString("File Modified: path: %1, name: %2").arg(path).arg(name);
+    //auto ret = DMessageBox::question(this, tr("reload"), tr("file has modified, reload?"));
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly))
+        return;
+    QString newContent = f.readAll();
+    if (newContent != m_editor_widget->toPlainText())
+        m_editor_widget->setPlainText(newContent);
 }
 
 void CentralWidget::setSync(bool enable)

@@ -23,6 +23,10 @@
 #define MAINWINDOW_H
 
 #include "qmarkdowntextedit.h"
+#include "widgets/centralwidget.h"
+#include "widgets/bottombar.h"
+#include "settings.h"
+
 #include <QString>
 #include <DTitlebar>
 #include <DSearchEdit>
@@ -36,10 +40,6 @@
 #include <DSettings>
 #include <DSettingsOption>
 #include <QProcess>
-
-#include "widgets/centralwidget.h"
-#include "widgets/bottombar.h"
-#include "settings.h"
 
 DWIDGET_USE_NAMESPACE
 
@@ -103,6 +103,7 @@ private:
 
     int m_font_size;
     QProcess *m_shortcutViewProcess = nullptr;
+
     // QWidget interface
 protected:
     virtual void keyPressEvent(QKeyEvent *event) override;

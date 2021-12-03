@@ -125,7 +125,7 @@ void PreviewWidget::convert2Html(const QString &filePath) {
         QString mdtheme = isDark ? MdTheme::getCurrentDarkTheme() : MdTheme::getCurrentLightTheme();
         QFile mdthemeFile(QString(":/themes/%1.css").arg(mdtheme));
         mdthemeFile.open(QIODevice::ReadOnly);
-        output = QString("<style>").append(mdthemeFile.readAll()).append("</style>").append(output);
+        output = QString("<style>").append(mdthemeFile.readAll()).append("</style>\n").append(output);
 
         QTextStream str(&f);
         str << output;

@@ -22,14 +22,16 @@
 #ifndef CENTRALWIDGET_H
 #define CENTRALWIDGET_H
 
-#include <DWidget>
-#include <DSplitter>
-#include <QLayout>
-
 #include "editor-widget/editorwidget.h"
 #include "preview-widget/previewwidget.h"
 
+#include <DWidget>
+#include <DSplitter>
+#include <QLayout>
+#include <DFileSystemWatcher>
+
 DWIDGET_USE_NAMESPACE
+DCORE_USE_NAMESPACE
 
 class CentralWidget : public DWidget
 {
@@ -49,6 +51,9 @@ public:
     void setFilePath(const QString &path);
     const QString &getFilePath();
 
+public Q_SLOTS:
+    void onFileModified(const QString &path, const QString &name);
+
 private:
     EditorWidget *m_editor_widget;
     PreviewWidget *m_preview_widget;
@@ -61,6 +66,8 @@ private:
     QString m_font_name;
     int m_font_size;
     int m_tab_space_number;
+
+    DFileSystemWatcher *m_fileWatcher;
 };
 
 #endif // CENTRALWIDGET_H
