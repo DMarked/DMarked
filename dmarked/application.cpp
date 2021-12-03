@@ -21,6 +21,7 @@
 
 #include "application.h"
 #include "mainwindow.h"
+#include "utils/utils.h"
 
 #include <QIcon>
 #include <QDebug>
@@ -71,6 +72,10 @@ void Application::md2html(QString from, QString to, int depth)
         if (from.right(3) != ".md")
             return;
         dInfo() << "2html: " << from << " " << to;
+        if (!Utils::ensurePathExist(to)) {
+            dError() << QString("Path:%1 don't exist").arg(to);
+            return;
+        }
         m_qspMainWnd->md2html(from, to);
         return;
     }
@@ -103,6 +108,10 @@ void Application::md2pdf(QString from, QString to, QPageLayout pageLayout, int d
         dInfo() << "2pdf: " << from << " " << to;
         if (from.right(3) != ".md")
             return;
+        if (!Utils::ensurePathExist(to)) {
+            dError() << QString("Path:%1 don't exist").arg(to);
+            return;
+        }
         m_qspMainWnd->md2pdf(from, to, pageLayout);
         return;
     }

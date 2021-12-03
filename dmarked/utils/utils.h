@@ -31,6 +31,8 @@ public:
     Utils() = default;
     static QString getKeyshortcut(QKeyEvent *keyEvent);
     static QString getKeyshortcutFromKeymap(Settings* settings, const QString &keyCategory, const QString &keyName);
+
+    static bool ensurePathExist(const QString &filePath);
 };
 
 #endif // UTILS_H

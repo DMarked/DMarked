@@ -22,6 +22,7 @@
 #include "utils.h"
 
 #include <DSettingsOption>
+#include <QDir>
 
 QString Utils::getKeyshortcut(QKeyEvent *keyEvent)
 {
@@ -61,4 +62,16 @@ QString Utils::getKeyshortcut(QKeyEvent *keyEvent)
 QString Utils::getKeyshortcutFromKeymap(Settings* settings, const QString &keyCategory, const QString &keyName)
 {
     return settings->settings->option(QString("shortcuts.%1.%2").arg(keyCategory).arg(keyName))->value().toString();
+}
+
+bool Utils::ensurePathExist(const QString &filePath)
+{
+    // 确保创建文件前，目录存在
+    int id = filePath.lastIndexOf('/');
+    if (id == -1)
+        return true;
+    QDir path(filePath.left(id));
+    if (!path.exists())
+        return path.mkpath(path.path());
+    return true;
 }

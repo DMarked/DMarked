@@ -213,6 +213,7 @@ bool MainWindow::md2html(QString mdpath, QString htmlpath) {
                                  QDir::toNativeSeparators(mdpath), f.errorString());
         return false;
     }
+
     m_central_widget->setFilePath(mdpath);
     m_central_widget->m_editor_widget->setPlainText(f.readAll());
 
