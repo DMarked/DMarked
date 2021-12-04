@@ -1,16 +1,96 @@
-<svg width="480" height="480" xmlns="http://www.w3.org/2000/svg">
- <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
- <g>
-  <title>background</title>
-  <rect fill="#20bcd5" id="canvas_background" height="482" width="482" y="-1" x="-1"/>
-  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
-   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="128.0px"
+   height="128.0px"
+   viewBox="0 0 128.0 128.0"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="dmarkedlog.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview829"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="4.0315403"
+     inkscape:cx="36.586512"
+     inkscape:cy="84.955122"
+     inkscape:window-width="1920"
+     inkscape:window-height="985"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g5682">
+    <inkscape:grid
+       type="xygrid"
+       id="grid892" />
+  </sodipodi:namedview>
+  <defs
+     id="defs824">
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4014"
+       id="linearGradient4018"
+       x1="4.6494293"
+       y1="63.523102"
+       x2="120.64943"
+       y2="63.523102"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0.56923722,1.1270218)" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4014">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop4010" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop4012" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="图层 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <ellipse
+       style="display:inline;fill:#fff6d5;fill-rule:evenodd;stroke:url(#linearGradient4018)"
+       id="path701"
+       cx="63.218666"
+       cy="64.650124"
+       rx="57.5"
+       ry="55"
+       transform="rotate(-0.53085275)" />
+    <g
+       id="g5682"
+       transform="translate(-69.743533,25.496088)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:65.1452px;line-height:1.65;font-family:'萝莉体';-inkscape-font-specification:'萝莉体';display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.62866"
+         x="93.430832"
+         y="58.140797"
+         id="text50913"
+         transform="scale(0.97199469,1.0288122)"><tspan
+           sodipodi:role="line"
+           id="tspan50911"
+           x="93.430832"
+           y="58.140797"
+           style="font-style:italic;font-variant:normal;font-weight:600;font-stretch:normal;font-family:'更纱黑体 SC';-inkscape-font-specification:'更纱黑体 SC Semi-Bold Italic';stroke-width:1.62866">M<tspan
+   style="font-size:48px"
+   id="tspan6458">d</tspan></tspan></text>
+    </g>
   </g>
- </g>
- <g>
-  <title>Layer 1</title>
-  <text font-style="normal" font-weight="normal" stroke="#000" transform="matrix(9.203636169433594,0,0,8.356588959693909,-2042.7054061889648,-1318.6600867696106) " xml:space="preserve" text-anchor="start" font-family="Arvo, sans-serif" font-size="24" id="svg_7" y="198.975591" x="230.637692" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">M</text>
-  <text stroke="#000" transform="matrix(5.93333339691162,0,0,4.810801683750719,-1833.4666891098022,-1015.1469014922058) " xml:space="preserve" text-anchor="start" font-family="Arvo, sans-serif" font-size="24" id="svg_8" y="282.458243" x="353.505618" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">d</text>
-  <path id="svg_12" d="m321.934979,123.06958c-30.37589,0 -54.999978,19.028874 -54.999978,42.498476c0,8.019803 2.911089,15.514678 7.919523,21.916178l-7.919523,17.889545l22.050952,-5.82746c9.188837,5.323992 20.573971,8.523255 32.949023,8.523255c30.37587,0 55.000026,-19.028943 55.000026,-42.501518s-24.624155,-42.498476 -55.000026,-42.498476l0.000004,0zm-9.020296,58.819019l-9.185146,9.455717l-25.260267,-26.029591l25.256498,-26.035689l9.188915,9.477344l-16.071419,16.558345l16.071419,16.573874zm27.779468,9.443397l-9.181369,-9.468078l16.075846,-16.555262l-16.075846,-16.561538l9.181369,-9.468082l25.260302,26.011044l-25.260302,26.041916z" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
- </g>
 </svg>
