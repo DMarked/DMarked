@@ -366,6 +366,7 @@ void MainWindow::onFileSaveAs()
     if (path.isEmpty())
         return;
     m_central_widget->setFilePath(path);
+    m_settings->settings->option("advance.editor.browsing_history_file")->setValue(path);
     onFileSave();
 }
 
