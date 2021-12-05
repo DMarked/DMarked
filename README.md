@@ -39,18 +39,23 @@
 
 #### [TODO(VERSION 2.0)](https://github.com/wineee/DMarked/projects/1)
 
+#### License
+
+DMarked is licensed under GPLv3.
+
 #### 使用的第三方库
 
 - [qmarkdowntextedit](https://github.com/pbek/qmarkdowntextedit) MIT
 - [markdown-it](https://github.com/markdown-it/markdown-it) MIT
+- [And More](https://github.com/wineee/DMarked/tree/main/resources/3rdscripts)
 
 主题使用了：
-- [wecatch/markdown-css](https://github.com/wecatch/markdown-css)
+- [wecatch/markdown-css](https://github.com/wecatch/markdown-css) MIT 
 - [yrgoldteeth/darkdowncss](https://github.com/yrgoldteeth/darkdowncss)
-- [kevinburke/markdown-css](https://bitbucket.org/kevinburke/markdowncss)
-- [CuteMarkEd-NG](https://github.com/Waqar144/CuteMarkEd-NG)
+- [kevinburke/markdown-css](https://bitbucket.org/kevinburke/markdowncss) Apache V2.0
+- [CuteMarkEd-NG's Theme](https://github.com/Waqar144/CuteMarkEd-NG) [LICENSE](https://github.com/Waqar144/CuteMarkEd-NG/blob/develop/LICENSE.md)
 
-代码部分参考了：
+代码参考了：
 - [deepin-editor](https://github.com/linuxdeepin/deepin-editor) GPL-3.0
 - [WebEngine Markdown Editor Example](https://doc.qt.io/qt-5/qtwebengine-webenginewidgets-markdowneditor-example.html) BSD
 
