@@ -35,13 +35,9 @@
 - [X] 进行打包工作
 
 （Need Help）
-- [ ] 一个 logo
 - [ ] 更好的编辑页面，预览页面的同步算法
 
-#### TODO(VERSION 2.0)
-- [ ] 重写编辑窗口快捷键，右键菜单，搜索替换组件 
-- [ ] 多文件，文件列表，文件树
-- [ ] 可以提供设置面板修改 markdown-it 及其插件的参数
+#### [TODO(VERSION 2.0)](https://github.com/wineee/DMarked/projects/1)
 
 #### 使用的第三方库
 
