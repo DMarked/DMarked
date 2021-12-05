@@ -38,7 +38,7 @@ pre {
   border-radius: 3px;
   word-wrap: break-word;
   padding: 12px 13px;
-  overflow: scroll;
+  overflow: auto;
   font-size: 13px;
 }
 
