@@ -9,8 +9,7 @@
 
 - https://twemoji.maxcdn.com/v/13.1.0/twemoji.min.js
 
-## math
-[Doc](https://www.npmjs.com/package/markdown-it-texmath)
+## math [ MIT License ]
 - https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js
 - https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css
 
