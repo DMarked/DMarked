@@ -40,9 +40,8 @@ Settings *Settings::s_pSetting = nullptr;
 Settings::Settings(QWidget *parent)
     : QObject(parent)
 {
-    QString strConfigPath = QString("%1/%2/%3/config.conf")
+    QString strConfigPath = QString("%1/%2/config.conf")
                             .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
-                            .arg(qApp->organizationName())
                             .arg(qApp->applicationName());
 
     m_backend = new QSettingBackend(strConfigPath);
