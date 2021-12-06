@@ -25,7 +25,8 @@ HEADERS += \
     utils/mappagesize.h \
     settings.h \
     widgets/editor-widget/editorwidget.h \
-    utils/utils.h
+    utils/utils.h \
+    widgets/editor-widget/fakevimproxy.h
 
 SOURCES = \
     main.cpp \
@@ -43,7 +44,8 @@ SOURCES = \
     settings.cpp \
     widgets/editor-widget/editorwidget.cpp \
     utils/utils.cpp \
-    utils/settingsdialog.cpp
+    utils/settingsdialog.cpp \
+    widgets/editor-widget/fakevimproxy.cpp
 
 RESOURCES = \
     ../resources/markdowneditor.qrc \
