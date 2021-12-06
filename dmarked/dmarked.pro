@@ -73,6 +73,11 @@ LIBS += -lQMarkdownTextedit -L$$OUT_PWD
 INCLUDEPATH += $$PWD/../3rdparty/qmarkdowntextedit
 DEPENDPATH += $$PWD/../3rdparty/qmarkdowntextedit
 
+# FakeVim
+LIBS += -lFakeVim -L$$OUT_PWD
+INCLUDEPATH += $$PWD/../3rdparty/FakeVim/fakevim
+DEPENDPATH += $$PWD/../3rdparty/FakeVim/fakevim
+
 FORMS += \
     widgets/topdfdlg.ui
 

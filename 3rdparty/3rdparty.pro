@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    qmarkdowntextedit
+    qmarkdowntextedit \
+    FakeVim/fakevim
