@@ -37,13 +37,16 @@ DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
 
 MainWindow::MainWindow(QWidget *parent) :
-    DMainWindow(parent)
+    DMainWindow(parent),
+    m_search_edit(new DSearchEdit),
+    m_central_widget(new CentralWidget),
+    m_bottom_bar(new BottomBar),
+    m_settings(Settings::instance())
 {
 
     resize(1200, 740);
     setWindowIcon(QIcon(":/images/dmarked.svg"));
 
-    m_search_edit = new DSearchEdit(this);
     titlebar()->setCustomWidget(m_search_edit);
     m_search_edit->setFixedWidth(400);
     connect(m_search_edit, &DSearchEdit::textChanged/*editingFinished*/, [this]() {
@@ -52,8 +55,6 @@ MainWindow::MainWindow(QWidget *parent) :
            m_central_widget->m_editor_widget->doSearch(context);
     });
 
-    m_central_widget = new CentralWidget;
-    m_bottom_bar = new BottomBar;
     // Make editor widget get focus when BottomBar lost it
     connect(m_bottom_bar, &BottomBar::bottombarLostFocus, [this]() {
       m_central_widget->m_editor_widget->setFocus();
@@ -86,8 +87,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(base_widget);
     setupAction();
 
-    /***        setting         ***/
-    m_settings = Settings::instance();
+/***        setting         ***/
     connect(m_settings, &Settings::sigAdjustFont, this, [this](QString fontName) {
         m_central_widget->setFontFamily(fontName);
     });
@@ -123,7 +123,10 @@ MainWindow::MainWindow(QWidget *parent) :
     m_central_widget->m_editor_widget->setPlainText(defaultFile.readAll());
     m_central_widget->setFilePath(history);
 
-    /***        code about convert files in cli         ***/
+/***        init FakeVim!         ***/
+    m_central_widget->m_editor_widget->initFakeVim(this);
+
+/***        code about convert files in cli         ***/
     ct.state = CLI_STATE::NONE;
     connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownLoadFinished,
              [this]() {
@@ -202,6 +205,16 @@ void MainWindow::setNoGui()
 {
     /* Call this function when running on the command line */
     m_central_widget->m_preview_widget->setNoGui();
+}
+
+void MainWindow::updateStatusBarMessage(const QString &msg)
+{
+    m_bottom_bar->updateVimMessage(msg);
+}
+
+void MainWindow::storeUpdatedNotesToDisk()
+{
+    onFileSave();
 }
 
 bool MainWindow::md2html(QString mdpath, QString htmlpath) {

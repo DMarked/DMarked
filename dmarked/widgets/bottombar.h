@@ -41,7 +41,7 @@ public:
 
     void updatePosition(int row, int column);
     void updateWordCount(int charactorCount);
-    void setCursorStatus(const QString &text);
+    void updateVimMessage(const QString &msg); // FakeVim
     void setPalette(const QPalette &palette);
     void updateSize(int size);
     void setChildEnabled(bool enabled);
@@ -57,7 +57,7 @@ protected:
 private:
     DLabel *m_pPositionLabel {nullptr};
     DLabel *m_pCharCountLabel {nullptr};
-    DLabel *m_pCursorStatus {nullptr};
+    DLabel *m_pFakeVimStatus {nullptr};
     DDropdownMenu *m_pThemeMenu {nullptr};
     DDropdownMenu *m_pModeMenu {nullptr};
     QString m_rowStr {QString()};

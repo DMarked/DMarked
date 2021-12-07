@@ -32,7 +32,7 @@ BottomBar::BottomBar(QWidget *parent)
     : QWidget(parent),
       m_pPositionLabel(new DLabel),
       m_pCharCountLabel(new DLabel),
-      m_pCursorStatus(new DLabel),
+      m_pFakeVimStatus(new DLabel),
       m_pThemeMenu(DDropdownMenu::createThemeMenu()),
       m_pModeMenu(DDropdownMenu::createModeMenu()),
       m_rowStr(tr("Row")),
@@ -43,17 +43,17 @@ BottomBar::BottomBar(QWidget *parent)
     font.setFamily("SourceHanSansSC-Normal");
     m_pPositionLabel->setFont(font);
     m_pCharCountLabel->setFont(font);
-    m_pCursorStatus->setFont(font);
+    m_pFakeVimStatus->setFont(font);
 
     DFontSizeManager::instance()->bind(m_pPositionLabel, DFontSizeManager::T9);
     DFontSizeManager::instance()->bind(m_pCharCountLabel, DFontSizeManager::T9);
-    DFontSizeManager::instance()->bind(m_pCursorStatus, DFontSizeManager::T9);
+    DFontSizeManager::instance()->bind(m_pFakeVimStatus, DFontSizeManager::T9);
 
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setContentsMargins(29, 1, 10, 0);
     layout->addWidget(m_pPositionLabel);
     layout->addStretch();
-    layout->addSpacerItem(new QSpacerItem(110,20,QSizePolicy::Expanding,QSizePolicy::Fixed));
+    layout->addSpacerItem(new QSpacerItem(110, 20, QSizePolicy::Expanding, QSizePolicy::Fixed));
     layout->addWidget(m_pCharCountLabel);
 
     m_pPositionLabel->setText(QString("%1 %2  %3 %4").arg(m_rowStr, "1", m_columnStr, "1"));
@@ -66,8 +66,8 @@ BottomBar::BottomBar(QWidget *parent)
     pVerticalLine2->setFixedSize(1, 15);
 
     layout->addStretch();
-    //m_pCursorStatus->setText("INSERT");
-    //layout->addWidget(m_pCursorStatus);
+    m_pFakeVimStatus->setText("INSERT");
+    layout->addWidget(m_pFakeVimStatus);
     layout->addSpacing(10);
     layout->addWidget(pVerticalLine1);
     layout->addWidget(m_pThemeMenu);
@@ -77,7 +77,7 @@ BottomBar::BottomBar(QWidget *parent)
 
     setFixedHeight(32);
 
-    // 切换 MdTheme
+    // 切换 Markdown Theme
     connect(m_pThemeMenu, &DDropdownMenu::currentActionChanged, [this](QAction* pAct) {
         m_pThemeMenu->setCurrentTextOnly(pAct->text());
         bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
@@ -121,16 +121,16 @@ void BottomBar::updateWordCount(int charactorCount)
     m_pCharCountLabel->setText(m_chrCountStr.arg(QString::number(charactorCount-1)));
 }
 
-void BottomBar::setCursorStatus(const QString &text)
+void BottomBar::updateVimMessage(const QString &msg)
 {
-    m_pCursorStatus->setText(text);
+    m_pFakeVimStatus->setText(msg);
 }
 
 void BottomBar::setPalette(const QPalette &palette)
 {
     DPalette paPositionLabel  = DApplicationHelper::instance()->applicationPalette();
     DPalette paCharCountLabel = DApplicationHelper::instance()->applicationPalette();
-    DPalette paCursorStatus = DApplicationHelper::instance()->applicationPalette();
+    DPalette paFakeVimStatus = DApplicationHelper::instance()->applicationPalette();
     DPalette paThemeMenu = DApplicationHelper::instance()->applicationPalette();
     DPalette paModeMenu = DApplicationHelper::instance()->applicationPalette();
 
@@ -138,13 +138,13 @@ void BottomBar::setPalette(const QPalette &palette)
 
     paPositionLabel.setColor(DPalette::WindowText, colorFont);
     paCharCountLabel.setColor(DPalette::WindowText, colorFont);
-    paCursorStatus.setColor(DPalette::WindowText, colorFont);
+    paFakeVimStatus.setColor(DPalette::WindowText, colorFont);
     paThemeMenu.setColor(DPalette::WindowText, colorFont);
     paModeMenu.setColor(DPalette::WindowText, colorFont);
 
     m_pPositionLabel->setPalette(paPositionLabel);
     m_pCharCountLabel->setPalette(paCharCountLabel);
-    m_pCursorStatus->setPalette(paCursorStatus);
+    m_pFakeVimStatus->setPalette(paFakeVimStatus);
     m_pThemeMenu->getButton()->setPalette(paThemeMenu);
     m_pModeMenu->getButton()->setPalette(paModeMenu);
 

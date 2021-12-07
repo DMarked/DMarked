@@ -92,13 +92,17 @@ public:
     void decrementFontSize();
     void displayShortcuts();
 
+    // FakeVim
+    void updateStatusBarMessage(const QString &msg);
+    void storeUpdatedNotesToDisk();
+
 private:
     void setupAction();
 
-    Settings *m_settings;
     DSearchEdit *m_search_edit;
     CentralWidget *m_central_widget;
     BottomBar *m_bottom_bar;
+    Settings *m_settings;
     CliTool ct;
 
     int m_font_size;

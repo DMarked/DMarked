@@ -1,7 +1,8 @@
 /*
     Copyright (c) 2017, Lukas Holecek <hluk@email.cz>
+    Copyright (C) 2021 DMarked.
 
-    This file is part of CopyQ.
+    This file is modify from CopyQ.
 
     CopyQ is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,77 +23,57 @@
 
 #include <QObject>
 #include <QTextEdit>
+#include <QPlainTextEdit>
 
 class MainWindow;
-class QWidget;
 class QTextDocument;
 class QTextCursor;
 
 namespace FakeVim {
 namespace Internal {
-class ExCommand;
-}
-}    // namespace FakeVim
+class FakeVimHandler;
+struct ExCommand;
+} // namespace Internal
+} // namespace FakeVim
 
 class FakeVimProxy : public QObject {
     Q_OBJECT
+public:
+    explicit FakeVimProxy(QPlainTextEdit *widget, MainWindow *mw, QObject *parent = nullptr);
+    static FakeVimProxy *connectSignals(FakeVim::Internal::FakeVimHandler *handler, MainWindow *mainWindow, QPlainTextEdit *editor);
 
-   public:
-    FakeVimProxy(QWidget *widget, MainWindow *mw, QObject *parent = 0);
-
-   signals:
+Q_SIGNALS:
     void handleInput(const QString &keys);
 
-   public slots:
+public Q_SLOTS:
     void changeStatusData(const QString &info);
-
     void highlightMatches(const QString &pattern);
-
-    void changeStatusMessage(const QString &contents, int cursorPos, int anchorPos, int messageLevel);
-
+    void changeStatusMessage(const QString &contents, int cursorPos, int anchorPos = 0, int messageLevel = 0);
     void changeExtraInformation(const QString &info);
-
     void updateStatusBar();
-
     void handleExCommand(bool *handled,
                          const FakeVim::Internal::ExCommand &cmd);
-
     void requestSetBlockSelection(const QTextCursor &tc);
-
     void requestDisableBlockSelection();
-
     void updateBlockSelection();
-
     void requestHasBlockSelection(bool *on);
-
     void indentRegion(int beginBlock, int endBlock, QChar typedChar);
-
     void checkForElectricCharacter(bool *result, QChar c);
 
-   private:
+private:
     static int firstNonSpace(const QString &text);
-
     void updateExtraSelections();
-
     bool wantSaveAndQuit(const FakeVim::Internal::ExCommand &cmd);
-
     bool wantSave(const FakeVim::Internal::ExCommand &cmd);
-
     bool wantQuit(const FakeVim::Internal::ExCommand &cmd);
-
     bool save();
-
     void cancel();
-
     void invalidate();
-
     bool hasChanges();
 
     QTextDocument *document() const;
-
     QString content() const;
-
-    QWidget *m_widget;
+    QPlainTextEdit *m_ed;
     MainWindow *m_mainWindow;
     QString m_statusMessage;
     QString m_statusData;

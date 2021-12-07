@@ -23,13 +23,14 @@
 #define EDITORWIDGET_H
 
 #include <qmarkdowntextedit.h>
+class MainWindow;
 
 class EditorWidget : public QMarkdownTextEdit
 {
 public:
     explicit EditorWidget(QWidget *parent = nullptr);
-
     void setHighlightCurrentLineEnabled(bool enable);
+    void initFakeVim(MainWindow *mw);
 
 public Q_SLOTS:
     void highlightCurrentLine();

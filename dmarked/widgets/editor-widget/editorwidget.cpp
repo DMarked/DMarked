@@ -19,6 +19,10 @@
  *
  */
 #include "editorwidget.h"
+#include "fakevimproxy.h"
+
+#include "mainwindow.h"
+#include <FakeVim/fakevimhandler.h>
 
 #include <DGuiApplicationHelper>
 using DTK_NAMESPACE::Gui::DGuiApplicationHelper;
@@ -47,6 +51,30 @@ EditorWidget::EditorWidget(QWidget *parent):
     });
 
     setExtraSelections({});
+}
+
+
+void EditorWidget::initFakeVim(MainWindow *mw)
+{
+    // Create FakeVimHandler instance which will emulate Vim behavior in editor widget.
+    auto handler = new FakeVim::Internal::FakeVimHandler(this, /*parent=*/mw);
+    // Connect slots to FakeVimHandler signals.
+    FakeVimProxy *proxy = FakeVimProxy::connectSignals(handler, mw, this);
+
+    // regular signal
+    QObject::connect(proxy, &FakeVimProxy::handleInput, handler,
+                     [handler](const QString &text) { handler->handleInput(text); });
+
+
+    // Initialize FakeVimHandler.
+    handler->handleCommand(QLatin1String("set nopasskeys"));
+    handler->handleCommand(QLatin1String("set nopasscontrolkey"));
+    handler->installEventFilter();
+    handler->setupWidget();
+
+    // Clear undo and redo queues.
+    setUndoRedoEnabled(false);
+    setUndoRedoEnabled(true);
 }
 
 void EditorWidget::setHighlightCurrentLineEnabled(bool enable)
