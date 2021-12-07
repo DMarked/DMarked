@@ -2,6 +2,8 @@
 
 使用 dtk 开发的 markdown 编辑器
 
+[介绍帖](https://bbs.deepin.org/en/post/228829) & [github](https://github.com/wineee/DMarked) & [gitee](https://gitee.com/rewine/DMarked)
+
 #### Clone
 - git clone https://github.com/wineee/DMarked.git
 - git submodule init
@@ -36,6 +38,7 @@
 
 （Need Help）
 - [ ] 更好的编辑页面，预览页面的同步算法
+- [ ] 更好的 logo
 
 #### [TODO(VERSION 2.0)](https://github.com/wineee/DMarked/projects/1)
 

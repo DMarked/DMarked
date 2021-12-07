@@ -158,7 +158,7 @@ void FakeVimProxy::handleExCommand(bool *handled,
         // :wq
         if (save()) cancel();
     } else if (wantSave(cmd)) {
-        save();    // :w比例
+        save();    // :w
     } else if (wantQuit(cmd)) {
         if (cmd.hasBang)
             invalidate();    // :q!
