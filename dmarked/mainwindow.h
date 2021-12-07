@@ -92,7 +92,7 @@ public:
     void decrementFontSize();
     void displayShortcuts();
 
-    // FakeVim
+    // FakeVim Need
     void updateStatusBarMessage(const QString &msg);
     void storeUpdatedNotesToDisk();
 

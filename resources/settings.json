@@ -37,6 +37,19 @@
                             "default": "false"
                         }
                     ]
+                },
+                {
+                    "key": "fakevim",
+                    "name": "FakeVim",
+                    "options": [
+                        {
+                            "key": "enable",
+                            "name": "enable",
+                            "type": "checkbox",
+                            "text": "enable vim emulator",
+                            "default": "false"
+                        }
+                     ]
                 }
             ]
         },

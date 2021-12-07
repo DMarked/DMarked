@@ -53,7 +53,7 @@ EditorWidget::EditorWidget(QWidget *parent):
     setExtraSelections({});
 }
 
-
+#include <QStandardPaths>
 void EditorWidget::initFakeVim(MainWindow *mw)
 {
     // Create FakeVimHandler instance which will emulate Vim behavior in editor widget.
@@ -65,7 +65,20 @@ void EditorWidget::initFakeVim(MainWindow *mw)
     QObject::connect(proxy, &FakeVimProxy::handleInput, handler,
                      [handler](const QString &text) { handler->handleInput(text); });
 
-
+    // Load vimrc if it exists
+    QString vimRcPath = QString("%1/%2/.vimrc")
+                            .arg(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation))
+                            .arg(qApp->applicationName());
+    if (QFile::exists(vimRcPath)) {
+        handler->handleCommand(QLatin1String("source ") + vimRcPath);
+    } else {
+        // Set some Vim options.
+        handler->handleCommand(QLatin1String("set expandtab"));
+        handler->handleCommand(QLatin1String("set shiftwidth=8"));
+        handler->handleCommand(QLatin1String("set tabstop=16"));
+        handler->handleCommand(QLatin1String("set autoindent"));
+        handler->handleCommand(QLatin1String("set smartindent"));
+    }
     // Initialize FakeVimHandler.
     handler->handleCommand(QLatin1String("set nopasskeys"));
     handler->handleCommand(QLatin1String("set nopasscontrolkey"));
@@ -75,6 +88,8 @@ void EditorWidget::initFakeVim(MainWindow *mw)
     // Clear undo and redo queues.
     setUndoRedoEnabled(false);
     setUndoRedoEnabled(true);
+
+    setFocus();
 }
 
 void EditorWidget::setHighlightCurrentLineEnabled(bool enable)

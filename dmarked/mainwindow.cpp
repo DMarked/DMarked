@@ -124,7 +124,9 @@ MainWindow::MainWindow(QWidget *parent) :
     m_central_widget->setFilePath(history);
 
 /***        init FakeVim!         ***/
-    m_central_widget->m_editor_widget->initFakeVim(this);
+    bool enableFakeVim = m_settings->settings->option("base.fakevim.enable")->value().toBool();
+    if (enableFakeVim)
+        m_central_widget->m_editor_widget->initFakeVim(this);
 
 /***        code about convert files in cli         ***/
     ct.state = CLI_STATE::NONE;
