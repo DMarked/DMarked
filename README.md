@@ -4,6 +4,12 @@
 
 [介绍帖](https://bbs.deepin.org/en/post/228829) & [github](https://github.com/wineee/DMarked) & [gitee](https://gitee.com/rewine/DMarked)
 
+#### Dependencies
+
+In debian, use below command to install compile dependencies:
+
+sudo apt install qt5-default libdtkwidget-dev libdtkgui-dev libdtkcore-dev 
+
 #### Clone
 - git clone https://github.com/wineee/DMarked.git
 - git submodule init
@@ -62,3 +68,4 @@ DMarked is licensed under GPLv3.
 - [deepin-editor](https://github.com/linuxdeepin/deepin-editor) GPL-3.0
 - [WebEngine Markdown Editor Example](https://doc.qt.io/qt-5/qtwebengine-webenginewidgets-markdowneditor-example.html) BSD
 
+Organization's profile picture @RigoLigo
