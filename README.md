@@ -68,4 +68,4 @@ DMarked is licensed under GPLv3.
 - [deepin-editor](https://github.com/linuxdeepin/deepin-editor) GPL-3.0
 - [WebEngine Markdown Editor Example](https://doc.qt.io/qt-5/qtwebengine-webenginewidgets-markdowneditor-example.html) BSD
 
-Organization's profile picture @RigoLigo
+Organization's profile picture @[RigoLigo](https://github.com/RigoLigoRLC)
