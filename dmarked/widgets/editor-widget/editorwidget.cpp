@@ -105,7 +105,7 @@ void EditorWidget::setHighlightCurrentLineEnabled(bool enable)
 void EditorWidget::highlightCurrentLine()
 {
     if (m_bHighlightCurrentLine) {
-        QList<QTextEdit::ExtraSelection> extraSelections;
+        QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
 
         if (!isReadOnly()) {
             QTextEdit::ExtraSelection selection;
