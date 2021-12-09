@@ -28,11 +28,24 @@
 #include <QFile>
 #include <QDir>
 #include <DSettingsOption>
+#include <QAction>
 
 PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 {
     m_page = new PreviewPage(this);
     //m_page->settings()->setAttribute(QWebEngineSettings::ShowScrollBars, false);
+
+    this->settings()->setDefaultTextEncoding("utf-8");
+    this->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
+    this->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
+    this->page()->action(QWebEnginePage::Reload)->setVisible(false);
+    this->page()->action(QWebEnginePage::ReloadAndBypassCache)->setVisible(false);
+    this->page()->action(QWebEnginePage::OpenLinkInThisWindow)->setVisible(false);
+    this->page()->action(QWebEnginePage::OpenLinkInNewWindow)->setVisible(false);
+    this->page()->action(QWebEnginePage::ViewSource)->setVisible(false);
+    this->page()->action(QWebEnginePage::SavePage)->setVisible(false);
+
+
     setPage(m_page);
     m_channel = new QWebChannel(this);
     m_channel->registerObject(QStringLiteral("content"), &m_content);
@@ -64,7 +77,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
               this, &PreviewWidget::pdfPrintingFinished);
 
     setContentsMargins(0, 0, 0, 0);
-    setContextMenuPolicy(Qt::NoContextMenu);
+    // setContextMenuPolicy(Qt::NoContextMenu);
     setFocusPolicy(Qt::NoFocus);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 }
