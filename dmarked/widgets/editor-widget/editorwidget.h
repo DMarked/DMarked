@@ -32,12 +32,24 @@ public:
     void setHighlightCurrentLineEnabled(bool enable);
     void initFakeVim(MainWindow *mw);
 
+    // Sync From CentralWidget
+    void syncFilePath(const QString &path);
+
 public Q_SLOTS:
     void highlightCurrentLine();
 
 private:
     bool m_bHighlightCurrentLine;
     QColor m_highlightLineColor;
+
+    QString m_filePath;
+
+    // QWidget interface
+protected:
+    virtual void dropEvent(QDropEvent *event) override;
+    virtual void dragEnterEvent(QDragEnterEvent *e) override;
+    virtual void dragMoveEvent(QDragMoveEvent *e) override;
+    virtual void dragLeaveEvent(QDragLeaveEvent *e) override;
 };
 
 #endif // EDITORWIDGET_H

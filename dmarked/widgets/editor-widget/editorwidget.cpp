@@ -20,11 +20,13 @@
  */
 #include "editorwidget.h"
 #include "fakevimproxy.h"
-
 #include "mainwindow.h"
-#include <FakeVim/fakevimhandler.h>
 
+#include <FakeVim/fakevimhandler.h>
+#include <QStandardPaths>
 #include <DGuiApplicationHelper>
+#include <QMimeData>
+
 using DTK_NAMESPACE::Gui::DGuiApplicationHelper;
 
 EditorWidget::EditorWidget(QWidget *parent):
@@ -51,9 +53,10 @@ EditorWidget::EditorWidget(QWidget *parent):
     });
 
     setExtraSelections({});
+
+    // setAcceptDrops(false);
 }
 
-#include <QStandardPaths>
 void EditorWidget::initFakeVim(MainWindow *mw)
 {
     // Create FakeVimHandler instance which will emulate Vim behavior in editor widget.
@@ -119,3 +122,99 @@ void EditorWidget::highlightCurrentLine()
         setExtraSelections(extraSelections);
     }
 }
+
+void EditorWidget::syncFilePath(const QString &path)
+{
+    m_filePath = path;
+}
+
+// code lifted and modified from ghostwriter [GPLv3] --BEGIN
+void EditorWidget::dragEnterEvent(QDragEnterEvent *e)
+{
+    if (e->mimeData()->hasUrls()) {
+        e->acceptProposedAction();
+    } else {
+        QPlainTextEdit::dragEnterEvent(e);
+    }
+}
+
+void EditorWidget::dragMoveEvent(QDragMoveEvent *e)
+{
+    e->acceptProposedAction();
+}
+
+void EditorWidget::dragLeaveEvent(QDragLeaveEvent *e)
+{
+    e->accept();
+}
+
+void EditorWidget::dropEvent(QDropEvent *e)
+{
+    //Q_D(EditorWidget);
+
+    if (e->mimeData()->hasUrls() && (e->mimeData()->urls().size() == 1)) {
+        e->acceptProposedAction();
+
+        QUrl url = e->mimeData()->urls().first();
+        QString path = url.toLocalFile();
+        bool isRelativePath = false;
+
+        QFileInfo fileInfo(path);
+        QString fileExtension = fileInfo.suffix().toLower();
+
+        QTextCursor dropCursor = cursorForPosition(e->pos());
+
+        // If the file extension indicates an image type, then insert an
+        // image link into the text.
+        if
+        (
+            (fileExtension == "jpg") ||
+            (fileExtension == "jpeg") ||
+            (fileExtension == "gif") ||
+            (fileExtension == "bmp") ||
+            (fileExtension == "png") ||
+            (fileExtension == "tif") ||
+            (fileExtension == "tiff") ||
+            (fileExtension == "svg")
+        ) {
+            QFileInfo docInfo(m_filePath);
+            if (docInfo.exists()) {
+                path = docInfo.dir().relativeFilePath(path);
+                isRelativePath = true;
+            }
+            if (!isRelativePath) {
+                path = url.toString();
+            }
+
+            dropCursor.insertText(QString("![](%1)").arg(path));
+
+            // We have to call the super class so that clean up occurs,
+            // otherwise the editor's cursor will freeze.  We also have to use
+            // a dummy drop event with dummy MIME data, otherwise the parent
+            // class will insert the file path into the document.
+            //
+            QMimeData *dummyMimeData = new QMimeData();
+            dummyMimeData->setText("");
+            QDropEvent *dummyEvent =
+                new QDropEvent
+            (
+                e->pos(),
+                e->possibleActions(),
+                dummyMimeData,
+                e->mouseButtons(),
+                e->keyboardModifiers()
+            );
+            QPlainTextEdit::dropEvent(dummyEvent);
+
+            delete dummyEvent;
+            delete dummyMimeData;
+        }
+        // Else insert URL path as normal, using the parent class.
+        else {
+            QPlainTextEdit::dropEvent(e);
+        }
+    } else {
+        QPlainTextEdit::dropEvent(e);
+    }
+}
+// code lifted and modified from ghostwriter [GPLv3] --END
