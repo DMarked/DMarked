@@ -26,6 +26,8 @@
 #include <QStandardPaths>
 #include <DGuiApplicationHelper>
 #include <QMimeData>
+#include <QFileInfo>
+#include <QDir>
 
 using DTK_NAMESPACE::Gui::DGuiApplicationHelper;
 
@@ -52,8 +54,7 @@ EditorWidget::EditorWidget(QWidget *parent):
         highlightCurrentLine();
     });
 
-    setExtraSelections({});
-
+    // setExtraSelections({});
     // setAcceptDrops(false);
 }
 
@@ -99,7 +100,12 @@ void EditorWidget::setHighlightCurrentLineEnabled(bool enable)
 {
     m_bHighlightCurrentLine = enable;
     if (!enable) {
-        setExtraSelections({});
+        if (m_lastSelectionId != -1) {
+            QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
+            extraSelections.removeAt(m_lastSelectionId);
+            setExtraSelections(extraSelections);
+            m_lastSelectionId = -1;
+         }
     } else {
         highlightCurrentLine();
     }
@@ -109,6 +115,7 @@ void EditorWidget::highlightCurrentLine()
 {
     if (m_bHighlightCurrentLine) {
         QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
+        extraSelections.removeAt(m_lastSelectionId);
 
         if (!isReadOnly()) {
             QTextEdit::ExtraSelection selection;
@@ -117,6 +124,7 @@ void EditorWidget::highlightCurrentLine()
             selection.cursor = textCursor();
             selection.cursor.clearSelection();
             extraSelections.append(selection);
+            m_lastSelectionId = extraSelections.size()-1;
         }
 
         setExtraSelections(extraSelections);

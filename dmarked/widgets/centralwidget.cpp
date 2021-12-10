@@ -92,6 +92,7 @@ CentralWidget::CentralWidget(DWidget *parent)
 
 void CentralWidget::setFilePath(const QString &path)
 {
+    m_editor_widget->syncFilePath(path);
     if (m_file_path != path) {
         if (!m_file_path.isEmpty())
             m_fileWatcher->removePath(m_file_path);

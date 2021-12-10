@@ -41,6 +41,8 @@ public Q_SLOTS:
 private:
     bool m_bHighlightCurrentLine;
     QColor m_highlightLineColor;
+    int m_lastSelectionId = -1;
+    void removeLastSelection();
 
     QString m_filePath;
 
