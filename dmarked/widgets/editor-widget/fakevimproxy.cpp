@@ -28,8 +28,8 @@
 #include <QTemporaryFile>
 #include <QTextStream>
 #include <QTextBlock>
-#include <QApplication>
-#include <QMessageBox>
+#include <DApplication>
+#include <DMessageBox>
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
     #include<QRegularExpression>
@@ -88,7 +88,7 @@ void FakeVimProxy::changeStatusData(const QString &info) {
 }
 
 void FakeVimProxy::changeExtraInformation(const QString &info) {
-    QMessageBox::information(m_ed, tr("Information"), info);
+    DMessageBox::information(m_ed, tr("Information"), info);
 }
 
 // 更新搜索模式的高亮
@@ -174,7 +174,7 @@ void FakeVimProxy::handleExCommand(bool *handled,
 
 void FakeVimProxy::requestSetBlockSelection(const QTextCursor &tc) {
     QPalette pal = m_ed->parentWidget() != nullptr ? m_ed->parentWidget()->palette()
-                                                 : QApplication::palette();
+                                                 : DApplication::palette();
 
     m_blockSelection.clear();
     m_clearSelection.clear();
@@ -219,7 +219,7 @@ void FakeVimProxy::requestSetBlockSelection(const QTextCursor &tc) {
 
 void FakeVimProxy::requestDisableBlockSelection() {
     QPalette pal = m_ed->parentWidget() != nullptr ? m_ed->parentWidget()->palette()
-                                                 : QApplication::palette();
+                                                 : DApplication::palette();
 
     m_blockSelection.clear();
     m_clearSelection.clear();
@@ -318,7 +318,7 @@ bool FakeVimProxy::save() {
     return true;
 }
 
-void FakeVimProxy::invalidate() { QApplication::quit(); }
+void FakeVimProxy::invalidate() { DApplication::quit(); }
 
 bool FakeVimProxy::hasChanges() { return false; }
 
