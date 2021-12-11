@@ -29,6 +29,7 @@
 #include <QDir>
 #include <DSettingsOption>
 #include <QAction>
+#include <QWebEngineProfile>
 
 PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 {
@@ -44,7 +45,11 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
     this->page()->action(QWebEnginePage::OpenLinkInNewWindow)->setVisible(false);
     this->page()->action(QWebEnginePage::ViewSource)->setVisible(false);
     this->page()->action(QWebEnginePage::SavePage)->setVisible(false);
-
+//    QWebEngineProfile::defaultProfile()->setHttpCacheType(QWebEngineProfile::NoCache);
+//    QWebEngineProfile::defaultProfile()->clearHttpCache();
+//    QWebEngineProfile::defaultProfile()->clearAllVisitedLinks();
+    m_page->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
+    m_page->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
 
     setPage(m_page);
     m_channel = new QWebChannel(this);
@@ -77,7 +82,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
               this, &PreviewWidget::pdfPrintingFinished);
 
     setContentsMargins(0, 0, 0, 0);
-    // setContextMenuPolicy(Qt::NoContextMenu);
+    setContextMenuPolicy(Qt::DefaultContextMenu);
     setFocusPolicy(Qt::NoFocus);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 }

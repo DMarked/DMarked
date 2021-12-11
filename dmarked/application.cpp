@@ -155,15 +155,7 @@ void Application::handleQuitAction()
 bool Application::notify(QObject *object, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
-        // 让所有按钮响应回车 DPushButton不响应回车 DIconButton会默认响应
         QKeyEvent *keyevent = static_cast<QKeyEvent *>(event);
-        if ((object->inherits("QAbstractButton")) && (keyevent->key() == Qt::Key_Return || keyevent->key() == Qt::Key_Enter)) {
-            QAbstractButton *pushButton = dynamic_cast<QAbstractButton *>(object);
-            if (pushButton) {
-                emit pushButton->clicked(!pushButton->isChecked());
-                return true;
-            }
-        }
 
         // alt+m 模拟右击菜单
         if ((keyevent->modifiers() == Qt::AltModifier) && keyevent->key() == Qt::Key_M) {

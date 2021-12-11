@@ -39,16 +39,14 @@ public:
     void md2pdf(QString from, QString to, QPageLayout pageLayout, int depth);
 
     MainWindow *mainWindow() const;
-signals:
 
-public slots:
+public Q_SLOTS:
     // 进程单例处理
     void onNewProcessInstance(qint64 pid, const QStringList &arguments);
 
 protected:
     // 重写标题栏退出事件
     virtual void handleQuitAction() override;
-    // 让无法响应的对象强行响应
     bool notify(QObject *object, QEvent *event) override;
 
 protected:

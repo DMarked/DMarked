@@ -31,7 +31,7 @@
 #include <DSettingsOption>
 #include <QStyleFactory>
 #include <QFontDatabase>
-#include <QApplication>
+#include <DApplication>
 #include <QComboBox>
 #include <QDir>
 #include <QStandardPaths>
@@ -134,22 +134,6 @@ void Settings::setSettingDialog(DSettingsDialog *settingsDialog)
 {
     m_pSettingsDialog = settingsDialog;
 }
-
-// This function is workaround, it will remove after DTK fixed SettingDialog theme bug.
-/*
-void Settings::dtkThemeWorkaround(QWidget *parent, const QString &theme)
-{
-    parent->setStyle(QStyleFactory::create(theme));
-
-    for (auto obj : parent->children()) {
-        auto w = qobject_cast<QWidget *>(obj);
-        if (!w) {
-            continue;
-        }
-
-        dtkThemeWorkaround(w, theme);
-    }
-}*/
 
 QPair<QWidget *, QWidget *> Settings::createFontComBoBoxHandle(QObject *obj)
 {

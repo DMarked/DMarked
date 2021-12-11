@@ -32,7 +32,6 @@
 #include <QSettings>
 #include <QPointer>
 #include <QKeyEvent>
-#include <QDebug>
 #include <DApplication>
 #include <QLabel>
 #include <QPushButton>
@@ -49,7 +48,6 @@ public:
     explicit Settings(QWidget *parent = nullptr);
     ~Settings();
 
-    //void dtkThemeWorkaround(QWidget *parent, const QString &theme);
     static QPair<QWidget*, QWidget*> createFontComBoBoxHandle(QObject *obj);
     static QPair<QWidget*, QWidget*> createKeySequenceEditHandle(QObject *obj);
     static Settings* instance();
@@ -62,7 +60,7 @@ public:
 
     DSettings *settings;
 
-signals:
+Q_SIGNALS:
     void sigAdjustFont(QString name);
     void sigAdjustFontSize(int fontSize);
     void sigAdjustTabSpaceNumber(int number);
@@ -104,11 +102,11 @@ public:
 protected:
     inline bool eventFilter(QObject *object, QEvent *event)
     {
-        //设置界面　回车键和空格键　切换输入 梁卫东
+        // 设置界面　回车键和空格键　切换输入 梁卫东
         if (object == this) {
             if (event->type() == QEvent::KeyPress) {
                 QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
-               //判断是否包含组合键　梁卫东
+               // 判断是否包含组合键　梁卫东
                 Qt::KeyboardModifiers modifiers = keyEvent->modifiers();
                 bool bHasModifier = (modifiers & Qt::ShiftModifier ||modifiers & Qt::ControlModifier ||
                                      modifiers & Qt::AltModifier);
