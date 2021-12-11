@@ -2,6 +2,7 @@
 
 var dmarked_isDark = false;
 var dmarked_content;
+var dmarked_pangu = true;
 
 /**************************************************************************/
 
@@ -102,6 +103,8 @@ var updateText = function (text) {
   //  return window.twemoji.parse(token[idx].content);
   //};
 
+  if (dmarked_pangu)
+      text = pangu.spacing(text);
   document.getElementById('placeholder').innerHTML = md.render(text);
   mermaid.initialize(mermaidConfigs);
   dmarked_content.onMdLoadFinished();

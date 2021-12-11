@@ -24,3 +24,7 @@
 #### Theme
 - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css
 - https://highlightjs.org/static/demo/styles/monokai-sublime.css
+
+
+## pangu [ MIT ]
+- https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js
