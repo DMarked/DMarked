@@ -96,6 +96,7 @@ public:
     void updateStatusBarMessage(const QString &msg);
     void storeUpdatedNotesToDisk();
 
+    void setupAutoSave(bool enable, bool asingleShot, int intervalMSec);
 private:
     void setupAction();
 
@@ -103,6 +104,7 @@ private:
     CentralWidget *m_central_widget;
     BottomBar *m_bottom_bar;
     Settings *m_settings;
+    QTimer *m_autoSaveTimer;
     CliTool ct;
 
     int m_font_size;

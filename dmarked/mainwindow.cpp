@@ -41,7 +41,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_search_edit(new DSearchEdit),
     m_central_widget(new CentralWidget),
     m_bottom_bar(new BottomBar),
-    m_settings(Settings::instance())
+    m_settings(Settings::instance()),
+    m_autoSaveTimer(new QTimer)
 {
 
     resize(1200, 740);
@@ -76,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_bottom_bar, &BottomBar::currentModeChanged, [this](const QString &mode) {
         m_central_widget->setMode(mode);
     });
-
+/***        Layout          ***/
     QVBoxLayout *m_layout = new QVBoxLayout;
     m_layout->setContentsMargins(0, 0, 0, 0);
     m_layout->setSpacing(0);
@@ -122,6 +123,11 @@ MainWindow::MainWindow(QWidget *parent) :
     defaultFile.open(QIODevice::ReadOnly);
     m_central_widget->m_editor_widget->setPlainText(defaultFile.readAll());
     m_central_widget->setFilePath(history);
+/***        autoSave         ***/
+    connect(m_autoSaveTimer, &QTimer::timeout, m_autoSaveTimer, [this] {
+        this->onFileSave();
+    });
+    setupAutoSave(true, false, 5000);
 
 /***        init FakeVim!         ***/
     bool enableFakeVim = m_settings->settings->option("base.fakevim.enable")->value().toBool();
@@ -146,6 +152,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    m_autoSaveTimer->deleteLater();
+}
+
+void MainWindow::setupAutoSave(bool enable, bool asingleShot, int intervalMSec)
+{
+    m_autoSaveTimer->stop();
+    if (enable) {
+        m_autoSaveTimer->setSingleShot(asingleShot);
+        m_autoSaveTimer->setInterval(intervalMSec);
+        m_autoSaveTimer->start();
+    }
 }
 
 void MainWindow::setupAction()
