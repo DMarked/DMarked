@@ -50,6 +50,33 @@
                             "default": "false"
                         }
                      ]
+                },
+                {
+                    "key": "autosave",
+                    "name": "AuotSave",
+                    "options": [
+                        {
+                            "key": "enable",
+                            "name": "Enable",
+                            "type": "checkbox",
+                            "text": "enable autosave timer",
+                            "default": "true"
+                        },
+                        {
+                            "key": "type",
+                            "name": "Type",
+                            "type": "combobox",
+                            "default": "without_modification"
+                        },
+                        {
+                            "key": "interval",
+                            "name": "Interval",
+                            "type": "spinbutton",
+                            "default": 1000,
+                            "max": 10000000,
+                            "min": 100
+                        }
+                     ]
                 }
             ]
         },

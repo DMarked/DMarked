@@ -69,6 +69,8 @@ MainWindow::MainWindow(QWidget *parent) :
         QTextCursor cursor = m_central_widget->m_editor_widget->textCursor();
         m_bottom_bar->updatePosition(cursor.blockNumber()+1, cursor.columnNumber()+1);
     });
+    // onTextChanged
+    connect(m_central_widget->m_editor_widget, &QMarkdownTextEdit::textChanged, this, &MainWindow::onTextChanged);
     // Change Markdown Theme by DropDownMenu
     connect(m_bottom_bar, &BottomBar::currentMdThemeChanged, [this](const QString &theme) {
        m_central_widget->m_preview_widget->setMarkdownTheme(theme);
@@ -89,24 +91,27 @@ MainWindow::MainWindow(QWidget *parent) :
     setupAction();
 
 /***        setting         ***/
-    connect(m_settings, &Settings::sigAdjustFont, this, [this](QString fontName) {
+    connect(m_settings, &Settings::sigAdjustFont, [this](QString fontName) {
         m_central_widget->setFontFamily(fontName);
     });
     m_font_size = Settings::instance()->settings->option("base.font.size")->value().toInt();
-    connect(m_settings, &Settings::sigAdjustFontSize, this, [this](int size) {
+    connect(m_settings, &Settings::sigAdjustFontSize, [this](int size) {
         m_font_size = size;
         m_central_widget->setFontSize(size);
     });
-    connect(m_settings, &Settings::sigSetLineNumberShow, this, [this](bool bIsShow) {
+    connect(m_settings, &Settings::sigSetLineNumberShow, [this](bool bIsShow) {
         m_central_widget->m_editor_widget->setLineNumberEnabled(bIsShow);
     });
-    connect(m_settings, &Settings::sigAdjustTabSpaceNumber, this, [this](int number) {
+    connect(m_settings, &Settings::sigAdjustTabSpaceNumber, [this](int number) {
         m_central_widget->setTabSpaceNumber(number);
     });
-    connect(m_settings, &Settings::sigHightLightCurrentLine, this, [this](bool enable) {
+    connect(m_settings, &Settings::sigHightLightCurrentLine, [this](bool enable) {
         m_central_widget->m_editor_widget->setHighlightCurrentLineEnabled(enable);
     });
-    connect(m_settings, &Settings::sigChangeWindowSize, this, [ = ](QString mode) {
+    connect(m_settings, &Settings::sigChangeAutoSaveOption, [this]() {
+        setupAutoSave();
+    });
+    connect(m_settings, &Settings::sigChangeWindowSize, [this](QString mode) {
         if (mode == "fullscreen") {
             this->showFullScreen();
         } else if (mode == "window_maximum") {
@@ -125,9 +130,13 @@ MainWindow::MainWindow(QWidget *parent) :
     m_central_widget->setFilePath(history);
 /***        autoSave         ***/
     connect(m_autoSaveTimer, &QTimer::timeout, m_autoSaveTimer, [this] {
+        if (m_central_widget->getFilePath().isEmpty()) {
+            return;
+        }
         this->onFileSave();
     });
-    setupAutoSave(true, false, 5000);
+
+    setupAutoSave();
 
 /***        init FakeVim!         ***/
     bool enableFakeVim = m_settings->settings->option("base.fakevim.enable")->value().toBool();
@@ -155,13 +164,14 @@ MainWindow::~MainWindow()
     m_autoSaveTimer->deleteLater();
 }
 
-void MainWindow::setupAutoSave(bool enable, bool asingleShot, int intervalMSec)
+void MainWindow::setupAutoSave()
 {
-    m_autoSaveTimer->stop();
-    if (enable) {
-        m_autoSaveTimer->setSingleShot(asingleShot);
-        m_autoSaveTimer->setInterval(intervalMSec);
+    if (SettingsHelper::isAutoSave()) {
+        m_autoSaveTimer->setSingleShot(SettingsHelper::getAutoSaveIntervalType() != tr("Without modification"));
+        m_autoSaveTimer->setInterval(SettingsHelper::getAutoSaveInterval());
         m_autoSaveTimer->start();
+    } else {
+        m_autoSaveTimer->stop();
     }
 }
 
@@ -407,6 +417,15 @@ void MainWindow::onOpenHelpFile()
     QFile helpFile(":/default.md");
     helpFile.open(QIODevice::ReadOnly);
     m_central_widget->m_editor_widget->setPlainText(helpFile.readAll());
+}
+
+void MainWindow::onTextChanged()
+{
+    if (SettingsHelper::isAutoSave() && SettingsHelper::getAutoSaveIntervalType() != tr("Without modification") &&
+           (!m_autoSaveTimer->isActive() || SettingsHelper::getAutoSaveIntervalType() == tr("After the last modification")))
+       {
+           m_autoSaveTimer->start();
+       }
 }
 
 void MainWindow::showCenterWindow(bool bIsCenter)

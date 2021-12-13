@@ -22,7 +22,6 @@
 #include "bottombar.h"
 #include "dropdown-menu/mdtheme.h"
 
-#include <QLabel>
 #include <QPainter>
 #include <QHBoxLayout>
 #include <DMenu>

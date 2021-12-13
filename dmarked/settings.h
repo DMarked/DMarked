@@ -26,6 +26,7 @@
 #define SETTINGS_H
 
 #include <DSettingsDialog>
+#include <DSettingsOption>
 #include <qsettingbackend.h>
 #include <DKeySequenceEdit>
 #include <DDialog>
@@ -67,6 +68,7 @@ Q_SIGNALS:
     void sigHightLightCurrentLine(bool enable);
     void sigSetLineNumberShow(bool bIsShow);
     void sigChangeWindowSize(QString mode);
+    void sigChangeAutoSaveOption();
 
 private:
     void updateAllKeysWithKeymap(QString keymap);
@@ -132,6 +134,21 @@ protected:
 
 private:
     DTK_CORE_NAMESPACE::DSettingsOption *m_pOption = nullptr;
+};
+
+class SettingsHelper : public QObject
+{
+    Q_OBJECT
+
+public:
+    explicit SettingsHelper() = default;
+
+    static bool isAutoSave() {return get("base.autosave.enable").toBool(); }
+    static QString getAutoSaveIntervalType() { return get("base.autosave.type").toString(); }
+    static int getAutoSaveInterval() { return get("base.autosave.interval").toInt(); }
+
+    static QVariant get(QString option) { return Settings::instance()->settings->option(option)->value();}
+    static void set(QString option, QVariant val) { Settings::instance()->settings->option(option)->setValue(val); }
 };
 
 #endif // SETTINGS_H

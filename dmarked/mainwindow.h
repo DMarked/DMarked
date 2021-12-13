@@ -79,6 +79,7 @@ private Q_SLOTS:
     void onToPdf();
     void onToHtml();
     void onOpenHelpFile();
+    void onTextChanged();
 
 public:
     bool isModified() const;
@@ -96,7 +97,7 @@ public:
     void updateStatusBarMessage(const QString &msg);
     void storeUpdatedNotesToDisk();
 
-    void setupAutoSave(bool enable, bool asingleShot, int intervalMSec);
+    void setupAutoSave();
 private:
     void setupAction();
 

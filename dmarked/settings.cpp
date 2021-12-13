@@ -28,7 +28,6 @@
 #include <DSettings>
 #include <DSettingsGroup>
 #include <DSettingsWidgetFactory>
-#include <DSettingsOption>
 #include <QStyleFactory>
 #include <QFontDatabase>
 #include <DApplication>
@@ -70,11 +69,35 @@ Settings::Settings(QWidget *parent)
         emit sigHightLightCurrentLine(value.toBool());
     });
 
+    // auto save option
+    auto autoSaveEnable = settings->option("base.autosave.enable");
+    connect(autoSaveEnable, &Dtk::Core::DSettingsOption::valueChanged, [ = ] () {
+        emit sigChangeAutoSaveOption();
+    });
+    auto autoSaveInterval = settings->option("base.autosave.interval");
+    connect(autoSaveInterval, &Dtk::Core::DSettingsOption::valueChanged, [ = ] () {
+        emit sigChangeAutoSaveOption();
+    });
+    auto autoSaveType = settings->option("base.autosave.type");
+    connect(autoSaveType, &Dtk::Core::DSettingsOption::valueChanged, [ = ] () {
+        emit sigChangeAutoSaveOption();
+    });
+    QMap<QString, QVariant> autoSaveTypeMap;
+    autoSaveTypeMap.insert("keys", QStringList() << "without_modification"
+                                                 << "after_the_last_modification"
+                                                 << "after_the_frist_modification");
+    autoSaveTypeMap.insert("values", QStringList() << tr("Without modification")
+                                                   << tr("After the last modification")
+                                                   << tr("After the frist modification"));
+    autoSaveType->setData("items", autoSaveTypeMap);
+
+    // Tab Space Number
     auto tabSpaceNumber = settings->option("advance.editor.tabspacenumber");
     connect(tabSpaceNumber, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
         emit sigAdjustTabSpaceNumber(value.toInt());
     });
 
+    // Key Map
     auto keymap = settings->option("shortcuts.keymap.keymap");
     QMap<QString, QVariant> keymapMap;
     keymapMap.insert("keys", QStringList() << "standard" << "customize");
@@ -88,7 +111,7 @@ Settings::Settings(QWidget *parent)
 
     // Only used by new window
     auto windowState = settings->option("advance.window.windowstate");
-    connect(windowState, &Dtk::Core::DSettingsOption::valueChanged, this, [=] (QVariant value) {
+    connect(windowState, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ] (QVariant value) {
         emit sigChangeWindowSize(value.toString());
     });
 
@@ -138,15 +161,11 @@ void Settings::setSettingDialog(DSettingsDialog *settingsDialog)
 QPair<QWidget *, QWidget *> Settings::createFontComBoBoxHandle(QObject *obj)
 {
     auto option = qobject_cast<DTK_CORE_NAMESPACE::DSettingsOption *>(obj);
-
     QComboBox *comboBox = new QComboBox;
-    //QWidget *optionWidget = DSettingsWidgetFactory::createTwoColumWidget(option, comboBox);
     QPair<QWidget *, QWidget *> optionWidget = DSettingsWidgetFactory::createStandardItem(QByteArray(), option, comboBox);
 
     QFontDatabase fontDatabase;
     comboBox->addItems(fontDatabase.families());
-    //comboBox->setItemDelegate(new FontItemDelegate);
-    //comboBox->setFixedSize(240, 36);
 
     if (option->value().toString().isEmpty()) {
         option->setValue(QFontDatabase::systemFont(QFontDatabase::FixedFont).family());
@@ -154,15 +173,12 @@ QPair<QWidget *, QWidget *> Settings::createFontComBoBoxHandle(QObject *obj)
 
     // init.
     comboBox->setCurrentText(option->value().toString());
-
     connect(option, &DSettingsOption::valueChanged, comboBox, [ = ](QVariant var) {
         comboBox->setCurrentText(var.toString());
     });
-
     option->connect(comboBox, &QComboBox::currentTextChanged, option, [ = ](const QString & text) {
         option->setValue(text);
     });
-
     return optionWidget;
 }
 

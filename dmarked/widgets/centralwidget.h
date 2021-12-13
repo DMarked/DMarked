@@ -41,7 +41,7 @@ class CentralWidget : public DWidget
 public:
     explicit CentralWidget(DWidget *parent = nullptr);
     void setMode(const QString &mode);
-    void setSync(bool enable);
+    void setSync(bool enable) { m_is_sync = enable; }
 
     void setFontSize(int size);
     void setFontFamily(const QString &fontName);
@@ -49,7 +49,7 @@ public:
     void updateFont();
 
     void setFilePath(const QString &path);
-    const QString &getFilePath();
+    const QString &getFilePath() { return m_file_path; }
 
 public Q_SLOTS:
     void onFileModified(const QString &path, const QString &name);

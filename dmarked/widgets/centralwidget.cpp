@@ -101,11 +101,6 @@ void CentralWidget::setFilePath(const QString &path)
     m_file_path = path;
 }
 
-const QString & CentralWidget::getFilePath()
-{
-    return m_file_path;
-}
-
 void CentralWidget::onFileModified(const QString &path, const QString &name)
 {
     dInfo() << QString("File Modified: path: %1, name: %2").arg(path).arg(name);
@@ -116,11 +111,6 @@ void CentralWidget::onFileModified(const QString &path, const QString &name)
     QString newContent = f.readAll();
     if (newContent != m_editor_widget->toPlainText())
         m_editor_widget->setPlainText(newContent);
-}
-
-void CentralWidget::setSync(bool enable)
-{
-    m_is_sync = enable;
 }
 
 void CentralWidget::setMode(const QString &mode)
