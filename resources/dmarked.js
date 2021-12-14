@@ -103,8 +103,23 @@ var updateText = function (text) {
   //  return window.twemoji.parse(token[idx].content);
   //};
 
-  if (dmarked_pangu)
-      text = pangu.spacing(text);
+    // https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
+    var localPath = /[A-Za-z0-9_-]+\.?[A-Za-z0-9]*/;
+    md.renderer.rules.image = function (tokens, idx, options, env, self) {
+        var token = tokens[idx],
+        aIndexSrc = token.attrIndex('src'),
+        aIndexAlt = token.attrIndex('alt');
+
+        if (localPath.test(token.attrs[aIndexSrc][1])) {
+            // console.log(token.attrs[aIndexSrc]);
+            return '<p>' + '<img src="file://'+token.attrs[aIndexSrc][1]+'" alt="' + token.attrs[aIndexAlt][1] + '">' + '</p>';
+        }
+
+        return self.renderToken(tokens, idx, options, env, self);
+    };
+
+    if (dmarked_pangu)
+        text = pangu.spacing(text);
   document.getElementById('placeholder').innerHTML = md.render(text);
   mermaid.initialize(mermaidConfigs);
   dmarked_content.onMdLoadFinished();
