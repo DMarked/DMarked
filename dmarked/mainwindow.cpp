@@ -167,7 +167,8 @@ MainWindow::~MainWindow()
 void MainWindow::setupAutoSave()
 {
     if (SettingsHelper::isAutoSave()) {
-        m_autoSaveTimer->setSingleShot(SettingsHelper::getAutoSaveIntervalType() != tr("Without modification"));
+        dError() << SettingsHelper::getAutoSaveIntervalType();
+        m_autoSaveTimer->setSingleShot(SettingsHelper::getAutoSaveIntervalType() != "without_modification");
         m_autoSaveTimer->setInterval(SettingsHelper::getAutoSaveInterval());
         m_autoSaveTimer->start();
     } else {
@@ -421,8 +422,8 @@ void MainWindow::onOpenHelpFile()
 
 void MainWindow::onTextChanged()
 {
-    if (SettingsHelper::isAutoSave() && SettingsHelper::getAutoSaveIntervalType() != tr("Without modification") &&
-           (!m_autoSaveTimer->isActive() || SettingsHelper::getAutoSaveIntervalType() == tr("After the last modification")))
+    if (SettingsHelper::isAutoSave() && SettingsHelper::getAutoSaveIntervalType() != "without_modification" &&
+           (!m_autoSaveTimer->isActive() || SettingsHelper::getAutoSaveIntervalType() == "after_the_last_modification"))
        {
            m_autoSaveTimer->start();
        }

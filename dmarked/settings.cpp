@@ -71,17 +71,14 @@ Settings::Settings(QWidget *parent)
 
     // auto save option
     auto autoSaveEnable = settings->option("base.autosave.enable");
-    connect(autoSaveEnable, &Dtk::Core::DSettingsOption::valueChanged, [ = ] () {
+    connect(autoSaveEnable, &Dtk::Core::DSettingsOption::valueChanged, [ = ] (QVariant) {
         emit sigChangeAutoSaveOption();
     });
     auto autoSaveInterval = settings->option("base.autosave.interval");
-    connect(autoSaveInterval, &Dtk::Core::DSettingsOption::valueChanged, [ = ] () {
+    connect(autoSaveInterval, &Dtk::Core::DSettingsOption::valueChanged, [ = ] (QVariant) {
         emit sigChangeAutoSaveOption();
     });
     auto autoSaveType = settings->option("base.autosave.type");
-    connect(autoSaveType, &Dtk::Core::DSettingsOption::valueChanged, [ = ] () {
-        emit sigChangeAutoSaveOption();
-    });
     QMap<QString, QVariant> autoSaveTypeMap;
     autoSaveTypeMap.insert("keys", QStringList() << "without_modification"
                                                  << "after_the_last_modification"
@@ -90,6 +87,9 @@ Settings::Settings(QWidget *parent)
                                                    << tr("After the last modification")
                                                    << tr("After the frist modification"));
     autoSaveType->setData("items", autoSaveTypeMap);
+    connect(autoSaveType, &Dtk::Core::DSettingsOption::valueChanged, [ = ] (QVariant) {
+        emit sigChangeAutoSaveOption();
+    });
 
     // Tab Space Number
     auto tabSpaceNumber = settings->option("advance.editor.tabspacenumber");
@@ -111,14 +111,13 @@ Settings::Settings(QWidget *parent)
 
     // Only used by new window
     auto windowState = settings->option("advance.window.windowstate");
-    connect(windowState, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ] (QVariant value) {
-        emit sigChangeWindowSize(value.toString());
-    });
-
     QMap<QString, QVariant> windowStateMap;
     windowStateMap.insert("keys", QStringList() << "window_normal" << "window_maximum" << "fullscreen");
     windowStateMap.insert("values", QStringList() << tr("Normal") << tr("Maximum") << tr("Fullscreen"));
     windowState->setData("items", windowStateMap);
+    connect(windowState, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ] (QVariant value) {
+        emit sigChangeWindowSize(value.toString());
+    });
 
     connect(settings, &Dtk::Core::DSettings::valueChanged, this, [ = ](const QString &key, const QVariant &value) {
 

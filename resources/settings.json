@@ -44,7 +44,7 @@
                     "options": [
                         {
                             "key": "enable",
-                            "name": "enable",
+                            "name": "Enable",
                             "type": "checkbox",
                             "text": "enable vim emulator",
                             "default": "false"
