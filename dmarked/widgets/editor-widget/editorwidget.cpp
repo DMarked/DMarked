@@ -158,8 +158,6 @@ void EditorWidget::dragLeaveEvent(QDragLeaveEvent *e)
 
 void EditorWidget::dropEvent(QDropEvent *e)
 {
-    //Q_D(EditorWidget);
-
     if (e->mimeData()->hasUrls() && (e->mimeData()->urls().size() == 1)) {
         e->acceptProposedAction();
 
@@ -191,7 +189,7 @@ void EditorWidget::dropEvent(QDropEvent *e)
                 isRelativePath = true;
             }
             if (!isRelativePath) {
-                path = url.toString();
+                path = url.toLocalFile();
             }
 
             dropCursor.insertText(QString("![](%1)").arg(path));

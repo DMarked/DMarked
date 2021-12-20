@@ -417,6 +417,7 @@ void MainWindow::onOpenHelpFile()
 {
     QFile helpFile(":/default.md");
     helpFile.open(QIODevice::ReadOnly);
+    m_central_widget->setFilePath("");
     m_central_widget->m_editor_widget->setPlainText(helpFile.readAll());
 }
 
