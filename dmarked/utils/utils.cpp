@@ -75,3 +75,11 @@ bool Utils::ensurePathExist(const QString &filePath)
         return path.mkpath(path.path());
     return true;
 }
+
+QString Utils::getDefaultDlgFilePath(const QString &nowFilePath)
+{
+    int id = nowFilePath.lastIndexOf('/');
+    if (id == -1)
+        return QDir::homePath();
+    return nowFilePath.left(id);
+}

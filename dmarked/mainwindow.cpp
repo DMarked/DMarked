@@ -325,9 +325,8 @@ void MainWindow::onToPdf()
 {
     ToPdfDlg dlg(this);
     int res = dlg.exec();
-    if (res != QDialog::Accepted) {
+    if (res != QDialog::Accepted)
         return;
-    }
 
     QPageLayout pageLayout(dlg.getPageSize()
                          , dlg.getOrientation()
@@ -336,8 +335,10 @@ void MainWindow::onToPdf()
                                      dlg.getMarginRight(),
                                      dlg.getMarginButtom()));
 
-    QString path = DFileDialog::getSaveFileName(this,
-        tr("Convert to PDF"), "", tr("PDF File (*.pdf)"));
+    QString path = DFileDialog::getSaveFileName(this
+                                              , tr("Convert to PDF")
+                                              , Utils::getDefaultDlgFilePath(m_central_widget->getFilePath())
+                                              , tr("PDF File (*.pdf)"));
     if (path.isEmpty())
         return;
     m_central_widget->m_preview_widget->convert2Pdf(path, pageLayout);
@@ -345,8 +346,10 @@ void MainWindow::onToPdf()
 
 void MainWindow::onToHtml()
 {
-    QString path = DFileDialog::getSaveFileName(this,
-        tr("Convert to HTML"), "", tr("HTML File (*.html)"));
+    QString path = DFileDialog::getSaveFileName(this
+                                              , tr("Convert to HTML")
+                                              , Utils::getDefaultDlgFilePath(m_central_widget->getFilePath())
+                                              , tr("HTML File (*.html)"));
     if (path.isEmpty())
         return;
     m_central_widget->m_preview_widget->convert2Html(path);
@@ -392,8 +395,9 @@ void MainWindow::onFileSave()
 
     QFile f(m_central_widget->getFilePath());
     if (!f.open(QIODevice::WriteOnly | QIODevice::Text))  {
-        DMessageBox::warning(this, windowTitle(),
-                             tr("Could not write to file %1: %2").arg(
+        DMessageBox::warning(this
+                           , windowTitle()
+                           , tr("Could not write to file %1: %2").arg(
                                  QDir::toNativeSeparators(m_central_widget->getFilePath()), f.errorString()));
         return;
     }
@@ -404,8 +408,11 @@ void MainWindow::onFileSave()
 
 void MainWindow::onFileSaveAs()
 {
-    QString path = DFileDialog::getSaveFileName(this,
-        tr("Save MarkDown File"), "", tr("MarkDown File (*.md, *.markdown)"));
+
+    QString path = DFileDialog::getSaveFileName(this
+                                              , tr("Save MarkDown File")
+                                              , Utils::getDefaultDlgFilePath(m_central_widget->getFilePath())
+                                              , tr("MarkDown File (*.markdown, *.md)"));
     if (path.isEmpty())
         return;
     m_central_widget->setFilePath(path);

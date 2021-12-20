@@ -33,6 +33,8 @@ public:
     static QString getKeyshortcutFromKeymap(Settings* settings, const QString &keyCategory, const QString &keyName);
 
     static bool ensurePathExist(const QString &filePath);
+
+    static QString getDefaultDlgFilePath(const QString &nowFilePath="");
 };
 
 #endif // UTILS_H
