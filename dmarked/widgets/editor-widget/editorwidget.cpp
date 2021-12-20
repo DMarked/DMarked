@@ -53,9 +53,6 @@ EditorWidget::EditorWidget(QWidget *parent):
                                       : QColor(Qt::darkGray).lighter(160);
         highlightCurrentLine();
     });
-
-    // setExtraSelections({});
-    // setAcceptDrops(false);
 }
 
 void EditorWidget::initFakeVim(MainWindow *mw)
@@ -115,7 +112,9 @@ void EditorWidget::highlightCurrentLine()
 {
     if (m_bHighlightCurrentLine) {
         QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
-        extraSelections.removeAt(m_lastSelectionId);
+        if (m_lastSelectionId != -1)
+            extraSelections.removeAt(m_lastSelectionId);
+        m_lastSelectionId = -1;
 
         if (!isReadOnly()) {
             QTextEdit::ExtraSelection selection;
