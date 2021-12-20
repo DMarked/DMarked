@@ -8,10 +8,11 @@
 
 In debian, use below command to install compile dependencies:
 
-sudo apt install qt5-default libdtkwidget-dev libdtkgui-dev libdtkcore-dev 
+`sudo apt install qt5-default libdtkwidget-dev libdtkgui-dev libdtkcore-dev qtwebengine5-dev`
 
 #### Clone
-- git clone https://github.com/wineee/DMarked.git
+- git clone git@github.com:DMarked/DMarked.git
+- cd DMarked
 - git submodule init
 - git submodule update
 
@@ -19,7 +20,6 @@ sudo apt install qt5-default libdtkwidget-dev libdtkgui-dev libdtkcore-dev
 - mkdir build
 - cd build
 - qmake ..
-- make
 - sudo make install
 
 #### TODO
