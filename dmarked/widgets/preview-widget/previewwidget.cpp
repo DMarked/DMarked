@@ -34,7 +34,6 @@
 PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 {
     m_page = new PreviewPage(this);
-    //m_page->settings()->setAttribute(QWebEngineSettings::ShowScrollBars, false);
 
     this->settings()->setDefaultTextEncoding("utf-8");
     this->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
@@ -45,9 +44,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
     this->page()->action(QWebEnginePage::OpenLinkInNewWindow)->setVisible(false);
     this->page()->action(QWebEnginePage::ViewSource)->setVisible(false);
     this->page()->action(QWebEnginePage::SavePage)->setVisible(false);
-//    QWebEngineProfile::defaultProfile()->setHttpCacheType(QWebEngineProfile::NoCache);
-//    QWebEngineProfile::defaultProfile()->clearHttpCache();
-//    QWebEngineProfile::defaultProfile()->clearAllVisitedLinks();
+
     m_page->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
     m_page->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
 
@@ -119,7 +116,6 @@ void PreviewWidget::setNoGui()
 /**
  * @brief PreviewWidget::convert2Html
  * @param filePath
- * @todo add css theme
  */
 void PreviewWidget::convert2Html(const QString &filePath) {
     PreviewWidget *pw = this;

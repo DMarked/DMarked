@@ -122,12 +122,14 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     });
 
-    QString history = m_settings->settings->option("advance.editor.browsing_history_file")->value().toString();
     // open a default file
+    QString history = m_settings->settings->option("advance.editor.browsing_history_file")->value().toString();
     QFile defaultFile(history.isEmpty() ? ":/default.md" : history);
     defaultFile.open(QIODevice::ReadOnly);
     m_central_widget->m_editor_widget->setPlainText(defaultFile.readAll());
     m_central_widget->setFilePath(history);
+    defaultFile.close();
+
 /***        autoSave         ***/
     connect(m_autoSaveTimer, &QTimer::timeout, m_autoSaveTimer, [this] {
         if (m_central_widget->getFilePath().isEmpty()) {

@@ -3,11 +3,12 @@
 var dmarked_isDark = false;
 var dmarked_content;
 var dmarked_pangu = true;
+var dmarked_filePath = "";
 
 /**************************************************************************/
 
 function setMarkdownTheme(theme) {
-  if (theme == 'none')
+  if (theme === 'none')
     document.getElementById('cssplaceholder').innerHTML = '';
   else
     document.getElementById('cssplaceholder').innerHTML = '<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/' + theme + '.css\">';
@@ -64,7 +65,7 @@ var updateText = function (text) {
           hljs.highlight(lang, str, true).value +
           '</code></pre>';
       } catch (__) { }
-    } else if (lang == 'mermaid') {
+    } else if (lang === 'mermaid') {
       return mermaidChart(str)
     } else {
       return '<pre class="hljs"><code>' + esc(str) + '</code></pre>';
@@ -103,19 +104,42 @@ var updateText = function (text) {
   //  return window.twemoji.parse(token[idx].content);
   //};
 
+    function absolute(base, relative) {
+        var stack = base.split("/"),
+            parts = relative.split("/");
+        stack.pop(); // remove current file name (or empty string)
+                     // (omit if "base" is the current folder without trailing slash)
+        for (var i=0; i<parts.length; i++) {
+            if (parts[i] === ".")
+                continue;
+            if (parts[i] === "..")
+                stack.pop();
+            else
+                stack.push(parts[i]);
+        }
+        return stack.join("/");
+    }
+
     // https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
-    var localPath = /[A-Za-z0-9_-]+\.?[A-Za-z0-9]*/;
     md.renderer.rules.image = function (tokens, idx, options, env, self) {
         var token = tokens[idx],
         aIndexSrc = token.attrIndex('src'),
         aIndexAlt = token.attrIndex('alt');
 
-        if (localPath.test(token.attrs[aIndexSrc][1])) {
-            // console.log(token.attrs[aIndexSrc]);
-            return '<p>' + '<img src="file://'+token.attrs[aIndexSrc][1]+'" alt="' + token.attrs[aIndexAlt][1] + '">' + '</p>';
-        }
+        // http or https
+        if (token.attrs[aIndexSrc][1].substr(0, 4) === "http")
+            return self.renderToken(tokens, idx, options, env, self);
 
-        return self.renderToken(tokens, idx, options, env, self);
+        // files:///
+        if (token.attrs[aIndexSrc][1].substr(0, 5) === "files")
+            token.attrs[aIndexSrc][1] = token.attrs[aIndexSrc][1].slice(8);
+
+        // relative file path
+        if (token.attrs[aIndexSrc][1][0] !== '/')
+            token.attrs[aIndexSrc][1][0] = absolute(dmarked_filePath, token.attrs[aIndexSrc][1][0]);
+
+        // console.log(token.attrs[aIndexSrc]);
+        return '<p>' + '<img src="file://'+token.attrs[aIndexSrc][1]+'" alt="' + token.attrs[aIndexAlt][1] + '">' + '</p>';
     };
 
     if (dmarked_pangu)

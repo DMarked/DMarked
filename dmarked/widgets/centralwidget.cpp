@@ -96,9 +96,12 @@ void CentralWidget::setFilePath(const QString &path)
     if (m_file_path != path) {
         if (!m_file_path.isEmpty())
             m_fileWatcher->removePath(m_file_path);
-        m_fileWatcher->addPath(path);
+        if (!path.isEmpty())
+            m_fileWatcher->addPath(path);
     }
     m_file_path = path;
+    QString method = QString("dmarked_filePath = %1").arg(path);
+    m_preview_widget->page()->runJavaScript(method);
 }
 
 void CentralWidget::onFileModified(const QString &path, const QString &name)
