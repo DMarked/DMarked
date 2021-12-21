@@ -38,9 +38,9 @@ DWIDGET_USE_NAMESPACE
 
 MainWindow::MainWindow(QWidget *parent) :
     DMainWindow(parent),
-    m_search_edit(new DSearchEdit),
-    m_central_widget(new CentralWidget),
-    m_bottom_bar(new BottomBar),
+    m_search_edit(new DSearchEdit(this)),
+    m_central_widget(new CentralWidget(this)),
+    m_bottom_bar(new BottomBar(this)),
     m_settings(Settings::instance()),
     m_autoSaveTimer(new QTimer)
 {
@@ -126,8 +126,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QString history = m_settings->settings->option("advance.editor.browsing_history_file")->value().toString();
     QFile defaultFile(history.isEmpty() ? ":/default.md" : history);
     defaultFile.open(QIODevice::ReadOnly);
-    m_central_widget->m_editor_widget->setPlainText(defaultFile.readAll());
     m_central_widget->setFilePath(history);
+    m_central_widget->m_editor_widget->setPlainText(defaultFile.readAll());
     defaultFile.close();
 
 /***        autoSave         ***/
@@ -298,8 +298,9 @@ void MainWindow::openFile(const QString &path)
 {
     QFile f(path);
     if (!f.open(QIODevice::ReadOnly)) {
-        DMessageBox::warning(this, windowTitle(),
-                             tr("Could not open file %1: %2").arg(
+        DMessageBox::warning(this
+                           , windowTitle()
+                           , tr("Could not open file %1: %2").arg(
                                  QDir::toNativeSeparators(path), f.errorString()));
         return;
     }
@@ -316,8 +317,8 @@ bool MainWindow::isModified() const
 bool MainWindow::queryClose()
 {
     if (isModified()) {
-        DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle(),
-                             tr("You have unsaved changes. Do you want to exit anyway?"));
+        DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle()
+                            , tr("You have unsaved changes. Do you want to exit anyway?"));
         return button == DMessageBox::Yes;
     }
     return true;
@@ -360,8 +361,8 @@ void MainWindow::onToHtml()
 void MainWindow::onFileNew()
 {
     if (isModified()) {
-        DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle(),
-                             tr("You have unsaved changes. Do you want to create a new document anyway?"));
+        DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle()
+                            , tr("You have unsaved changes. Do you want to create a new document anyway?"));
         if (button != DMessageBox::Yes)
             return;
     }
@@ -374,14 +375,16 @@ void MainWindow::onFileNew()
 void MainWindow::onFileOpen()
 {
     if (isModified()) {
-        DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle(),
-                             tr("You have unsaved changes. Do you want to open a new document anyway?"));
+        DMessageBox::StandardButton button = DMessageBox::question(this, windowTitle()
+                            , tr("You have unsaved changes. Do you want to open a new document anyway?"));
         if (button != DMessageBox::Yes)
             return;
     }
 
-    QString path = DFileDialog::getOpenFileName(this,
-        tr("Open MarkDown File"), "", tr("MarkDown File (*.md)"));
+    QString path = DFileDialog::getOpenFileName(this
+                                              , tr("Open MarkDown File")
+                                              , Utils::getDefaultDlgFilePath(m_central_widget->getFilePath())
+                                              , tr("MarkDown File (*.md)"));
     if (path.isEmpty())
         return;
 
