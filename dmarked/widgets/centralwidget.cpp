@@ -44,14 +44,14 @@ CentralWidget::CentralWidget(DWidget *parent)
       m_splitter->setHandleWidth(0);
       m_splitter->setChildrenCollapsible(false);
 
-      m_font_name = Settings::instance()->settings->option("base.font.family")->value().toString();
-      m_font_size = Settings::instance()->settings->option("base.font.size")->value().toInt();
-      m_tab_space_number = Settings::instance()->settings->option("advance.editor.tabspacenumber")->value().toInt();
+      m_font_name = SettingsHelper::get("base.font.family").toString();
+      m_font_size = SettingsHelper::get("base.font.size").toInt();
+      m_tab_space_number = SettingsHelper::get("advance.editor.tabspacenumber").toInt();
       updateFont();
 
       m_editor_widget->setGeometry(0, 0, 600, 740);
-      m_editor_widget->setLineNumberEnabled(Settings::instance()->settings->option("base.font.showlinenumber")->value().toBool());
-      m_editor_widget->setHighlightCurrentLineEnabled(Settings::instance()->settings->option("base.font.hightlightcurrentline")->value().toBool());
+      m_editor_widget->setLineNumberEnabled(SettingsHelper::get("base.font.showlinenumber").toBool());
+      m_editor_widget->setHighlightCurrentLineEnabled(SettingsHelper::get("base.font.hightlightcurrentline").toBool());
 
       m_preview_widget->setGeometry(0, 0, 600, 740);
 
@@ -79,7 +79,7 @@ CentralWidget::CentralWidget(DWidget *parent)
       m_central_layout->setStretch(0, 0);
       m_central_layout->setStretch(2, 0);
       setLayout(m_central_layout);
-      switch (Settings::instance()->settings->option("advance.editor.editor_mode")->value().toInt()) {
+      switch (SettingsHelper::get("advance.editor.editor_mode").toInt()) {
       case 1: setMode(tr("Read Mode")); break;
       case 2: setMode(tr("Write Mode")); break;
       case 3: setMode(tr("Preview Mode(S)")); break;
@@ -123,11 +123,11 @@ void CentralWidget::setMode(const QString &mode)
         m_central_layout->setStretch(2, 1);
         m_editor_widget->setFrameStyle(QFrame::NoFrame); // 去除控件边框线
         if (mode == tr("Read Mode")) {
-            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(1);
+            SettingsHelper::set("advance.editor.editor_mode", 1);
             m_editor_widget->hide();
             m_preview_widget->show();
         } else if (mode == tr("Write Mode")) {
-            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(2);
+            SettingsHelper::set("advance.editor.editor_mode", 2);
             m_editor_widget->show();
             m_preview_widget->hide();
         }
@@ -138,10 +138,10 @@ void CentralWidget::setMode(const QString &mode)
         m_editor_widget->show();
         m_preview_widget->show();
         if (mode ==tr("Preview Mode(S)")) {
-            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(3);
+            SettingsHelper::set("advance.editor.editor_mode", 3);
             setSync(true);
         } else if (mode == tr("Preview Mode(N)")) {
-            Settings::instance()->settings->option("advance.editor.editor_mode")->setValue(4);
+            SettingsHelper::set("advance.editor.editor_mode", 4);
             setSync(false);
         }
     }

@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_settings, &Settings::sigAdjustFont, [this](QString fontName) {
         m_central_widget->setFontFamily(fontName);
     });
-    m_font_size = Settings::instance()->settings->option("base.font.size")->value().toInt();
+    m_font_size = SettingsHelper::get("base.font.size").toInt();
     connect(m_settings, &Settings::sigAdjustFontSize, [this](int size) {
         m_font_size = size;
         m_central_widget->setFontSize(size);
@@ -133,7 +133,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupAutoSave();
 
 /***        init FakeVim!         ***/
-    bool enableFakeVim = m_settings->settings->option("base.fakevim.enable")->value().toBool();
+    bool enableFakeVim = SettingsHelper::get("base.fakevim.enable").toBool();
     if (enableFakeVim)
         m_central_widget->m_editor_widget->initFakeVim(this);
 
@@ -153,7 +153,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_central_widget->m_preview_widget, &PreviewWidget::convert2HtmlFinish, &ct.loop, &QEventLoop::quit);
 
     // open a default file
-    QString history = m_settings->settings->option("advance.editor.browsing_history_file")->value().toString();
+    QString history = SettingsHelper::get("advance.editor.browsing_history_file").toString();
     QFile defaultFile(history.isEmpty() ? ":/default.md" : history);
     defaultFile.open(QIODevice::ReadOnly);
     m_central_widget->m_editor_widget->setPlainText(defaultFile.readAll());

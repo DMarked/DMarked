@@ -79,7 +79,7 @@ DDropdownMenu::DDropdownMenu(QWidget *parent)
     connect(this, &DDropdownMenu::requestContextMenu, this, &DDropdownMenu::slotRequestMenu);
 
     // 设置字体自适应大小 设置界面大小根据内容大小自适应 梁卫东 2020.7.7
-    connect(qApp, &DApplication::fontChanged,this,&DDropdownMenu::OnFontChangedSlot);
+    connect(qApp, &DApplication::fontChanged, this, &DDropdownMenu::OnFontChangedSlot);
 }
 
 DDropdownMenu::~DDropdownMenu()
@@ -173,7 +173,7 @@ DDropdownMenu *DDropdownMenu::createModeMenu() {
     m_pModeMenu->setMenu(m_pMenu);
 
     QAction *act = nullptr;
-    switch (Settings::instance()->settings->option("advance.editor.editor_mode")->value().toInt()) {
+    switch (SettingsHelper::get("advance.editor.editor_mode").toInt()) {
     case 1: act = act1; break;
     case 2: act = act2; break;
     case 3: act = act3; break;
@@ -215,25 +215,25 @@ void DDropdownMenu::setCurrentAction(QAction *pAct)
 
 void DDropdownMenu::setCurrentTextOnly(const QString &name)
 {
-   QList<QAction*> menuList = m_menu->actions();
+    QList<QAction*> menuList = m_menu->actions();
 
-   for (int i = 0; i < menuList.size(); i++) {
-       if (menuList[i]->menu()){
-           QList<QAction*> acts = menuList[i]->menu()->actions();
-           if (acts.size() == 0) continue;
-           for (int j = 0; j < acts.size(); j++) {
-           if (acts[j]->text() != name) {
-               acts[j]->setCheckable(false);
-               acts[j]->setChecked(false);
-           }
-           else {
-               acts[j]->setCheckable(true);
-               acts[j]->setChecked(true);
-           }
+    for (int i = 0; i < menuList.size(); i++) {
+        if (menuList[i]->menu()){
+            QList<QAction*> acts = menuList[i]->menu()->actions();
+            if (acts.size() == 0) continue;
+            for (int j = 0; j < acts.size(); j++) {
+                if (acts[j]->text() != name) {
+                    acts[j]->setCheckable(false);
+                    acts[j]->setChecked(false);
+                }
+                else {
+                    acts[j]->setCheckable(true);
+                    acts[j]->setChecked(true);
+                }
+            }
         }
-      }
-   }
-   setText(name);
+    }
+    setText(name);
 }
 
 void DDropdownMenu::slotRequestMenu(bool request)
@@ -396,7 +396,7 @@ bool DDropdownMenu::eventFilter(QObject *object, QEvent *event)
             if(keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Space)        //按下enter展开列表
             {
                 //if(isRequest){
-                    Q_EMIT requestContextMenu(false);
+                Q_EMIT requestContextMenu(false);
                 //}
                 return true;
             }
@@ -408,8 +408,8 @@ bool DDropdownMenu::eventFilter(QObject *object, QEvent *event)
             if(mouseEvent->button() == Qt::LeftButton){
                 m_bPressed = true;
                 //if (isRequest) {
-                    //重新绘制icon 点击改变前景色
-                    m_pToolButton->setIcon(createIcon());
+                //重新绘制icon 点击改变前景色
+                m_pToolButton->setIcon(createIcon());
                 //}
                 return true;
             }
