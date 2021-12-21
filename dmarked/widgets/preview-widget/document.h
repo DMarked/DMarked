@@ -60,10 +60,12 @@ class Document : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged NOTIFY markdownThemeChanged NOTIFY markdownLoadFinished FINAL) // important for QWebChannel
+    Q_PROPERTY(QString path MEMBER m_filePath NOTIFY textChanged FINAL)
 public:
     explicit Document(QObject *parent = nullptr) : QObject(parent) {}
 
     void setText(const QString &text);
+    void setFilePath(const QString &filePath);
     void setNoGui();
 
 Q_SIGNALS:
@@ -71,12 +73,13 @@ Q_SIGNALS:
     void markdownThemeChanged();
     void markdownLoadFinished();
 
-public slots:
+public Q_SLOTS:
     void onMdThemeChanged();
     void onMdLoadFinished();
 
 private:
-    QString m_text;
+    QString m_text = "";
+    QString m_filePath = "";
     bool isGui = true;
 };
 

@@ -61,6 +61,14 @@ void Document::setText(const QString &text)
     emit textChanged(m_text);
 }
 
+void Document::setFilePath(const QString &filePath)
+{
+    if (filePath == m_filePath)
+        return;
+    m_filePath = filePath;
+    emit textChanged(m_text);
+}
+
 void Document::onMdThemeChanged()
 {
     Q_EMIT markdownThemeChanged();

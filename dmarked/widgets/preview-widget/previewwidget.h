@@ -45,6 +45,7 @@ public:
 
     void setFontSize(int size);
     void setFontFamily(const QString &fontName);
+    void syncFilePath(const QString &filePath) { m_content.setFilePath(filePath); }
 
 public Q_SLOTS:
     void setMarkdownTheme(const QString &theme);

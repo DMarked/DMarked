@@ -100,8 +100,7 @@ void CentralWidget::setFilePath(const QString &path)
             m_fileWatcher->addPath(path);
     }
     m_file_path = path;
-    QString method = QString("dmarked_filePath = \"%1\"").arg(path);
-    m_preview_widget->page()->runJavaScript(method);
+    m_preview_widget->syncFilePath(path); // let dmarked.js get the file path
 }
 
 void CentralWidget::onFileModified(const QString &path, const QString &name)

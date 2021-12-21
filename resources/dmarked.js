@@ -3,7 +3,6 @@
 var dmarked_isDark = false;
 var dmarked_content;
 var dmarked_pangu = true;
-var dmarked_filePath = "";
 
 /**************************************************************************/
 
@@ -26,6 +25,7 @@ function setMarkedIsDark(isDark) {
     dmarked_isDark = isDark;
     setScrollbarsTheme(isDark ? "scrollbars_dark" : "scrollbars_light");
 }
+
 /**************************************************************************/
 
 var updateText = function (text) {
@@ -136,9 +136,9 @@ var updateText = function (text) {
 
         // relative file path
         if (token.attrs[aIndexSrc][1][0] !== '/')
-            token.attrs[aIndexSrc][1][0] = absolute(dmarked_filePath, token.attrs[aIndexSrc][1][0]);
+            token.attrs[aIndexSrc][1] = absolute(dmarked_content.path, token.attrs[aIndexSrc][1]);
 
-        // console.log(token.attrs[aIndexSrc]);
+//console.log(dmarked_content.path, token.attrs[aIndexSrc]);
         return '<p>' + '<img src="file://'+token.attrs[aIndexSrc][1]+'" alt="' + token.attrs[aIndexAlt][1] + '">' + '</p>';
     };
 

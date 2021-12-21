@@ -122,14 +122,6 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     });
 
-    // open a default file
-    QString history = m_settings->settings->option("advance.editor.browsing_history_file")->value().toString();
-    QFile defaultFile(history.isEmpty() ? ":/default.md" : history);
-    defaultFile.open(QIODevice::ReadOnly);
-    m_central_widget->setFilePath(history);
-    m_central_widget->m_editor_widget->setPlainText(defaultFile.readAll());
-    defaultFile.close();
-
 /***        autoSave         ***/
     connect(m_autoSaveTimer, &QTimer::timeout, m_autoSaveTimer, [this] {
         if (m_central_widget->getFilePath().isEmpty()) {
@@ -159,6 +151,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&ct.timer, &QTimer::timeout, &ct.loop, &QEventLoop::quit);  // 异步调用超时退出
     connect(m_central_widget->m_preview_widget, &PreviewWidget::convert2PdfFinish, &ct.loop, &QEventLoop::quit);  // 异步调用完成退出
     connect(m_central_widget->m_preview_widget, &PreviewWidget::convert2HtmlFinish, &ct.loop, &QEventLoop::quit);
+
+    // open a default file
+    QString history = m_settings->settings->option("advance.editor.browsing_history_file")->value().toString();
+    QFile defaultFile(history.isEmpty() ? ":/default.md" : history);
+    defaultFile.open(QIODevice::ReadOnly);
+    m_central_widget->m_editor_widget->setPlainText(defaultFile.readAll());
+    m_central_widget->setFilePath(history);
+    defaultFile.close();
 }
 
 MainWindow::~MainWindow()
