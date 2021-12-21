@@ -1,5 +1,3 @@
-'use strict';
-
 var dmarked_isDark = false;
 var dmarked_content;
 var dmarked_pangu = true;
@@ -14,35 +12,35 @@ function setMarkdownTheme(theme) {
   dmarked_content.onMdThemeChanged();
 }
 function setHighlightTheme(theme) {
-    document.getElementById('highlightplaceholder').innerHTML =
-      '<link rel=\"stylesheet\" type=\"text/css\" href=\"3rdscripts/highlight/' + theme + '.css\">';
+  document.getElementById('highlightplaceholder').innerHTML =
+    '<link rel=\"stylesheet\" type=\"text/css\" href=\"3rdscripts/highlight/' + theme + '.css\">';
 }
 function setScrollbarsTheme(theme) {
-    document.getElementById('scrollbarsplaceholder').innerHTML =
-      '<link rel=\"stylesheet\" type=\"text/css\" href=\"' + theme + '.css\">';
+  document.getElementById('scrollbarsplaceholder').innerHTML =
+    '<link rel=\"stylesheet\" type=\"text/css\" href=\"' + theme + '.css\">';
 }
 function setMarkedIsDark(isDark) {
-    dmarked_isDark = isDark;
-    setScrollbarsTheme(isDark ? "scrollbars_dark" : "scrollbars_light");
+  dmarked_isDark = isDark;
+  setScrollbarsTheme(isDark ? "scrollbars_dark" : "scrollbars_light");
 }
 
 /**************************************************************************/
 
 var updateText = function (text) {
   var defaults = {
-    html:       true,          // Enable HTML tags in source
-    xhtmlOut:   false,         // Use '/' to close single tags (<br />)
-    breaks:     false,         // Convert '\n' in paragraphs into <br>
+    html: true,          // Enable HTML tags in source
+    xhtmlOut: false,         // Use '/' to close single tags (<br />)
+    breaks: false,         // Convert '\n' in paragraphs into <br>
     langPrefix: 'language-',   // CSS language prefix for fenced blocks
-    linkify:    true,          // autoconvert URL-like texts to links
-    typographer:true,          // Enable smartypants and other sweet transforms
+    linkify: true,          // autoconvert URL-like texts to links
+    typographer: true,          // Enable smartypants and other sweet transforms
   };
 
   var mermaidConfigs = {
-    startOnLoad:    true,
-    darkMode:       dmarked_isDark,
-    theme:          dmarked_isDark ? 'dark' : 'default',
-    securityLevel:  'strict'//'loose',
+    startOnLoad: true,
+    darkMode: dmarked_isDark,
+    theme: dmarked_isDark ? 'dark' : 'default',
+    securityLevel: 'strict'//'loose',
   };
 
   // 参考 https://github.com/yansenlei/markdown-it-mermaid
@@ -72,7 +70,7 @@ var updateText = function (text) {
     }
   };
 
-  var uslugify = function(s) {
+  var uslugify = function (s) {
     return window.uslug(s);
   }
 
@@ -91,59 +89,59 @@ var updateText = function (text) {
     .use(window.markdownitContainer, "warning")
     .use(window.markdownitContainer, "danger")
     .use(window.markdownItAnchor, {
-//      permalink: window.markdownItAnchor.permalink.linkAfterHeader({
-//        style: 'visually-hidden',
-//        assistiveText: title => `Permalink to “${title}”`,
-//        visuallyHiddenClass: 'visually-hidden',
-//      })
-   })  
-   .use(window.markdownItTocDoneRight, { slugify: uslugify });
+      //      permalink: window.markdownItAnchor.permalink.linkAfterHeader({
+      //        style: 'visually-hidden',
+      //        assistiveText: title => `Permalink to “${title}”`,
+      //        visuallyHiddenClass: 'visually-hidden',
+      //      })
+    })
+    .use(window.markdownItTocDoneRight, { slugify: uslugify });
 
   // Replace emoji codes with images
   //md.renderer.rules.emoji = function(token, idx) {
   //  return window.twemoji.parse(token[idx].content);
   //};
 
-    function absolute(base, relative) {
-        var stack = base.split("/"),
-            parts = relative.split("/");
-        stack.pop(); // remove current file name (or empty string)
-                     // (omit if "base" is the current folder without trailing slash)
-        for (var i=0; i<parts.length; i++) {
-            if (parts[i] === ".")
-                continue;
-            if (parts[i] === "..")
-                stack.pop();
-            else
-                stack.push(parts[i]);
-        }
-        return stack.join("/");
+  function absolute(base, relative) {
+    var stack = base.split("/"),
+      parts = relative.split("/");
+    stack.pop(); // remove current file name (or empty string)
+    // (omit if "base" is the current folder without trailing slash)
+    for (var i = 0; i < parts.length; i++) {
+      if (parts[i] === ".")
+        continue;
+      if (parts[i] === "..")
+        stack.pop();
+      else
+        stack.push(parts[i]);
     }
+    return stack.join("/");
+  }
 
-    // https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
-    md.renderer.rules.image = function (tokens, idx, options, env, self) {
-        var token = tokens[idx],
-        aIndexSrc = token.attrIndex('src'),
-        aIndexAlt = token.attrIndex('alt');
+  // https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
+  md.renderer.rules.image = function (tokens, idx, options, env, self) {
+    var token = tokens[idx],
+      aIndexSrc = token.attrIndex('src'),
+      aIndexAlt = token.attrIndex('alt');
 
-        // http or https
-        if (token.attrs[aIndexSrc][1].substr(0, 4) === "http")
-            return self.renderToken(tokens, idx, options, env, self);
+    // http or https
+    if (token.attrs[aIndexSrc][1].substr(0, 4) === "http")
+      return self.renderToken(tokens, idx, options, env, self);
 
-        // files:///
-        if (token.attrs[aIndexSrc][1].substr(0, 5) === "files")
-            token.attrs[aIndexSrc][1] = token.attrs[aIndexSrc][1].slice(8);
+    // files:///
+    if (token.attrs[aIndexSrc][1].substr(0, 5) === "files")
+      token.attrs[aIndexSrc][1] = token.attrs[aIndexSrc][1].slice(8);
 
-        // relative file path
-        if (token.attrs[aIndexSrc][1][0] !== '/')
-            token.attrs[aIndexSrc][1] = absolute(dmarked_content.path, token.attrs[aIndexSrc][1]);
+    // relative file path
+    if (token.attrs[aIndexSrc][1][0] !== '/')
+      token.attrs[aIndexSrc][1] = absolute(dmarked_content.path, token.attrs[aIndexSrc][1]);
 
-//console.log(dmarked_content.path, token.attrs[aIndexSrc]);
-        return '<p>' + '<img src="file://'+token.attrs[aIndexSrc][1]+'" alt="' + token.attrs[aIndexAlt][1] + '">' + '</p>';
-    };
+    //console.log(dmarked_content.path, token.attrs[aIndexSrc]);
+    return '<p>' + '<img src="file://' + token.attrs[aIndexSrc][1] + '" alt="' + token.attrs[aIndexAlt][1] + '">' + '</p>';
+  };
 
-    if (dmarked_pangu)
-        text = pangu.spacing(text);
+  if (dmarked_pangu)
+    text = pangu.spacing(text);
   document.getElementById('placeholder').innerHTML = md.render(text);
   mermaid.initialize(mermaidConfigs);
   dmarked_content.onMdLoadFinished();
