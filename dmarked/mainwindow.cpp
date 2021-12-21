@@ -38,9 +38,9 @@ DWIDGET_USE_NAMESPACE
 
 MainWindow::MainWindow(QWidget *parent) :
     DMainWindow(parent),
-    m_search_edit(new DSearchEdit(this)),
-    m_central_widget(new CentralWidget(this)),
-    m_bottom_bar(new BottomBar(this)),
+    m_searchEdit(new DSearchEdit(this)),
+    m_centralWidget(new CentralWidget(this)),
+    m_bottomBar(new BottomBar(this)),
     m_settings(Settings::instance()),
     m_autoSaveTimer(new QTimer)
 {
@@ -48,43 +48,43 @@ MainWindow::MainWindow(QWidget *parent) :
     resize(1200, 740);
     setWindowIcon(QIcon(":/images/dmarked.svg"));
 
-    titlebar()->setCustomWidget(m_search_edit);
-    m_search_edit->setFixedWidth(400);
-    connect(m_search_edit, &DSearchEdit::textChanged/*editingFinished*/, [this]() {
-        QString context = m_search_edit->text();
+    titlebar()->setCustomWidget(m_searchEdit);
+    m_searchEdit->setFixedWidth(400);
+    connect(m_searchEdit, &DSearchEdit::textChanged/*editingFinished*/, [this]() {
+        QString context = m_searchEdit->text();
         if (!context.isEmpty())
-           m_central_widget->m_editor_widget->doSearch(context);
+           m_centralWidget->m_editorWidget->doSearch(context);
     });
 
     // Make editor widget get focus when BottomBar lost it
-    connect(m_bottom_bar, &BottomBar::bottombarLostFocus, [this]() {
-      m_central_widget->m_editor_widget->setFocus();
+    connect(m_bottomBar, &BottomBar::bottombarLostFocus, [this]() {
+      m_centralWidget->m_editorWidget->setFocus();
     });
     // update WordCount in BottomBar
-    connect(m_central_widget->m_editor_widget, &QMarkdownTextEdit::textChanged, [this]() {
-        m_bottom_bar->updateWordCount(m_central_widget->m_editor_widget->toPlainText().length());
+    connect(m_centralWidget->m_editorWidget, &QMarkdownTextEdit::textChanged, [this]() {
+        m_bottomBar->updateWordCount(m_centralWidget->m_editorWidget->toPlainText().length());
     });
     // update Position in BottomBar
-    connect(m_central_widget->m_editor_widget, &QMarkdownTextEdit::cursorPositionChanged, [this]() {
-        QTextCursor cursor = m_central_widget->m_editor_widget->textCursor();
-        m_bottom_bar->updatePosition(cursor.blockNumber()+1, cursor.columnNumber()+1);
+    connect(m_centralWidget->m_editorWidget, &QMarkdownTextEdit::cursorPositionChanged, [this]() {
+        QTextCursor cursor = m_centralWidget->m_editorWidget->textCursor();
+        m_bottomBar->updatePosition(cursor.blockNumber()+1, cursor.columnNumber()+1);
     });
     // onTextChanged
-    connect(m_central_widget->m_editor_widget, &QMarkdownTextEdit::textChanged, this, &MainWindow::onTextChanged);
+    connect(m_centralWidget->m_editorWidget, &QMarkdownTextEdit::textChanged, this, &MainWindow::onTextChanged);
     // Change Markdown Theme by DropDownMenu
-    connect(m_bottom_bar, &BottomBar::currentMdThemeChanged, [this](const QString &theme) {
-       m_central_widget->m_preview_widget->setMarkdownTheme(theme);
+    connect(m_bottomBar, &BottomBar::currentMdThemeChanged, [this](const QString &theme) {
+       m_centralWidget->m_previewWidget->setMarkdownTheme(theme);
     });
     // Change Read/Write Mode by DropDownMenu
-    connect(m_bottom_bar, &BottomBar::currentModeChanged, [this](const QString &mode) {
-        m_central_widget->setMode(mode);
+    connect(m_bottomBar, &BottomBar::currentModeChanged, [this](const QString &mode) {
+        m_centralWidget->setMode(mode);
     });
 /***        Layout          ***/
     QVBoxLayout *m_layout = new QVBoxLayout;
     m_layout->setContentsMargins(0, 0, 0, 0);
     m_layout->setSpacing(0);
-    m_layout->addWidget(m_central_widget);
-    m_layout->addWidget(m_bottom_bar);
+    m_layout->addWidget(m_centralWidget);
+    m_layout->addWidget(m_bottomBar);
     DWidget *base_widget = new DWidget;
     base_widget->setLayout(m_layout);
     setCentralWidget(base_widget);
@@ -92,21 +92,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
 /***        setting         ***/
     connect(m_settings, &Settings::sigAdjustFont, [this](QString fontName) {
-        m_central_widget->setFontFamily(fontName);
+        m_centralWidget->setFontFamily(fontName);
     });
     m_font_size = SettingsHelper::get("base.font.size").toInt();
     connect(m_settings, &Settings::sigAdjustFontSize, [this](int size) {
         m_font_size = size;
-        m_central_widget->setFontSize(size);
+        m_centralWidget->setFontSize(size);
     });
     connect(m_settings, &Settings::sigSetLineNumberShow, [this](bool bIsShow) {
-        m_central_widget->m_editor_widget->setLineNumberEnabled(bIsShow);
+        m_centralWidget->m_editorWidget->setLineNumberEnabled(bIsShow);
     });
     connect(m_settings, &Settings::sigAdjustTabSpaceNumber, [this](int number) {
-        m_central_widget->setTabSpaceNumber(number);
+        m_centralWidget->setTabSpaceNumber(number);
     });
     connect(m_settings, &Settings::sigHightLightCurrentLine, [this](bool enable) {
-        m_central_widget->m_editor_widget->setHighlightCurrentLineEnabled(enable);
+        m_centralWidget->m_editorWidget->setHighlightCurrentLineEnabled(enable);
     });
     connect(m_settings, &Settings::sigChangeAutoSaveOption, [this]() {
         setupAutoSave();
@@ -124,7 +124,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 /***        autoSave         ***/
     connect(m_autoSaveTimer, &QTimer::timeout, m_autoSaveTimer, [this] {
-        if (m_central_widget->getFilePath().isEmpty()) {
+        if (m_centralWidget->getFilePath().isEmpty()) {
             return;
         }
         this->onFileSave();
@@ -135,29 +135,29 @@ MainWindow::MainWindow(QWidget *parent) :
 /***        init FakeVim!         ***/
     bool enableFakeVim = SettingsHelper::get("base.fakevim.enable").toBool();
     if (enableFakeVim)
-        m_central_widget->m_editor_widget->initFakeVim(this);
+        m_centralWidget->m_editorWidget->initFakeVim(this);
 
 /***        code about convert files in cli         ***/
     ct.state = CLI_STATE::NONE;
-    connect(m_central_widget->m_preview_widget, &PreviewWidget::markdownLoadFinished,
+    connect(m_centralWidget->m_previewWidget, &PreviewWidget::markdownLoadFinished,
              [this]() {
         // dInfo() << "LoadFinish: " << ct.topath;
         if (ct.state == CLI_STATE::PDF)
-            m_central_widget->m_preview_widget->convert2Pdf(ct.topath, ct.pageLayout);
+            m_centralWidget->m_previewWidget->convert2Pdf(ct.topath, ct.pageLayout);
         else if (ct.state == CLI_STATE::HTML)
-            m_central_widget->m_preview_widget->convert2Html(ct.topath);
+            m_centralWidget->m_previewWidget->convert2Html(ct.topath);
     });
     ct.timer.setSingleShot(true);
     connect(&ct.timer, &QTimer::timeout, &ct.loop, &QEventLoop::quit);  // 异步调用超时退出
-    connect(m_central_widget->m_preview_widget, &PreviewWidget::convert2PdfFinish, &ct.loop, &QEventLoop::quit);  // 异步调用完成退出
-    connect(m_central_widget->m_preview_widget, &PreviewWidget::convert2HtmlFinish, &ct.loop, &QEventLoop::quit);
+    connect(m_centralWidget->m_previewWidget, &PreviewWidget::convert2PdfFinish, &ct.loop, &QEventLoop::quit);  // 异步调用完成退出
+    connect(m_centralWidget->m_previewWidget, &PreviewWidget::convert2HtmlFinish, &ct.loop, &QEventLoop::quit);
 
     // open a default file
     QString history = SettingsHelper::get("advance.editor.browsing_history_file").toString();
     QFile defaultFile(history.isEmpty() ? ":/default.md" : history);
     defaultFile.open(QIODevice::ReadOnly);
-    m_central_widget->m_editor_widget->setPlainText(defaultFile.readAll());
-    m_central_widget->setFilePath(history);
+    m_centralWidget->m_editorWidget->setPlainText(defaultFile.readAll());
+    m_centralWidget->setFilePath(history);
     defaultFile.close();
 }
 
@@ -211,7 +211,7 @@ void MainWindow::setupAction()
     connect(actionOpen, &QAction::triggered, this, &MainWindow::onFileOpen);
     connect(actionSave, &QAction::triggered, this, &MainWindow::onFileSave);
     connect(actionSaveAs, &QAction::triggered, this, &MainWindow::onFileSaveAs);
-    connect(m_central_widget->m_editor_widget->document(), &QTextDocument::modificationChanged,
+    connect(m_centralWidget->m_editorWidget->document(), &QTextDocument::modificationChanged,
           actionSave, &QAction::setEnabled);
     connect(actionSetting, &QAction::triggered, this, &MainWindow::popupSettingsDialog);
     connect(actionHelp, &QAction::triggered, this, &MainWindow::onOpenHelpFile);
@@ -236,12 +236,12 @@ void MainWindow::popupSettingsDialog()
 void MainWindow::setNoGui()
 {
     /* Call this function when running on the command line */
-    m_central_widget->m_preview_widget->setNoGui();
+    m_centralWidget->m_previewWidget->setNoGui();
 }
 
 void MainWindow::updateStatusBarMessage(const QString &msg)
 {
-    m_bottom_bar->updateVimMessage(msg);
+    m_bottomBar->updateVimMessage(msg);
 }
 
 void MainWindow::storeUpdatedNotesToDisk()
@@ -259,8 +259,8 @@ bool MainWindow::md2html(QString mdpath, QString htmlpath) {
         return false;
     }
 
-    m_central_widget->setFilePath(mdpath);
-    m_central_widget->m_editor_widget->setPlainText(f.readAll());
+    m_centralWidget->setFilePath(mdpath);
+    m_centralWidget->m_editorWidget->setPlainText(f.readAll());
 
     // wait for finish
     const int timeout = 30 * 1000;
@@ -282,8 +282,8 @@ bool MainWindow::md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout)
                                  QDir::toNativeSeparators(mdpath), f.errorString());
         return false;
     }
-    m_central_widget->setFilePath(mdpath);
-    m_central_widget->m_editor_widget->setPlainText(f.readAll());
+    m_centralWidget->setFilePath(mdpath);
+    m_centralWidget->m_editorWidget->setPlainText(f.readAll());
 
     // wait for finish
     const int timeout = 30 * 1000;
@@ -304,14 +304,14 @@ void MainWindow::openFile(const QString &path)
                                  QDir::toNativeSeparators(path), f.errorString()));
         return;
     }
-    m_central_widget->setFilePath(path);
-    m_central_widget->m_editor_widget->setPlainText(f.readAll());
+    m_centralWidget->setFilePath(path);
+    m_centralWidget->m_editorWidget->setPlainText(f.readAll());
     m_settings->settings->option("advance.editor.browsing_history_file")->setValue(path);
 }
 
 bool MainWindow::isModified() const
 {
-    return m_central_widget->m_editor_widget->document()->isModified();
+    return m_centralWidget->m_editorWidget->document()->isModified();
 }
 
 bool MainWindow::queryClose()
@@ -340,22 +340,22 @@ void MainWindow::onToPdf()
 
     QString path = DFileDialog::getSaveFileName(this
                                               , tr("Convert to PDF")
-                                              , Utils::getDefaultDlgFilePath(m_central_widget->getFilePath())
+                                              , Utils::getDefaultDlgFilePath(m_centralWidget->getFilePath())
                                               , tr("PDF File (*.pdf)"));
     if (path.isEmpty())
         return;
-    m_central_widget->m_preview_widget->convert2Pdf(path, pageLayout);
+    m_centralWidget->m_previewWidget->convert2Pdf(path, pageLayout);
 }
 
 void MainWindow::onToHtml()
 {
     QString path = DFileDialog::getSaveFileName(this
                                               , tr("Convert to HTML")
-                                              , Utils::getDefaultDlgFilePath(m_central_widget->getFilePath())
+                                              , Utils::getDefaultDlgFilePath(m_centralWidget->getFilePath())
                                               , tr("HTML File (*.html)"));
     if (path.isEmpty())
         return;
-    m_central_widget->m_preview_widget->convert2Html(path);
+    m_centralWidget->m_previewWidget->convert2Html(path);
 }
 
 void MainWindow::onFileNew()
@@ -367,9 +367,9 @@ void MainWindow::onFileNew()
             return;
     }
 
-    m_central_widget->setFilePath("");
-    m_central_widget->m_editor_widget->setPlainText(tr("## New document"));
-    m_central_widget->m_editor_widget->document()->setModified(false);
+    m_centralWidget->setFilePath("");
+    m_centralWidget->m_editorWidget->setPlainText(tr("## New document"));
+    m_centralWidget->m_editorWidget->document()->setModified(false);
 }
 
 void MainWindow::onFileOpen()
@@ -383,7 +383,7 @@ void MainWindow::onFileOpen()
 
     QString path = DFileDialog::getOpenFileName(this
                                               , tr("Open MarkDown File")
-                                              , Utils::getDefaultDlgFilePath(m_central_widget->getFilePath())
+                                              , Utils::getDefaultDlgFilePath(m_centralWidget->getFilePath())
                                               , tr("MarkDown File (*.md)"));
     if (path.isEmpty())
         return;
@@ -393,22 +393,22 @@ void MainWindow::onFileOpen()
 
 void MainWindow::onFileSave()
 {
-    if (m_central_widget->getFilePath().isEmpty()) {
+    if (m_centralWidget->getFilePath().isEmpty()) {
         onFileSaveAs();
         return;
     }
 
-    QFile f(m_central_widget->getFilePath());
+    QFile f(m_centralWidget->getFilePath());
     if (!f.open(QIODevice::WriteOnly | QIODevice::Text))  {
         DMessageBox::warning(this
                            , windowTitle()
                            , tr("Could not write to file %1: %2").arg(
-                                 QDir::toNativeSeparators(m_central_widget->getFilePath()), f.errorString()));
+                                 QDir::toNativeSeparators(m_centralWidget->getFilePath()), f.errorString()));
         return;
     }
     QTextStream str(&f);
-    str << m_central_widget->m_editor_widget->toPlainText();
-    m_central_widget->m_editor_widget->document()->setModified(false);
+    str << m_centralWidget->m_editorWidget->toPlainText();
+    m_centralWidget->m_editorWidget->document()->setModified(false);
 }
 
 void MainWindow::onFileSaveAs()
@@ -416,11 +416,11 @@ void MainWindow::onFileSaveAs()
 
     QString path = DFileDialog::getSaveFileName(this
                                               , tr("Save MarkDown File")
-                                              , Utils::getDefaultDlgFilePath(m_central_widget->getFilePath())
+                                              , Utils::getDefaultDlgFilePath(m_centralWidget->getFilePath())
                                               , tr("MarkDown File (*.markdown, *.md)"));
     if (path.isEmpty())
         return;
-    m_central_widget->setFilePath(path);
+    m_centralWidget->setFilePath(path);
     m_settings->settings->option("advance.editor.browsing_history_file")->setValue(path);
     onFileSave();
 }
@@ -429,8 +429,8 @@ void MainWindow::onOpenHelpFile()
 {
     QFile helpFile(":/default.md");
     helpFile.open(QIODevice::ReadOnly);
-    m_central_widget->setFilePath("");
-    m_central_widget->m_editor_widget->setPlainText(helpFile.readAll());
+    m_centralWidget->setFilePath("");
+    m_centralWidget->m_editorWidget->setPlainText(helpFile.readAll());
 }
 
 void MainWindow::onTextChanged()

@@ -50,33 +50,33 @@ Settings::Settings(QWidget *parent)
 
     auto fontFamliy = settings->option("base.font.family");
     connect(fontFamliy, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
-        emit sigAdjustFont(value.toString());
+        Q_EMIT sigAdjustFont(value.toString());
     });
 
     auto fontSize = settings->option("base.font.size");
     connect(fontSize, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
-        emit sigAdjustFontSize(value.toInt());
+        Q_EMIT sigAdjustFontSize(value.toInt());
     });
 
     auto showLineNumber = settings->option("base.font.showlinenumber");
     connect(showLineNumber, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
-        emit sigSetLineNumberShow(value.toBool());
+        Q_EMIT sigSetLineNumberShow(value.toBool());
     });
 
     // hightlightcurrentline
     auto hightlightCurrentLine = settings->option("base.font.hightlightcurrentline");
     connect(hightlightCurrentLine, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
-        emit sigHightLightCurrentLine(value.toBool());
+        Q_EMIT sigHightLightCurrentLine(value.toBool());
     });
 
     // auto save option
     auto autoSaveEnable = settings->option("base.autosave.enable");
     connect(autoSaveEnable, &Dtk::Core::DSettingsOption::valueChanged, [ = ] (QVariant) {
-        emit sigChangeAutoSaveOption();
+        Q_EMIT sigChangeAutoSaveOption();
     });
     auto autoSaveInterval = settings->option("base.autosave.interval");
     connect(autoSaveInterval, &Dtk::Core::DSettingsOption::valueChanged, [ = ] (QVariant) {
-        emit sigChangeAutoSaveOption();
+        Q_EMIT sigChangeAutoSaveOption();
     });
     auto autoSaveType = settings->option("base.autosave.type");
     QMap<QString, QVariant> autoSaveTypeMap;
@@ -88,13 +88,13 @@ Settings::Settings(QWidget *parent)
                                                    << tr("After the frist modification"));
     autoSaveType->setData("items", autoSaveTypeMap);
     connect(autoSaveType, &Dtk::Core::DSettingsOption::valueChanged, [ = ] (QVariant) {
-        emit sigChangeAutoSaveOption();
+        Q_EMIT sigChangeAutoSaveOption();
     });
 
     // Tab Space Number
     auto tabSpaceNumber = settings->option("advance.editor.tabspacenumber");
     connect(tabSpaceNumber, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
-        emit sigAdjustTabSpaceNumber(value.toInt());
+        Q_EMIT sigAdjustTabSpaceNumber(value.toInt());
     });
 
     // Key Map
@@ -116,7 +116,7 @@ Settings::Settings(QWidget *parent)
     windowStateMap.insert("values", QStringList() << tr("Normal") << tr("Maximum") << tr("Fullscreen"));
     windowState->setData("items", windowStateMap);
     connect(windowState, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ] (QVariant value) {
-        emit sigChangeWindowSize(value.toString());
+        Q_EMIT sigChangeWindowSize(value.toString());
     });
 
     connect(settings, &Dtk::Core::DSettings::valueChanged, this, [ = ](const QString &key, const QVariant &value) {
@@ -188,9 +188,9 @@ QPair<QWidget *, QWidget *> Settings::createKeySequenceEditHandle(QObject *obj)
 
     shortCutLineEdit->ShortcutDirection(Qt::AlignLeft);
     shortCutLineEdit->setFocusPolicy(Qt::StrongFocus);
-    if (option->value().toString().isEmpty()) {
-        //option->setValue();
-    }
+    /*if (option->value().toString().isEmpty()) {
+        option->setValue();
+    }*/
 
     // init.
     shortCutLineEdit->setKeySequence(QKeySequence(option->value().toString()));

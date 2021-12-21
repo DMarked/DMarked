@@ -33,10 +33,10 @@
 
 CentralWidget::CentralWidget(DWidget *parent)
     : DWidget (parent),
-      m_editor_widget(new EditorWidget),
-      m_preview_widget(new PreviewWidget),
+      m_editorWidget(new EditorWidget),
+      m_previewWidget(new PreviewWidget),
       m_splitter(new QSplitter),
-      m_central_layout(new QHBoxLayout),
+      m_centralLayout(new QHBoxLayout),
       m_fileWatcher(new DFileSystemWatcher)
 {
       m_splitter->setOrientation(Qt::Horizontal);
@@ -44,41 +44,41 @@ CentralWidget::CentralWidget(DWidget *parent)
       m_splitter->setHandleWidth(0);
       m_splitter->setChildrenCollapsible(false);
 
-      m_font_name = SettingsHelper::get("base.font.family").toString();
-      m_font_size = SettingsHelper::get("base.font.size").toInt();
-      m_tab_space_number = SettingsHelper::get("advance.editor.tabspacenumber").toInt();
+      m_fontName = SettingsHelper::get("base.font.family").toString();
+      m_fontSize = SettingsHelper::get("base.font.size").toInt();
+      m_tabSpaceNumber = SettingsHelper::get("advance.editor.tabspacenumber").toInt();
       updateFont();
 
-      m_editor_widget->setGeometry(0, 0, 600, 740);
-      m_editor_widget->setLineNumberEnabled(SettingsHelper::get("base.font.showlinenumber").toBool());
-      m_editor_widget->setHighlightCurrentLineEnabled(SettingsHelper::get("base.font.hightlightcurrentline").toBool());
+      m_editorWidget->setGeometry(0, 0, 600, 740);
+      m_editorWidget->setLineNumberEnabled(SettingsHelper::get("base.font.showlinenumber").toBool());
+      m_editorWidget->setHighlightCurrentLineEnabled(SettingsHelper::get("base.font.hightlightcurrentline").toBool());
 
-      m_preview_widget->setGeometry(0, 0, 600, 740);
+      m_previewWidget->setGeometry(0, 0, 600, 740);
 
-      connect(m_editor_widget, &QMarkdownTextEdit::textChanged, [this]() {
-          m_preview_widget->setText(m_editor_widget->toPlainText());
+      connect(m_editorWidget, &QMarkdownTextEdit::textChanged, [this]() {
+          m_previewWidget->setText(m_editorWidget->toPlainText());
       });
 
-      connect(m_editor_widget->verticalScrollBar(), &QScrollBar::valueChanged,
-              m_preview_widget, [this](int val) {
-          if (!m_is_sync) return;
-          int editMax = m_editor_widget->verticalScrollBar()->maximum();
-          //int editPos = m_editor_widget->verticalScrollBar()->sliderPosition();
+      connect(m_editorWidget->verticalScrollBar(), &QScrollBar::valueChanged,
+              m_previewWidget, [this](int val) {
+          if (!m_isSync) return;
+          int editMax = m_editorWidget->verticalScrollBar()->maximum();
+          //int editPos = m_editorWidget->verticalScrollBar()->sliderPosition();
           double factor = 1.0 * val / editMax;
           QString method = QString("window.scrollTo(0,document.documentElement.scrollHeight*%1)").arg(factor);
-          m_preview_widget->page()->runJavaScript(method);
+          m_previewWidget->page()->runJavaScript(method);
       });
 
-      m_splitter->addWidget(m_editor_widget);
-      m_splitter->addWidget(m_preview_widget);
+      m_splitter->addWidget(m_editorWidget);
+      m_splitter->addWidget(m_previewWidget);
       //m_splitter->setContentsMargins(200, 0, 200, 0);
 
-      m_central_layout->addStretch(1);
-      m_central_layout->addWidget(m_splitter, 5);
-      m_central_layout->addStretch(1);
-      m_central_layout->setStretch(0, 0);
-      m_central_layout->setStretch(2, 0);
-      setLayout(m_central_layout);
+      m_centralLayout->addStretch(1);
+      m_centralLayout->addWidget(m_splitter, 5);
+      m_centralLayout->addStretch(1);
+      m_centralLayout->setStretch(0, 0);
+      m_centralLayout->setStretch(2, 0);
+      setLayout(m_centralLayout);
       switch (SettingsHelper::get("advance.editor.editor_mode").toInt()) {
       case 1: setMode(tr("Read Mode")); break;
       case 2: setMode(tr("Write Mode")); break;
@@ -92,15 +92,15 @@ CentralWidget::CentralWidget(DWidget *parent)
 
 void CentralWidget::setFilePath(const QString &path)
 {
-    m_editor_widget->syncFilePath(path);
-    if (m_file_path != path) {
-        if (!m_file_path.isEmpty())
-            m_fileWatcher->removePath(m_file_path);
+    m_editorWidget->syncFilePath(path);
+    if (m_filePath != path) {
+        if (!m_filePath.isEmpty())
+            m_fileWatcher->removePath(m_filePath);
         if (!path.isEmpty())
             m_fileWatcher->addPath(path);
     }
-    m_file_path = path;
-    m_preview_widget->syncFilePath(path); // let dmarked.js get the file path
+    m_filePath = path;
+    m_previewWidget->syncFilePath(path); // let dmarked.js get the file path
 }
 
 void CentralWidget::onFileModified(const QString &path, const QString &name)
@@ -111,32 +111,32 @@ void CentralWidget::onFileModified(const QString &path, const QString &name)
     if (!f.open(QIODevice::ReadOnly))
         return;
     QString newContent = f.readAll();
-    if (newContent != m_editor_widget->toPlainText())
-        m_editor_widget->setPlainText(newContent);
+    if (newContent != m_editorWidget->toPlainText())
+        m_editorWidget->setPlainText(newContent);
 }
 
 void CentralWidget::setMode(const QString &mode)
 {
 
     if (mode == tr("Read Mode") || mode == tr("Write Mode")) {
-        m_central_layout->setStretch(0, 1);
-        m_central_layout->setStretch(2, 1);
-        m_editor_widget->setFrameStyle(QFrame::NoFrame); // 去除控件边框线
+        m_centralLayout->setStretch(0, 1);
+        m_centralLayout->setStretch(2, 1);
+        m_editorWidget->setFrameStyle(QFrame::NoFrame); // 去除控件边框线
         if (mode == tr("Read Mode")) {
             SettingsHelper::set("advance.editor.editor_mode", 1);
-            m_editor_widget->hide();
-            m_preview_widget->show();
+            m_editorWidget->hide();
+            m_previewWidget->show();
         } else if (mode == tr("Write Mode")) {
             SettingsHelper::set("advance.editor.editor_mode", 2);
-            m_editor_widget->show();
-            m_preview_widget->hide();
+            m_editorWidget->show();
+            m_previewWidget->hide();
         }
     } else {
-        m_central_layout->setStretch(0, 0);
-        m_central_layout->setStretch(2, 0);
-        m_editor_widget->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-        m_editor_widget->show();
-        m_preview_widget->show();
+        m_centralLayout->setStretch(0, 0);
+        m_centralLayout->setStretch(2, 0);
+        m_editorWidget->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+        m_editorWidget->show();
+        m_previewWidget->show();
         if (mode ==tr("Preview Mode(S)")) {
             SettingsHelper::set("advance.editor.editor_mode", 3);
             setSync(true);
@@ -149,19 +149,19 @@ void CentralWidget::setMode(const QString &mode)
 
 void CentralWidget::setFontSize(int size)
 {
-    m_font_size = size;
+    m_fontSize = size;
     updateFont();
 }
 
 void CentralWidget::setFontFamily(const QString &fontName)
 {
-    m_font_name = fontName;
+    m_fontName = fontName;
     updateFont();
 }
 
 void CentralWidget::setTabSpaceNumber(int num)
 {
-    m_tab_space_number = num;
+    m_tabSpaceNumber = num;
     updateFont();
 }
 
@@ -169,15 +169,15 @@ void CentralWidget::updateFont()
 {
     QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
     font.setFixedPitch(true);
-    font.setPointSize(m_font_size);
-    font.setFamily(m_font_name);
-    m_editor_widget->setFont(font);
-    m_preview_widget->setFontSize(m_font_size);
-    m_preview_widget->setFontFamily(m_font_name);
+    font.setPointSize(m_fontSize);
+    font.setFamily(m_fontName);
+    m_editorWidget->setFont(font);
+    m_previewWidget->setFontSize(m_fontSize);
+    m_previewWidget->setFontFamily(m_fontName);
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-    m_editor_widget->setTabStopWidth(m_tab_space_number * QFontMetrics(font).width(' '));
+    m_editorWidget->setTabStopWidth(m_tabSpaceNumber * QFontMetrics(font).width(' '));
 #else
-    m_editor_widget->setTabStopDistance(m_tab_space_number * QFontMetrics(font).horizontalAdvance(QLatin1Char(' ')));
+    m_editorWidget->setTabStopDistance(m_tabSpaceNumber * QFontMetrics(font).horizontalAdvance(QLatin1Char(' ')));
 #endif
 }

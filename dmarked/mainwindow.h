@@ -101,9 +101,9 @@ public:
 private:
     void setupAction();
 
-    DSearchEdit *m_search_edit;
-    CentralWidget *m_central_widget;
-    BottomBar *m_bottom_bar;
+    DSearchEdit *m_searchEdit;
+    CentralWidget *m_centralWidget;
+    BottomBar *m_bottomBar;
     Settings *m_settings;
     QTimer *m_autoSaveTimer;
     CliTool ct;

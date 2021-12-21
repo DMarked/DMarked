@@ -41,7 +41,7 @@ class CentralWidget : public DWidget
 public:
     explicit CentralWidget(DWidget *parent = nullptr);
     void setMode(const QString &mode);
-    void setSync(bool enable) { m_is_sync = enable; }
+    void setSync(bool enable) { m_isSync = enable; }
 
     void setFontSize(int size);
     void setFontFamily(const QString &fontName);
@@ -49,23 +49,23 @@ public:
     void updateFont();
 
     void setFilePath(const QString &path);
-    const QString &getFilePath() { return m_file_path; }
+    const QString &getFilePath() { return m_filePath; }
 
 public Q_SLOTS:
     void onFileModified(const QString &path, const QString &name);
 
 private:
-    EditorWidget *m_editor_widget;
-    PreviewWidget *m_preview_widget;
+    EditorWidget *m_editorWidget;
+    PreviewWidget *m_previewWidget;
     DSplitter *m_splitter;
-    QHBoxLayout *m_central_layout;
+    QHBoxLayout *m_centralLayout;
 
-    QString m_file_path;
-    bool m_is_sync = false;
+    QString m_filePath;
+    bool m_isSync = false;
 
-    QString m_font_name;
-    int m_font_size;
-    int m_tab_space_number;
+    QString m_fontName;
+    int m_fontSize;
+    int m_tabSpaceNumber;
 
     DFileSystemWatcher *m_fileWatcher;
 };

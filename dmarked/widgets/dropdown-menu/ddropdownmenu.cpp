@@ -124,7 +124,7 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
     connect(m_pMenu, &DMenu::triggered, m_pThemeMenu, [m_pThemeMenu](QAction *action) {
         if (m_pThemeMenu->m_text != action->text()) {
             m_pThemeMenu->setCurrentTextOnly(action->text());
-            emit m_pThemeMenu->currentActionChanged(action);
+            Q_EMIT m_pThemeMenu->currentActionChanged(action);
         }
     });
 
@@ -141,7 +141,7 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
             if ((!isDark && action->text() == MdTheme::getCurrentLightTheme())
                     || (isDark && action->text() == MdTheme::getCurrentDarkTheme())) {
                 m_pThemeMenu->setCurrentTextOnly(action->text());
-                emit m_pThemeMenu->currentActionChanged(action);
+                Q_EMIT m_pThemeMenu->currentActionChanged(action);
             }
         }
     });
@@ -185,7 +185,7 @@ DDropdownMenu *DDropdownMenu::createModeMenu() {
     connect(m_pMenu, &DMenu::triggered, m_pModeMenu, [m_pModeMenu](QAction *action) {
         if (m_pModeMenu->m_text != action->text()) {
             m_pModeMenu->setCurrentTextOnly(action->text());
-            emit m_pModeMenu->currentActionChanged(action);
+            Q_EMIT m_pModeMenu->currentActionChanged(action);
         }
     });
 
@@ -253,7 +253,7 @@ void DDropdownMenu::slotRequestMenu(bool request)
     m_pToolButton->clearFocus();
     QEvent event(QEvent::HoverLeave);
     QApplication::sendEvent(m_pToolButton, &event);
-    emit sigSetTextEditFocus();
+    Q_EMIT sigSetTextEditFocus();
 }
 
 void DDropdownMenu::setText(const QString &text)

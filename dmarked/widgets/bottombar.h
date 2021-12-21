@@ -45,11 +45,10 @@ public:
     void setPalette(const QPalette &palette);
     void updateSize(int size);
     void setChildEnabled(bool enabled);
-    void setChildrenFocus(bool ok,QWidget* preOrderWidget = nullptr);
+    void setChildrenFocus(bool ok, QWidget *preOrderWidget = nullptr);
 
     DDropdownMenu *getThemeMenu();
     DDropdownMenu *getModeMenu();
-
 
 protected:
     void paintEvent(QPaintEvent *);

@@ -171,7 +171,7 @@ void PreviewWidget::pdfPrintingFinished(const QString &filePath, bool success)
 void PreviewWidget::setFontSize(int size)
 {
     QWebEngineSettings *setting = m_page->settings();
-    setting->setFontSize(QWebEngineSettings::MinimumFontSize, size);
+    setting->setFontSize(QWebEngineSettings::DefaultFontSize, size);
 }
 
 void PreviewWidget::setFontFamily(const QString &fontName)

@@ -58,7 +58,7 @@ void Document::setText(const QString &text)
     if (isGui && text == m_text)
         return;
     m_text = text;
-    emit textChanged(m_text);
+    Q_EMIT textChanged(m_text);
 }
 
 void Document::setFilePath(const QString &filePath)
@@ -66,7 +66,7 @@ void Document::setFilePath(const QString &filePath)
     if (filePath == m_filePath)
         return;
     m_filePath = filePath;
-    emit textChanged(m_text);
+    Q_EMIT textChanged(m_text);
 }
 
 void Document::onMdThemeChanged()

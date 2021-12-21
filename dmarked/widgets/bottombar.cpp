@@ -84,12 +84,12 @@ BottomBar::BottomBar(QWidget *parent)
             MdTheme::setCurrentDarkTheme(pAct->text());
         else
             MdTheme::setCurrentLightTheme(pAct->text());
-        emit this->currentMdThemeChanged(pAct->text());
+        Q_EMIT this->currentMdThemeChanged(pAct->text());
     });
 
     connect(m_pModeMenu, &DDropdownMenu::currentActionChanged, [this](QAction *pAct) {
         m_pModeMenu->setCurrentTextOnly(pAct->text());
-        emit this->currentModeChanged(pAct->text());
+        Q_EMIT this->currentModeChanged(pAct->text());
     });
 
     // 按钮失去焦点后，设置光标回到文本框里
