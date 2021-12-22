@@ -151,9 +151,9 @@ public:
         if (paths.contains(path))
             return false;
         paths.append(path);
-        if (paths.size() > 3)
+        if (paths.size() > 10)
             paths.removeFirst();
-        set("advance.editor.recent_files_list", path);
+        set("advance.editor.recent_files_list", paths);
         return true;
     }
 
