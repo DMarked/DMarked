@@ -306,7 +306,7 @@ void MainWindow::openFile(const QString &path)
     }
     m_centralWidget->setFilePath(path);
     m_centralWidget->m_editorWidget->setPlainText(f.readAll());
-    m_settings->settings->option("advance.editor.browsing_history_file")->setValue(path);
+    SettingsHelper::set("advance.editor.browsing_history_file", path);
 }
 
 bool MainWindow::isModified() const
@@ -384,7 +384,7 @@ void MainWindow::onFileOpen()
     QString path = DFileDialog::getOpenFileName(this
                                               , tr("Open MarkDown File")
                                               , Utils::getDefaultDlgFilePath(m_centralWidget->getFilePath())
-                                              , tr("MarkDown File (*.md)"));
+                                              , "MarkDown File (*.markdown, *.md)");
     if (path.isEmpty())
         return;
 
@@ -417,7 +417,7 @@ void MainWindow::onFileSaveAs()
     QString path = DFileDialog::getSaveFileName(this
                                               , tr("Save MarkDown File")
                                               , Utils::getDefaultDlgFilePath(m_centralWidget->getFilePath())
-                                              , tr("MarkDown File (*.markdown, *.md)"));
+                                              , "MarkDown File (*.markdown, *.md)");
     if (path.isEmpty())
         return;
     m_centralWidget->setFilePath(path);
@@ -445,7 +445,7 @@ void MainWindow::onTextChanged()
 void MainWindow::showCenterWindow(bool bIsCenter)
 {
     // Init window state with config.
-    QString windowState = Settings::instance()->settings->option("advance.window.windowstate")->value().toString();
+    QString windowState = SettingsHelper::get("advance.window.windowstate").toString();
 
     if (bIsCenter) {
         Dtk::Widget::moveToCenter(this);
@@ -471,19 +471,19 @@ void MainWindow::toggleFullscreen()
 
 void MainWindow::resetFontSize()
 {
-    m_settings->settings->option("base.font.size")->setValue(m_settings->m_iDefaultFontSize);
+    SettingsHelper::set("base.font.size", m_settings->m_iDefaultFontSize);
 }
 
 void MainWindow::decrementFontSize()
 {
     int size = std::max(m_font_size - 1, m_settings->m_iMinFontSize);
-    m_settings->settings->option("base.font.size")->setValue(size);
+    SettingsHelper::set("base.font.size", size);
 }
 
 void MainWindow::incrementFontSize()
 {
     int size = std::min(m_font_size + 1, m_settings->m_iMaxFontSize);
-    m_settings->settings->option("base.font.size")->setValue(size);
+    SettingsHelper::set("base.font.size", size);
 }
 
 void MainWindow::displayShortcuts()

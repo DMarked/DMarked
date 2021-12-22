@@ -2,7 +2,8 @@
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
  * Copyright (C) 2021 DMarked.
  *
- * Author:     rekols <rekols@foxmail.com>
+ * Author:      rekols <rekols@foxmail.com>
+ * Maintainer： Lu Hongxu <lhongxu@outlook.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,4 +89,11 @@ void GenerateSettingTranslate()
     auto base_font_showLineNumber = QObject::tr("Show line numbers");
     auto showblankcharacter = QObject::tr("Show whitespaces and tabs");
     auto base_font_highlightCurrentLine = QObject::tr("Highlight current line");
+
+    auto base_autosave = QObject::tr("AutoSave");
+    auto base_autosave_enable = QObject::tr("enable autosave timer");
+    auto base_autosave_interval = QObject::tr("Interval");
+    auto base_autosave_type = QObject::tr("Type");
+
+    auto base_fakevim_enable = QObject::tr("enable vim emulator(restart required)");
 }

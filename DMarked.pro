@@ -6,8 +6,6 @@
 
 TEMPLATE = subdirs
 
-CONFIG += c++11
-
 SUBDIRS = \
     3rdparty \
     dmarked

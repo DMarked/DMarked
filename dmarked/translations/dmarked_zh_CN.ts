@@ -138,6 +138,13 @@
     </message>
 </context>
 <context>
+    <name>FakeVimProxy</name>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <source>New</source>
@@ -208,20 +215,12 @@
         <translation>打开MarkDown文件</translation>
     </message>
     <message>
-        <source>MarkDown File (*.md)</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Could not write to file %1: %2</source>
         <translation>无法写入文件%1：%2</translation>
     </message>
     <message>
         <source>Save MarkDown File</source>
         <translation>保存MarkDown文件</translation>
-    </message>
-    <message>
-        <source>MarkDown File (*.md, *.markdown)</source>
-        <translation></translation>
     </message>
     <message>
         <source>Setting</source>
@@ -529,6 +528,26 @@
         <source>Highlight current line</source>
         <translation>当前行高亮</translation>
     </message>
+    <message>
+        <source>enable autosave timer</source>
+        <translation>启用自动保存</translation>
+    </message>
+    <message>
+        <source>Interval</source>
+        <translation>时间间隔</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>计时器类型</translation>
+    </message>
+    <message>
+        <source>enable vim emulator(restart required)</source>
+        <translation>启用 vim 模式(重启生效)</translation>
+    </message>
+    <message>
+        <source>AutoSave</source>
+        <translation>自动保存</translation>
+    </message>
 </context>
 <context>
     <name>Settings</name>
@@ -583,6 +602,18 @@
     <message>
         <source>%1 does not support modification shortcut key</source>
         <translation>暂时不支持修改 %1</translation>
+    </message>
+    <message>
+        <source>Without modification</source>
+        <translation>使用恒定的时间间隔</translation>
+    </message>
+    <message>
+        <source>After the last modification</source>
+        <translation>经过一段时间未进行修改</translation>
+    </message>
+    <message>
+        <source>After the frist modification</source>
+        <translation>在第一次修改后经过一段时间</translation>
     </message>
 </context>
 <context>

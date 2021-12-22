@@ -46,14 +46,14 @@
                             "key": "enable",
                             "name": "Enable",
                             "type": "checkbox",
-                            "text": "enable vim emulator",
+                            "text": "enable vim emulator(restart required)",
                             "default": "false"
                         }
                      ]
                 },
                 {
                     "key": "autosave",
-                    "name": "AuotSave",
+                    "name": "AutoSave",
                     "options": [
                         {
                             "key": "enable",
