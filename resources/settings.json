@@ -864,19 +864,13 @@
                             "max": 24
                         },
                         {
-                            "key": "file_dialog_dir",
-                            "hide": true,
-                            "reset": false,
-                            "default": ""
-                        },
-                        {
                             "key": "browsing_history_file",
                             "hide": true,
                             "reset": false,
                             "default": ""
                         },
                         {
-                            "key": "browsing_history_temfile",
+                            "key": "recent_files_list",
                             "hide": true,
                             "reset": false,
                             "default": ""

@@ -180,7 +180,7 @@ void MainWindow::setupAutoSave()
 
 void MainWindow::setupAction()
 {
-    QMenu *menu, *convert_menu;
+    QMenu *menu, *convertMenu;
     QAction *actionNew, *actionOpen, *actionSave, *actionSaveAs, *actionSetting, *actionHelp;
     QAction *action2Pdf, *action2Html;
 
@@ -192,18 +192,20 @@ void MainWindow::setupAction()
     action2Html = new QAction(tr("Html"));
     actionSetting = new QAction(tr("Setting"));
     actionHelp = new QAction(tr("Help"));
+    m_recentFilesMenu = new QMenu(tr("Recent files"));
 
     menu = new QMenu;
     menu->addAction(actionNew);
     menu->addAction(actionOpen);
-    convert_menu = new QMenu(tr("Convert"));
-    convert_menu->addAction(action2Pdf);
-    convert_menu->addAction(action2Html);
-    menu->addMenu(convert_menu);
+    convertMenu = new QMenu(tr("Convert"));
+    convertMenu->addAction(action2Pdf);
+    convertMenu->addAction(action2Html);
+    menu->addMenu(convertMenu);
     menu->addAction(actionSave);
     menu->addAction(actionSaveAs);
     menu->addAction(actionSetting);
     menu->addAction(actionHelp);
+    menu->addMenu(m_recentFilesMenu);
 
     titlebar()->setMenu(menu);
 
@@ -217,6 +219,20 @@ void MainWindow::setupAction()
     connect(actionHelp, &QAction::triggered, this, &MainWindow::onOpenHelpFile);
     connect(action2Pdf, &QAction::triggered, this, &MainWindow::onToPdf);
     connect(action2Html, &QAction::triggered, this, &MainWindow::onToHtml);
+    setupRecentFilesMenu();
+}
+
+void MainWindow::setupRecentFilesMenu()
+{
+    m_recentFilesMenu->clear();
+    QStringList paths = SettingsHelper::get("advance.editor.recent_files_list").toStringList();
+    foreach (const QString &path, paths) {
+        QAction *filePathAction = new QAction(path);
+        connect(filePathAction, &QAction::triggered, this, [this, filePathAction]() {
+            openFile(filePathAction->text());
+        });
+        m_recentFilesMenu->addAction(filePathAction);
+    }
 }
 
 void MainWindow::popupSettingsDialog()

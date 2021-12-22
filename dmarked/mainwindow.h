@@ -100,16 +100,18 @@ public:
     void setupAutoSave();
 private:
     void setupAction();
+    void setupRecentFilesMenu();
 
     DSearchEdit *m_searchEdit;
     CentralWidget *m_centralWidget;
     BottomBar *m_bottomBar;
+    QMenu *m_recentFilesMenu;
     Settings *m_settings;
     QTimer *m_autoSaveTimer;
     CliTool ct;
 
     int m_font_size;
-    QProcess *m_shortcutViewProcess = nullptr;
+    QProcess *m_shortcutViewProcess { nullptr };
 
     // QWidget interface
 protected:
