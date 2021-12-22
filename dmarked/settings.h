@@ -146,6 +146,16 @@ public:
     static bool isAutoSave() {return get("base.autosave.enable").toBool(); }
     static QString getAutoSaveIntervalType() { return get("base.autosave.type").toString(); }
     static int getAutoSaveInterval() { return get("base.autosave.interval").toInt(); }
+    static bool addRecentFiles(const QString &path) {
+        QStringList paths = get("advance.editor.recent_files_list").toStringList();
+        if (paths.contains(path))
+            return false;
+        paths.append(path);
+        if (paths.size() > 3)
+            paths.removeFirst();
+        set("advance.editor.recent_files_list", path);
+        return true;
+    }
 
     static QVariant get(QString option) { return Settings::instance()->settings->option(option)->value();}
     static void set(QString option, QVariant val) { Settings::instance()->settings->option(option)->setValue(val); }

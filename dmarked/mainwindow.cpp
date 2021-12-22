@@ -270,8 +270,7 @@ bool MainWindow::md2html(QString mdpath, QString htmlpath) {
     ct.topath = htmlpath;
     QFile f(mdpath);
     if (!f.open(QIODevice::ReadOnly)) {
-        qDebug() << tr("Could not open file %1: %2").arg(
-                                 QDir::toNativeSeparators(mdpath), f.errorString());
+        dDebug() << tr("Could not open file %1: %2").arg(QDir::toNativeSeparators(mdpath), f.errorString());
         return false;
     }
 
@@ -294,8 +293,7 @@ bool MainWindow::md2pdf(QString mdpath, QString pdfpath, QPageLayout pageLayout)
 
     QFile f(mdpath);
     if (!f.open(QIODevice::ReadOnly)) {
-        qDebug() << tr("Could not open file %1: %2").arg(
-                                 QDir::toNativeSeparators(mdpath), f.errorString());
+        dDebug() << tr("Could not open file %1: %2").arg(QDir::toNativeSeparators(mdpath), f.errorString());
         return false;
     }
     m_centralWidget->setFilePath(mdpath);
@@ -323,6 +321,8 @@ void MainWindow::openFile(const QString &path)
     m_centralWidget->setFilePath(path);
     m_centralWidget->m_editorWidget->setPlainText(f.readAll());
     SettingsHelper::set("advance.editor.browsing_history_file", path);
+    if (SettingsHelper::addRecentFiles(path))
+        setupRecentFilesMenu();
 }
 
 bool MainWindow::isModified() const
@@ -437,7 +437,9 @@ void MainWindow::onFileSaveAs()
     if (path.isEmpty())
         return;
     m_centralWidget->setFilePath(path);
-    m_settings->settings->option("advance.editor.browsing_history_file")->setValue(path);
+    SettingsHelper::set("advance.editor.browsing_history_file", path);
+    if (SettingsHelper::addRecentFiles(path))
+        setupRecentFilesMenu();
     onFileSave();
 }
 
