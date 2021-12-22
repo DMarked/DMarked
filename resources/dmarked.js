@@ -1,5 +1,5 @@
-var dmarked_isDark = false;
 var dmarked_content;
+var dmarked_isDark = false;
 var dmarked_pangu = true;
 
 /**************************************************************************/
@@ -28,18 +28,18 @@ function setMarkedIsDark(isDark) {
 
 var updateText = function (text) {
   var defaults = {
-    html: true,          // Enable HTML tags in source
-    xhtmlOut: false,         // Use '/' to close single tags (<br />)
-    breaks: false,         // Convert '\n' in paragraphs into <br>
-    langPrefix: 'language-',   // CSS language prefix for fenced blocks
-    linkify: true,          // autoconvert URL-like texts to links
+    html:        true,          // Enable HTML tags in source
+    xhtmlOut:    false,         // Use '/' to close single tags (<br />)
+    breaks:      false,         // Convert '\n' in paragraphs into <br>
+    langPrefix:  'language-',   // CSS language prefix for fenced blocks
+    linkify:     true,          // autoconvert URL-like texts to links
     typographer: true,          // Enable smartypants and other sweet transforms
   };
 
   var mermaidConfigs = {
-    startOnLoad: true,
-    darkMode: dmarked_isDark,
-    theme: dmarked_isDark ? 'dark' : 'default',
+    startOnLoad:    true,
+    darkMode:       dmarked_isDark,
+    theme:          dmarked_isDark ? 'dark' : 'default',
     securityLevel: 'strict'//'loose',
   };
 
@@ -127,10 +127,6 @@ var updateText = function (text) {
     // http or https
     if (token.attrs[aIndexSrc][1].substr(0, 4) === "http")
       return self.renderToken(tokens, idx, options, env, self);
-
-    // files:///
-    if (token.attrs[aIndexSrc][1].substr(0, 5) === "files")
-      token.attrs[aIndexSrc][1] = token.attrs[aIndexSrc][1].slice(8);
 
     // relative file path
     if (token.attrs[aIndexSrc][1][0] !== '/')
