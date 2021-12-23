@@ -238,6 +238,10 @@
         <source>Settings</source>
         <translation>设置</translation>
     </message>
+    <message>
+        <source>Recent files</source>
+        <translation>最近文件</translation>
+    </message>
 </context>
 <context>
     <name>PreviewWidget</name>
