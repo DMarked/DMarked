@@ -60,7 +60,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 
     connect(this, &QWebEngineView::loadFinished, [this](bool success) {
         if (success) {
-            bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
+            bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Window).lightness() < 128;
             setMarkdownTheme(isDark ? MdTheme::getCurrentDarkTheme() : MdTheme::getCurrentLightTheme());
             setHighlightTheme(isDark ? "monokai-sublime" : "default.min");
             setMarkedIsDark(isDark);
@@ -135,7 +135,7 @@ void PreviewWidget::convert2Html(const QString &filePath) {
         QString output = html;
         output.remove(ipjs);
 
-        bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
+        bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Window).lightness() < 128;
         QString mdtheme = isDark ? MdTheme::getCurrentDarkTheme() : MdTheme::getCurrentLightTheme();
         QFile mdthemeFile(QString(":/themes/%1.css").arg(mdtheme));
         mdthemeFile.open(QIODevice::ReadOnly);

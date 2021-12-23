@@ -42,7 +42,7 @@ EditorWidget::EditorWidget(QWidget *parent):
     setLineNumbersCurrentLineColor(QColor::fromRgb(255, 0, 0));
     setLineNumbersOtherLineColor(QColor::fromRgb(0, 0, 255));
 
-    bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
+    bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Window).lightness() < 128;
     m_highlightLineColor = isDark ? QColor(Qt::darkGray).darker(160)
                                   : QColor(Qt::darkGray).lighter(160);
     connect(this, &EditorWidget::cursorPositionChanged, this, &EditorWidget::highlightCurrentLine);

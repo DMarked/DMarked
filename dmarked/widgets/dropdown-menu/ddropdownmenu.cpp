@@ -51,7 +51,7 @@ DDropdownMenu::DDropdownMenu(QWidget *parent)
     m_pToolButton->installEventFilter(this);
     //this->installEventFilter(this);
     // 设置图标
-    QString theme =  (DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128) ? "dark" : "light";
+    QString theme =  (DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Window).lightness() < 128) ? "dark" : "light";
     QString arrowSvgPath = QString(":/images/arrow_%1.svg").arg(theme);
 
     // 装换图片
@@ -99,7 +99,7 @@ DDropdownMenu *DDropdownMenu::createThemeMenu()
     noHlAction->setCheckable(true);
     noHlAction->setChecked(false);
 
-    bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
+    bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Window).lightness() < 128;
     foreach(const QString &theme, MdTheme::light_themes) {
         QAction *act= m_pMenu->addAction(theme);
         m_pThemeMenu->m_actionGroup->addAction(act);

@@ -79,7 +79,7 @@ BottomBar::BottomBar(QWidget *parent)
     // 切换 Markdown Theme
     connect(m_pThemeMenu, &DDropdownMenu::currentActionChanged, [this](QAction* pAct) {
         m_pThemeMenu->setCurrentTextOnly(pAct->text());
-        bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Background).lightness() < 128;
+        bool isDark = DGuiApplicationHelper::instance()->applicationPalette().color(QPalette::Window).lightness() < 128;
         if (isDark)
             MdTheme::setCurrentDarkTheme(pAct->text());
         else
@@ -147,7 +147,7 @@ void BottomBar::setPalette(const QPalette &palette)
     m_pThemeMenu->getButton()->setPalette(paThemeMenu);
     m_pModeMenu->getButton()->setPalette(paModeMenu);
 
-    QString theme = (palette.color(QPalette::Background).lightness() < 128) ? "dark" : "light";
+    QString theme = (palette.color(QPalette::Window).lightness() < 128) ? "dark" : "light";
     m_pThemeMenu->setTheme(theme);
     m_pModeMenu->setTheme(theme);
 
@@ -193,7 +193,7 @@ void BottomBar::paintEvent(QPaintEvent *)
     QPainter painter(this);
     painter.setOpacity(1);
 
-    QColor backgroundColor = palette().color(QPalette::Background);
+    QColor backgroundColor = palette().color(QPalette::Window);
     QColor bottombarBackgroundColor;
     if (backgroundColor.lightness() < 128) {
         bottombarBackgroundColor = palette().base().color();
