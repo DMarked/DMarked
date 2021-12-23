@@ -156,6 +156,7 @@ public:
         set("advance.editor.recent_files_list", paths);
         return true;
     }
+    static int getTabSpaceNumber() { return get("advance.editor.tabspacenumber").toInt(); }
 
     static QVariant get(QString option) { return Settings::instance()->settings->option(option)->value();}
     static void set(QString option, QVariant val) { Settings::instance()->settings->option(option)->setValue(val); }

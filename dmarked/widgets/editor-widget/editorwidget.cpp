@@ -77,7 +77,7 @@ void EditorWidget::initFakeVim(MainWindow *mw)
         // Set some Vim options.
         handler->handleCommand(QLatin1String("set expandtab"));
         handler->handleCommand(QLatin1String("set shiftwidth=8"));
-        handler->handleCommand(QLatin1String("set tabstop=16"));
+        handler->handleCommand(QString("set tabstop=%1").arg(SettingsHelper::getTabSpaceNumber()));
         handler->handleCommand(QLatin1String("set autoindent"));
         handler->handleCommand(QLatin1String("set smartindent"));
     }
