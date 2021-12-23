@@ -1,3 +1,10 @@
+dmarked (0.2.0) UNRELEASED; urgency=low
+
+  * Add pangu.js, FakeVim, File History, Auto Save ...
+
+ -- Lu Hongxu <lhongxu@outlook.com>  Sat, 23 Dec 2021 19:43:55 +0800
+
+
 dmarked (0.1.0) UNRELEASED; urgency=low
 
   * Initial release. 

@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     app.loadTranslator();
     app.setOrganizationName("deepin");
     app.setApplicationName("DMarked");
-    app.setApplicationVersion(DApplication::buildVersion("0.1.0"));
+    app.setApplicationVersion(DApplication::buildVersion("0.2.0"));
     app.setProductIcon(QIcon(":/images/dmarked.svg"));
     app.setProductName(DApplication::translate("AppMain", "Markdown Editor"));
     app.setApplicationDisplayName(DApplication::translate("AppMain", "Markdown Editor"));
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     app.setQuitOnLastWindowClosed(true);
 
     qputenv("DTK_USE_SEMAPHORE_SINGLEINSTANCE", "1");
-    qputenv("QTWEBENGINE_REMOTE_DEBUGGING", "7777");
+    //qputenv("QTWEBENGINE_REMOTE_DEBUGGING", "7777");
 
     DApplicationSettings settings;
 
