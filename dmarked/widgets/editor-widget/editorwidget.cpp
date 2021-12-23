@@ -28,6 +28,7 @@
 #include <QMimeData>
 #include <QFileInfo>
 #include <QDir>
+#include <DLog>
 
 using DTK_NAMESPACE::Gui::DGuiApplicationHelper;
 
@@ -112,8 +113,10 @@ void EditorWidget::highlightCurrentLine()
 {
     if (m_bHighlightCurrentLine) {
         QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
-        if (m_lastSelectionId != -1)
+        if (m_lastSelectionId != -1 && extraSelections.size() > m_lastSelectionId) {
+            // dDebug() << m_lastSelectionId << " " << extraSelections.size();
             extraSelections.removeAt(m_lastSelectionId);
+        }
         m_lastSelectionId = -1;
 
         if (!isReadOnly()) {
