@@ -48,32 +48,29 @@ BottomBar::BottomBar(QWidget *parent)
     DFontSizeManager::instance()->bind(m_pCharCountLabel, DFontSizeManager::T9);
     DFontSizeManager::instance()->bind(m_pFakeVimStatus, DFontSizeManager::T9);
 
+    m_pPositionLabel->setText(QString("%1 %2  %3 %4").arg(m_rowStr, "1", m_columnStr, "1"));
+    m_pCharCountLabel->setText(m_chrCountStr.arg("0"));
+    m_pFakeVimStatus->setText("INSERT");
+
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setContentsMargins(29, 1, 10, 0);
     layout->addWidget(m_pPositionLabel);
     layout->addStretch();
     layout->addSpacerItem(new QSpacerItem(110, 20, QSizePolicy::Expanding, QSizePolicy::Fixed));
     layout->addWidget(m_pCharCountLabel);
-
-    m_pPositionLabel->setText(QString("%1 %2  %3 %4").arg(m_rowStr, "1", m_columnStr, "1"));
-
-    m_pCharCountLabel->setText(m_chrCountStr.arg("0"));
-
-    DVerticalLine *pVerticalLine1 = new DVerticalLine();
-    DVerticalLine *pVerticalLine2 = new DVerticalLine();
-    pVerticalLine1->setFixedSize(1, 15);
-    pVerticalLine2->setFixedSize(1, 15);
-
     layout->addStretch();
-    m_pFakeVimStatus->setText("INSERT");
     layout->addWidget(m_pFakeVimStatus);
+    m_pFakeVimStatus->setMinimumWidth(100);
     layout->addSpacing(10);
+    DVerticalLine *pVerticalLine1 = new DVerticalLine();
+    pVerticalLine1->setFixedSize(1, 15);
     layout->addWidget(pVerticalLine1);
     layout->addWidget(m_pThemeMenu);
     layout->addSpacing(10);
+    DVerticalLine *pVerticalLine2 = new DVerticalLine();
+    pVerticalLine2->setFixedSize(1, 15);
     layout->addWidget(pVerticalLine2);
     layout->addWidget(m_pModeMenu);
-
     setFixedHeight(32);
 
     // 切换 Markdown Theme
