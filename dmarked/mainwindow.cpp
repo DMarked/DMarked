@@ -79,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_bottomBar, &BottomBar::currentModeChanged, [this](const QString &mode) {
         m_centralWidget->setMode(mode);
     });
-/***        Layout          ***/
+    /***        Layout          ***/
     QVBoxLayout *m_layout = new QVBoxLayout;
     m_layout->setContentsMargins(0, 0, 0, 0);
     m_layout->setSpacing(0);
@@ -90,7 +90,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(base_widget);
     setupAction();
 
-/***        setting         ***/
+    /***        setting         ***/
     connect(m_settings, &Settings::sigAdjustFont, [this](QString fontName) {
         m_centralWidget->setFontFamily(fontName);
     });
@@ -122,7 +122,7 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     });
 
-/***        autoSave         ***/
+    /***        autoSave         ***/
     connect(m_autoSaveTimer, &QTimer::timeout, m_autoSaveTimer, [this] {
         if (m_centralWidget->getFilePath().isEmpty()) {
             return;
@@ -132,16 +132,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setupAutoSave();
 
-/***        init FakeVim!         ***/
+    /***        init FakeVim!         ***/
     bool enableFakeVim = SettingsHelper::get("base.fakevim.enable").toBool();
     if (enableFakeVim)
         m_centralWidget->m_editorWidget->initFakeVim(this);
 
-/***        code about convert files in cli         ***/
+    /***        code about convert files in cli         ***/
     ct.state = CLI_STATE::NONE;
     connect(m_centralWidget->m_previewWidget, &PreviewWidget::markdownLoadFinished,
              [this]() {
-        // dInfo() << "LoadFinish: " << ct.topath;
         if (ct.state == CLI_STATE::PDF)
             m_centralWidget->m_previewWidget->convert2Pdf(ct.topath, ct.pageLayout);
         else if (ct.state == CLI_STATE::HTML)

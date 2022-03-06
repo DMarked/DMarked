@@ -346,7 +346,7 @@ QIcon DDropdownMenu::createIcon()
 
     // 根据字体大小设置icon大小
     // height 30    width QFontMetrics fm(font()) fm.width(text)+40;
-    int fontWidth = QFontMetrics(m_font).width(m_text)+20;
+    int fontWidth = QFontMetrics(m_font).horizontalAdvance(m_text)+20;
     int fontHeight = QFontMetrics(m_font).height();
     int iconW = 8;
     int iconH = 5;
