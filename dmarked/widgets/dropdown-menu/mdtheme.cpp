@@ -30,9 +30,6 @@ const QStringList MdTheme::light_themes = { "apollo",        "infoq",      "mark
 
 const QStringList MdTheme::dark_themes = { "darkdown", "solarized-dark", "clearness-dark", "byword-dark" };
 
-//QString MdTheme::light_current_theme = "xiaolai";
-//QString MdTheme::dark_current_theme = "darkdown";
-
 QString MdTheme::getCurrentLightTheme()
 {
     return Settings::instance()->settings->option("advance.editor.mdtheme_light")->value().toString();

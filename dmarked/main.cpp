@@ -21,6 +21,7 @@
 
 #include "mainwindow.h"
 #include "application.h"
+#include "utils/mappagesize.h"
 
 #include <DApplication>
 #include <DWidgetUtil>
@@ -29,7 +30,6 @@
 #include <DMainWindow>
 #include <DLog>
 #include <QPageLayout>
-#include "utils/mappagesize.h"
 
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE

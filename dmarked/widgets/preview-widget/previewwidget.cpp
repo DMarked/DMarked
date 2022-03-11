@@ -22,14 +22,14 @@
 #include "widgets/dropdown-menu/mdtheme.h"
 #include "settings.h"
 
-#include <QWebEngineSettings>
-#include <DDesktopServices>
 #include <DMessageBox>
 #include <QFile>
 #include <QDir>
 #include <DSettingsOption>
 #include <QAction>
 #include <QWebEngineProfile>
+#include <QWebEngineSettings>
+#include <DDesktopServices>
 
 PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 {

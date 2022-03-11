@@ -24,7 +24,6 @@
 
 #include <QFrame>
 #include <DMenu>
-#include <QLabel>
 #include <QEvent>
 #include <DToolButton>
 #include <QPalette>
@@ -96,7 +95,7 @@ private:
     QPixmap m_arrowPixmap;
     QString m_text;
     QFont m_font;
-    bool m_bPressed =false;
+    bool m_bPressed = false;
     bool isRequest = false;
 };
 
