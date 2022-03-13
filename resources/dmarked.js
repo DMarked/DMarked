@@ -25,15 +25,30 @@ function setMarkedIsDark(isDark) {
 }
 
 /**************************************************************************/
+function filepath2Absolute(base, relative) {
+  var stack = base.split("/"),
+      parts = relative.split("/");
+  stack.pop(); // remove current file name (or empty string)
+  // (omit if "base" is the current folder without trailing slash)
+  for (var i = 0; i < parts.length; i++) {
+    if (parts[i] === ".")
+      continue;
+    if (parts[i] === "..")
+      stack.pop();
+    else
+      stack.push(parts[i]);
+  }
+  return stack.join("/");
+}
 
-var updateText = function (text) {
+var updateText = function () {
   var defaults = {
-    html:        dmarked_config.html,          // Enable HTML tags in source
+    html:        dmarked_config.html,             // Enable HTML tags in source
     xhtmlOut:    dmarked_config.xhtmlOut,         // Use '/' to close single tags (<br />)
-    breaks:      dmarked_config.breaks,         // Convert '\n' in paragraphs into <br>
-    langPrefix:  'language-',   // CSS language prefix for fenced blocks
+    breaks:      dmarked_config.breaks,           // Convert '\n' in paragraphs into <br>
+    langPrefix:  'language-',                     // CSS language prefix for fenced blocks
     linkify:     dmarked_config.linkify,          // autoconvert URL-like texts to links
-    typographer: dmarked_config.typographer,          // Enable smartypants and other sweet transforms
+    typographer: dmarked_config.typographer,      // Enable smartypants and other sweet transforms
   };
 
   var mermaidConfigs = {
@@ -102,22 +117,6 @@ var updateText = function (text) {
   //  return window.twemoji.parse(token[idx].content);
   //};
 
-  function absolute(base, relative) {
-    var stack = base.split("/"),
-      parts = relative.split("/");
-    stack.pop(); // remove current file name (or empty string)
-    // (omit if "base" is the current folder without trailing slash)
-    for (var i = 0; i < parts.length; i++) {
-      if (parts[i] === ".")
-        continue;
-      if (parts[i] === "..")
-        stack.pop();
-      else
-        stack.push(parts[i]);
-    }
-    return stack.join("/");
-  }
-
   // https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
   md.renderer.rules.image = function (tokens, idx, options, env, self) {
     var token = tokens[idx],
@@ -130,14 +129,16 @@ var updateText = function (text) {
 
     // relative file path
     if (token.attrs[aIndexSrc][1][0] !== '/')
-      token.attrs[aIndexSrc][1] = absolute(dmarked_content.path, token.attrs[aIndexSrc][1]);
+      token.attrs[aIndexSrc][1] = filepath2Absolute(dmarked_content.path, token.attrs[aIndexSrc][1]);
 
-    //console.log(dmarked_content.path, token.attrs[aIndexSrc]);
+    //console.log(path, token.attrs[aIndexSrc]);
     return '<p>' + '<img src="file://' + token.attrs[aIndexSrc][1] + '" alt="' + token.attrs[aIndexAlt][1] + '">' + '</p>';
   };
 
   if (dmarked_pangu)
-    text = pangu.spacing(text);
+    text = pangu.spacing(dmarked_content.text);
+  else
+    text = dmarked_content.text;
   document.getElementById('placeholder').innerHTML = md.render(text);
   mermaid.initialize(mermaidConfigs);
   dmarked_content.onMdLoadFinished();
@@ -147,7 +148,7 @@ const dmarked_setup = () => new QWebChannel(qt.webChannelTransport,
   function (channel) {
     dmarked_content = channel.objects.content;
     dmarked_config = channel.objects.config;
-    updateText(dmarked_content.text);
+    updateText();
     dmarked_content.textChanged.connect(updateText);
   }
 );
