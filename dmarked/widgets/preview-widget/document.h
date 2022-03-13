@@ -59,20 +59,23 @@
 class DmarkedConfig : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool html MEMBER html FINAL)
-    Q_PROPERTY(bool xhtmlOut MEMBER xhtmlOut FINAL)
-    Q_PROPERTY(bool breaks MEMBER breaks FINAL)
-    Q_PROPERTY(bool linkify MEMBER linkify FINAL)
-    Q_PROPERTY(bool typographer MEMBER typographer FINAL)
-
-    friend class PreviewWidget;
-private:
+    Q_PROPERTY(bool html MEMBER html NOTIFY configChanged FINAL)
+    Q_PROPERTY(bool xhtmlOut MEMBER xhtmlOut NOTIFY configChanged FINAL)
+    Q_PROPERTY(bool breaks MEMBER breaks NOTIFY configChanged FINAL)
+    Q_PROPERTY(bool linkify MEMBER linkify NOTIFY configChanged FINAL)
+    Q_PROPERTY(bool typographer MEMBER typographer NOTIFY configChanged FINAL)
+public:
     explicit DmarkedConfig() = default;
-    bool html = true;          // Enable HTML tags in source
-    bool xhtmlOut = false;         // Use '/' to close single tags (<br />)
-    bool breaks = false;       // Convert '\n' in paragraphs into <br>
-    bool linkify = true;          // autoconvert URL-like texts to links
-    bool typographer = true;          // Enable smartypants and other sweet transforms
+
+Q_SIGNALS:
+    void configChanged();
+
+private:
+    bool html = true;               // Enable HTML tags in source
+    bool xhtmlOut = false;          // Use '/' to close single tags (<br />)
+    bool breaks = false;            // Convert '\n' in paragraphs into <br>
+    bool linkify = true;            // autoconvert URL-like texts to links
+    bool typographer = true;        // Enable smartypants and other sweet transforms
 };
 
 class Document : public QObject
