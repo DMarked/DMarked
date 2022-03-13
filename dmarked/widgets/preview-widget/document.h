@@ -81,7 +81,7 @@ private:
 class Document : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged NOTIFY markdownThemeChanged NOTIFY markdownLoadFinished FINAL) // important for QWebChannel
+    Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged NOTIFY markdownLoadFinished FINAL) // important for QWebChannel
     Q_PROPERTY(QString path MEMBER m_filePath NOTIFY textChanged FINAL)
 
 public:
@@ -93,11 +93,9 @@ public:
 
 Q_SIGNALS:
     void textChanged(const QString &text);
-    void markdownThemeChanged();
     void markdownLoadFinished();
 
 public Q_SLOTS:
-    void onMdThemeChanged();
     void onMdLoadFinished();
 
 private:

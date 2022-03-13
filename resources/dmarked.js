@@ -10,7 +10,6 @@ function setMarkdownTheme(theme) {
     document.getElementById('cssplaceholder').innerHTML = '';
   else
     document.getElementById('cssplaceholder').innerHTML = '<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/' + theme + '.css\">';
-  dmarked_content.onMdThemeChanged();
 }
 function setHighlightTheme(theme) {
   document.getElementById('highlightplaceholder').innerHTML =

@@ -69,11 +69,6 @@ void Document::setFilePath(const QString &filePath)
     Q_EMIT textChanged(m_text);
 }
 
-void Document::onMdThemeChanged()
-{
-    Q_EMIT markdownThemeChanged();
-}
-
 void Document::onMdLoadFinished()
 {
     Q_EMIT markdownLoadFinished();

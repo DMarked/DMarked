@@ -55,7 +55,6 @@ public Q_SLOTS:
     void pdfPrintingFinished(const QString &filePath, bool success);
 
 Q_SIGNALS:
-    void markdownThemeChanged();
     void markdownLoadFinished();
     void convert2HtmlFinish(bool success);
     void convert2PdfFinish(bool success);
