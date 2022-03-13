@@ -1,4 +1,5 @@
 var dmarked_content;
+var dmarked_config;
 var dmarked_isDark = false;
 var dmarked_pangu = true;
 
@@ -26,14 +27,14 @@ function setMarkedIsDark(isDark) {
 
 /**************************************************************************/
 
-var updateText = function (text) {
+var updateText = function (text, cfg) {
   var defaults = {
-    html:        true,          // Enable HTML tags in source
-    xhtmlOut:    false,         // Use '/' to close single tags (<br />)
-    breaks:      false,         // Convert '\n' in paragraphs into <br>
+    html:        cfg.html,          // Enable HTML tags in source
+    xhtmlOut:    cfg.xhtmlOut,         // Use '/' to close single tags (<br />)
+    breaks:      cfg.breaks,         // Convert '\n' in paragraphs into <br>
     langPrefix:  'language-',   // CSS language prefix for fenced blocks
-    linkify:     true,          // autoconvert URL-like texts to links
-    typographer: true,          // Enable smartypants and other sweet transforms
+    linkify:     cfg.linkify,          // autoconvert URL-like texts to links
+    typographer: cfg.typographer,          // Enable smartypants and other sweet transforms
   };
 
   var mermaidConfigs = {
@@ -146,7 +147,8 @@ var updateText = function (text) {
 const dmarked_setup = () => new QWebChannel(qt.webChannelTransport,
   function (channel) {
     dmarked_content = channel.objects.content;
-    updateText(dmarked_content.text);
+    dmarked_config = channel.objects.config;
+    updateText(dmarked_content.text, dmarked_config);
     dmarked_content.textChanged.connect(updateText);
   }
 );

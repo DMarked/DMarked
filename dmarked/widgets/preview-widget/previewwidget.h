@@ -62,6 +62,7 @@ Q_SIGNALS:
 
 private:
     Document m_content;
+    DmarkedConfig m_config;
     PreviewPage *m_page;
     QWebChannel *m_channel;
     bool isGui = true;

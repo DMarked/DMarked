@@ -51,6 +51,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
     setPage(m_page);
     m_channel = new QWebChannel(this);
     m_channel->registerObject(QStringLiteral("content"), &m_content);
+    m_channel->registerObject(QStringLiteral("config"), &m_config);
     m_page->setWebChannel(m_channel);
 
     setUrl(QUrl("qrc:/index.html"));

@@ -56,11 +56,31 @@
 #include <QObject>
 #include <QString>
 
+class DmarkedConfig : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(bool html MEMBER html FINAL)
+    Q_PROPERTY(bool xhtmlOut MEMBER xhtmlOut FINAL)
+    Q_PROPERTY(bool breaks MEMBER breaks FINAL)
+    Q_PROPERTY(bool linkify MEMBER linkify FINAL)
+    Q_PROPERTY(bool typographer MEMBER typographer FINAL)
+
+    friend class PreviewWidget;
+private:
+    explicit DmarkedConfig() = default;
+    bool html = true;          // Enable HTML tags in source
+    bool xhtmlOut = false;         // Use '/' to close single tags (<br />)
+    bool breaks = false;       // Convert '\n' in paragraphs into <br>
+    bool linkify = true;          // autoconvert URL-like texts to links
+    bool typographer = true;          // Enable smartypants and other sweet transforms
+};
+
 class Document : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged NOTIFY markdownThemeChanged NOTIFY markdownLoadFinished FINAL) // important for QWebChannel
     Q_PROPERTY(QString path MEMBER m_filePath NOTIFY textChanged FINAL)
+
 public:
     explicit Document(QObject *parent = nullptr) : QObject(parent) {}
 
