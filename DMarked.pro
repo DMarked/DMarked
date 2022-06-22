@@ -10,6 +10,6 @@ SUBDIRS = \
     3rdparty \
     dmarked
 
-src.depends = 3rdparty
+dmarked.depends = 3rdparty
 
 
