@@ -22,7 +22,7 @@
 #include "fakevimproxy.h"
 #include "mainwindow.h"
 
-#include <FakeVim/fakevimhandler.h>
+#include <fakevimhandler.h>
 #include <QStandardPaths>
 #include <DGuiApplicationHelper>
 #include <QMimeData>

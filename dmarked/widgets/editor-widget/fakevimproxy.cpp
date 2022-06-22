@@ -20,8 +20,8 @@
 
 #include "fakevimproxy.h"
 
-#include <FakeVim/fakevimactions.h>
-#include <FakeVim/fakevimhandler.h>
+#include <fakevimactions.h>
+#include <fakevimhandler.h>
 
 #include "mainwindow.h"
 
