@@ -71,12 +71,12 @@ qm_file.path = $${DSRDIR}/translations/
 INSTALLS += target qm_file icon desktop
 
 # qmarkdowntextedit
-LIBS += -lQMarkdownTextedit -L$$OUT_PWD
+LIBS += -L$$OUT_PWD/../3rdparty/qmarkdowntextedit -lQMarkdownTextedit
 INCLUDEPATH += $$PWD/../3rdparty/qmarkdowntextedit
 DEPENDPATH += $$PWD/../3rdparty/qmarkdowntextedit
 
 # FakeVim
-LIBS += -lFakeVim -L$$OUT_PWD
+LIBS += -L$$OUT_PWD/../3rdparty/FakeVim/fakevim -lFakeVim
 INCLUDEPATH += $$PWD/../3rdparty/FakeVim/fakevim
 DEPENDPATH += $$PWD/../3rdparty/FakeVim/fakevim
 
