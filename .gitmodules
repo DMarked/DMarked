@@ -1,7 +1,7 @@
 [submodule "3rdparty/qmarkdowntextedit"]
 	path = 3rdparty/qmarkdowntextedit
-	url = git@github.com:DMarked/qmarkdowntextedit.git
+	url = https://github.com/DMarked/qmarkdowntextedit.git
 [submodule "3rdparty/FakeVim"]
 	path = 3rdparty/FakeVim
-	url = git@github.com:DMarked/FakeVim.git
+	url = https://github.com/DMarked/FakeVim.git
 
