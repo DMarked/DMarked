@@ -52,16 +52,17 @@ RESOURCES = \
     translations.qrc
 
 # install
-isEmpty(BINDIR):BINDIR=/usr/bin
-isEmpty(APPDIR):APPDIR=/usr/share/applications
-isEmpty(DSRDIR):DSRDIR=/usr/share/dmarked
+isEmpty(BINDIR):BINDIR=$${PREFIX}/bin
+isEmpty(APPDIR):APPDIR=$${PREFIX}/share/applications
+isEmpty(DSRDIR):DSRDIR=$${PREFIX}/share/dmarked
+isEmpty(ICONDIR):ICONDIR=$${PREFIX}/share/icons
 
-target.path = $$INSTROOT$$BINDIR
-desktop.path = $$INSTROOT$$APPDIR
+target.path = $${BINDIR}
+
+desktop.path = $${APPDIR}
 desktop.files = $$PWD/../dmarked.desktop
 
-ICONDIR=/usr/share/icons
-icon.path = $$INSTROOT$$ICONDIR
+icon.path = $${ICONDIR}
 icon.files = $$PWD/../resources/images/dmarked.svg
 
 system("lrelease translations/*.ts")

@@ -6,6 +6,9 @@
 
 TEMPLATE = subdirs
 
+isEmpty(PREFIX):PREFIX=/usr
+isEmpty(LIBS_PREFIX):LIBS_PREFIX=/usr
+
 SUBDIRS = \
     3rdparty \
     dmarked
