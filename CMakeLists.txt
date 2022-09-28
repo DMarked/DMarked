@@ -26,4 +26,5 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr)
 endif ()
 
+add_subdirectory(3rdparty)
 add_subdirectory(dmarked)
