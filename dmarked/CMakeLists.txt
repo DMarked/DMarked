@@ -9,7 +9,6 @@ find_package("Qt${QT_MAJOR_VERSION}LinguistTools" REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(Dtk REQUIRED IMPORTED_TARGET dtkcore dtkgui dtkwidget)
-pkg_check_modules(3rd_party REQUIRED IMPORTED_TARGET QMarkdownTextedit)
 
 set(QT_LIBRARIES "")
 foreach(temp ${QT_COMPONENTS})
@@ -27,12 +26,24 @@ qt_create_translation(QM_FILES ${TS_FILES})
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PUBLIC ${SOURCES} ${RCC_SOURCES} ${QM_FILES})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${QT_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::Dtk fakevim qmarkdowntextedit)
-# PkgConfig::3rd_party
+target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::Dtk)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/3rdparty/FakeVim/fakevim
-                                                  ${CMAKE_BINARY_DIR}/3rdparty/FakeVim
-                                                  ${CMAKE_SOURCE_DIR}/3rdparty/qmarkdowntextedit)                                               
+if (UES_VENDORED_FAKEVIM)
+    target_link_libraries(${PROJECT_NAME} PRIVATE fakevim)
+    target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/3rdparty/FakeVim/fakevim
+                                              ${CMAKE_BINARY_DIR}/3rdparty/FakeVim)    
+else()
+    pkg_check_modules(FakeVim REQUIRED IMPORTED_TARGET fakevim)
+    target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::FakeVim)
+endif() # UES_VENDORED_FAKEVIM
+
+if (UES_VENDORED_QMARKDOWNTEXTEDIT)
+    target_link_libraries(${PROJECT_NAME} PRIVATE qmarkdowntextedit)
+    target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/3rdparty/qmarkdowntextedit)
+else()
+    pkg_check_modules(QMarkdownTextedit REQUIRED IMPORTED_TARGET QMarkdownTextedit)
+    target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::QMarkdownTextedit)
+endif() #UES_VENDORED_QMARKDOWNTEXTEDIT
 
 ## install
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})

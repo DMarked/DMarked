@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-set (DVERSION "0.3.0" CACHE STRING "define project version" FORCE)
+set (DVERSION "0.3.0" CACHE STRING "define project version")
 project (dmarked
   VERSION ${DVERSION}
   DESCRIPTION "dtk based markdown editor"
@@ -15,7 +15,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
-message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -25,6 +24,13 @@ include(GNUInstallDirs)
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr)
 endif ()
+
+option(UES_VENDORED_FAKEVIM "Set OFF to find FakeVim by pkg-config" ON)
+option(UES_VENDORED_QMARKDOWNTEXTEDIT "Set OFF to find QmarkdownTextedit by pkg-config" ON)
+
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "UES_VENDORED_FAKEVIM: ${UES_VENDORED_FAKEVIM}")
+message(STATUS "UES_VENDORED_QMARKDOWNTEXTEDIT: ${UES_VENDORED_QMARKDOWNTEXTEDIT}")
 
 add_subdirectory(3rdparty)
 add_subdirectory(dmarked)
