@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 3.20)
 
 set (DVERSION "0.3.0" CACHE STRING "define project version" FORCE)
