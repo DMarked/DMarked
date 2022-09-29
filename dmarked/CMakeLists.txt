@@ -24,6 +24,7 @@ qt_create_translation(QM_FILES ${TS_FILES})
 
 
 add_executable(${PROJECT_NAME})
+set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCES} ${RCC_SOURCES} ${QM_FILES})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${QT_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::Dtk)
