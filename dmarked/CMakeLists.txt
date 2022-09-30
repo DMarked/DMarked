@@ -32,7 +32,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::Dtk)
 if (UES_VENDORED_FAKEVIM)
     target_link_libraries(${PROJECT_NAME} PRIVATE fakevim)
     target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/3rdparty/FakeVim/fakevim
-                                              ${CMAKE_BINARY_DIR}/3rdparty/FakeVim)    
+                                              ${CMAKE_SOURCE_DIR}/3rdparty/FakeVim/fakevim/)
 else()
     pkg_check_modules(FakeVim REQUIRED IMPORTED_TARGET fakevim)
     target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::FakeVim)
