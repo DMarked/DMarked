@@ -12,21 +12,35 @@
 
   outputs = { self, flake-utils, dde-nixos, nixpkgs }@input:
     flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "i686-linux" ]
-    (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-        dde-pkgs = dde-nixos.packages.${system};
-      in rec {
-        devShell = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [ cmake pkg-config ];
-          buildInputs = with dde-pkgs; [ dtkcore dtkgui dtkwidget ] ++ (
-                        with pkgs; [ qmarkdowntextedit ] );
-          shellHook = ''
-            # export QT_LOGGING_RULES=*.debug=true
-            export QT_PLUGIN_PATH="$QT_PLUGIN_PATH:${dde-pkgs.qt5integration}/lib/qt-5.15.5/plugins"
-            export QT_QPA_PLATFORM_PLUGIN_PATH="${dde-pkgs.qt5platform-plugins}/lib/qt-5.15.5/plugins"
-          '';
-        };
-      }
-   );
+      (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          
+          dde-pkgs = dde-nixos.packages.${system};
+
+          dmarked = pkgs.callPackage ./nix {
+            inherit dde-pkgs;
+          };
+        in
+        rec {
+          packages.default = dmarked;
+
+          apps.${system}.default = {
+            type = "app";
+            program = "${self.packages.${system}.default}/bin/dmarked";
+          };
+
+          devShell = pkgs.mkShell {
+            nativeBuildInputs = with pkgs; [ cmake pkg-config ];
+            buildInputs = with dde-pkgs; [ dtkcore dtkgui dtkwidget ] ++ (with pkgs; 
+            [ qmarkdowntextedit ]);
+
+            shellHook = ''
+              # export QT_LOGGING_RULES=*.debug=true
+              export QT_PLUGIN_PATH="${dde-pkgs.qt5integration}/lib/qt-5.15.5/plugins:$QT_PLUGIN_PATH"
+              export QT_QPA_PLATFORM_PLUGIN_PATH="${dde-pkgs.qt5platform-plugins}/lib/qt-5.15.5/plugins"
+            '';
+          };
+        }
+      );
 }
