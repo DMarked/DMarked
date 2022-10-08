@@ -22,6 +22,23 @@ In debian, use below command to install compile dependencies:
 - qmake ..
 - sudo make install
 
+#### Nix
+
+In Project Dir:
+
+- nix develop
+
+get develop shell
+
+- nix build ".?submodules=1"
+
+build package
+
+- nix run ".?submodules=1"
+
+just run dmarked
+
+
 #### TODO
 - [x] 新建，打开，另存为 Markdown 文件
 - [x] 一边编辑，另一边预览   
