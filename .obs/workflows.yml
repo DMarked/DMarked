@@ -1,0 +1,36 @@
+testbuild:
+  steps:
+    - link_package:
+        source_project: home:rewine
+        source_package: dmarked
+        target_project: home:rewine:test
+    - set_flags:
+        flags:
+          - type: publish
+            status: enable
+            project: home:rewine:test
+    - configure_repositories:
+        project: home:rewine:test
+        repositories:
+          - name: Deepin_20
+            paths:
+              - target_project: home:rewine:test
+                target_repository: Arch_Community
+            architectures:
+              - x86_64
+    - rebuild_package:
+        project: home:rewine:test
+        package: dmarked
+  filters:
+    event: pull_request
+
+rebuild:
+  steps:
+    - trigger_services:
+        project: home:rewine
+        package: dmarked
+  filters:
+    event: push
+    branches:
+      only:
+        - master
