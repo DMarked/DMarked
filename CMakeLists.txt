@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.13)
 
 set (DVERSION "0.3.0" CACHE STRING "define project version")
 project (dmarked
