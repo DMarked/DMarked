@@ -4,13 +4,8 @@ testbuild:
         source_project: home:rewine
         source_package: dmarked
         target_project: home:rewine:test
-    - set_flags:
-        flags:
-          - type: publish
-            status: enable
-            project: home:rewine:test
     - configure_repositories:
-        project: home:rewine:test
+        project: home:rewine
         repositories:
           - name: Deepin_20
             paths:
