@@ -9,7 +9,8 @@ Build-Depends:
   qtbase5-dev,
   libdtkcore-dev,
   libdtkwidget-dev,
-  qtwebengine5-dev
+  qtwebengine5-dev,
+  cmake
 Standards-Version: 4.1.4
 Homepage: https://github.com/wineee/DMarked
 
