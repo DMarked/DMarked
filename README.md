@@ -4,9 +4,11 @@
 
 [介绍帖](https://bbs.deepin.org/en/post/228829) & [github](https://github.com/wineee/DMarked) & [gitee](https://gitee.com/rewine/DMarked)
 
+
 #### Dependencies
 
 In debian, use below command to install compile dependencies:
+
 
 `sudo apt install qt5-default libdtkwidget-dev libdtkgui-dev libdtkcore-dev qtwebengine5-dev`
 
