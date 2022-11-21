@@ -5,6 +5,8 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+
+
 if ! type debuild >/dev/null 2>&1; then
    apt install devscripts
 fi
