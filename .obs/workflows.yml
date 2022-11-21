@@ -5,14 +5,22 @@ testbuild:
         source_package: dmarked
         target_project: home:rewine:test
     - configure_repositories:
-        project: home:rewine
+        project: home:rewine:test
         repositories:
           - name: Deepin_20
             paths:
-              - target_project: home:rewine:test
+              - target_project: home:rewine
                 target_repository: Deepin_20
             architectures:
               - x86_64
+          - name: Deepin_23
+            paths:
+              - target_project: home:rewine
+                target_repository: Deepin_23
+            architectures:
+              - x86_64
+              - aarch64
+              - riscv64
   filters:
     event: pull_request
 
