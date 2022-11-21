@@ -15,12 +15,9 @@ testbuild:
           - name: Deepin_20
             paths:
               - target_project: home:rewine:test
-                target_repository: Arch_Community
+                target_repository: Deepin_20
             architectures:
               - x86_64
-    - rebuild_package:
-        project: home:rewine:test
-        package: dmarked
   filters:
     event: pull_request
 
@@ -33,4 +30,4 @@ rebuild:
     event: push
     branches:
       only:
-        - master
+        - main

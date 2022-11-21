@@ -20,7 +20,7 @@ set(RCC_SOURCES translations.qrc ../resources/markdowneditor.qrc)
 
 file(GLOB TS_FILES "${CMAKE_CURRENT_SOURCE_DIR}/translations/*.ts")
 set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_BINARY_DIR}/translations)
-qt_create_translation(QM_FILES ${TS_FILES})
+qt5_create_translation(QM_FILES ${TS_FILES})
 
 
 add_executable(${PROJECT_NAME})
