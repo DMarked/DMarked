@@ -21,6 +21,11 @@ testbuild:
               - x86_64
               - aarch64
               - riscv64
+    - set_flags:
+        flags:
+          - type: debuginfo
+            status: enable
+            project: home:rewine:test
   filters:
     event: pull_request
 
