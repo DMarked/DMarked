@@ -6,5 +6,4 @@ fi
 if ! type debuild >/dev/null 2>&1; then
    apt install devscripts
 fi
-
 debuild -uc -us -tc -b
