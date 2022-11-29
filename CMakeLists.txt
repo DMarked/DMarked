@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.13)
 
+# Set PIE flags for POSITION_INDEPENDENT_CODE targets, added in 3.14.
+if (POLICY CMP0083)
+  cmake_policy(SET CMP0083 NEW)
+endif()
+
 set (DVERSION "0.3.0" CACHE STRING "define project version")
 project (dmarked
   VERSION ${DVERSION}
@@ -15,22 +20,29 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
-
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(POSITION_INDEPENDENT_CODE True)
-if(NOT MSVC)
+# Enabled PIE binaries by default if supported.
+include(CheckPIESupported OPTIONAL RESULT_VARIABLE CHECK_PIE_SUPPORTED)
+if (CHECK_PIE_SUPPORTED)
+  check_pie_supported(LANGUAGES CXX)
+  if (CMAKE_CXX_LINK_PIE_SUPPORTED)
+    set (CMAKE_POSITION_INDEPENDENT_CODE TRUE)
+  endif ()
+endif()
+
+if (NOT MSVC)
   if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
-  endif ()
+  endif()
 endif()
 
 include(GNUInstallDirs)
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr)
-endif ()
+endif()
 
 option(UES_VENDORED_FAKEVIM "Set OFF to find FakeVim by pkg-config" ON)
 option(UES_VENDORED_QMARKDOWNTEXTEDIT "Set OFF to find QmarkdownTextedit by pkg-config" ON)
