@@ -40,9 +40,7 @@ if (NOT MSVC)
 endif()
 
 include(GNUInstallDirs)
-if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set(CMAKE_INSTALL_PREFIX /usr)
-endif()
+set (ICON_INSTALL_DIR "${CMAKE_INSTALL_FULL_DATADIR}/icons/hicolor/scalable/apps" CACHE STRING "Install dir for icons")
 
 option(UES_VENDORED_FAKEVIM "Set OFF to find FakeVim by pkg-config" ON)
 option(UES_VENDORED_QMARKDOWNTEXTEDIT "Set OFF to find QmarkdownTextedit by pkg-config" ON)

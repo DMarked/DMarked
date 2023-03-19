@@ -48,6 +48,7 @@ endif() #UES_VENDORED_QMARKDOWNTEXTEDIT
 
 ## install
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES ${CMAKE_SOURCE_DIR}/resources/images/dmarked.svg DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps)
+install(FILES ${CMAKE_SOURCE_DIR}/resources/images/dmarked.svg DESTINATION ${ICON_INSTALL_DIR})
+configure_file(${CMAKE_SOURCE_DIR}/dmarked.desktop.in ${CMAKE_SOURCE_DIR}/dmarked.desktop @ONLY)
 install(FILES ${CMAKE_SOURCE_DIR}/dmarked.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 install(DIRECTORY ${CMAKE_BINARY_DIR}/translations DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME})

@@ -2,10 +2,10 @@
 Categories=Application;Utility;TextEditor;
 Comment=Simple and easy to use markdown editor
 Comment[zh_CN]=简单好用的 Markdown 编辑器
-Exec=/usr/bin/dmarked %f
+Exec=@CMAKE_INSTALL_FULL_BINDIR@/dmarked %f
 GenericName=Dtk Markdown editor
 GenericName[zh_CN]=Dtk Markdown 编辑器
-Icon=/usr/share/icons/dmarked.svg
+Icon=@ICON_INSTALL_DIR@/dmarked.svg
 MimeType=text/markdown;text/x-markdown;
 Name=DMarked
 Name[zh_CN]=DMarked
