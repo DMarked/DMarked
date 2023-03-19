@@ -4,23 +4,15 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    dde-nixos = {
-      url = "github:linuxdeepin/dde-nixos";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, flake-utils, dde-nixos, nixpkgs }@input:
+  outputs = { self, flake-utils, nixpkgs }@input:
     flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "i686-linux" ]
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          
-          dde-pkgs = dde-nixos.packages.${system};
 
-          dmarked = pkgs.callPackage ./nix {
-            inherit dde-pkgs;
-          };
+          dmarked = pkgs.callPackage ./nix { };
         in
         rec {
           packages.default = dmarked;
@@ -32,13 +24,13 @@
 
           devShell = pkgs.mkShell {
             nativeBuildInputs = with pkgs; [ cmake pkg-config ];
-            buildInputs = with dde-pkgs; [ dtkcore dtkgui dtkwidget ] ++ (with pkgs; 
-            [ qmarkdowntextedit ]);
+            buildInputs = with pkgs; with deepin; [
+              dtkwidget
+              qmarkdowntextedit
+            ];
 
             shellHook = ''
               # export QT_LOGGING_RULES=*.debug=true
-              export QT_PLUGIN_PATH="${dde-pkgs.qt5integration}/lib/qt-5.15.5/plugins:$QT_PLUGIN_PATH"
-              export QT_QPA_PLATFORM_PLUGIN_PATH="${dde-pkgs.qt5platform-plugins}/lib/qt-5.15.5/plugins"
             '';
           };
         }

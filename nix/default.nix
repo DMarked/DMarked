@@ -1,10 +1,10 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, dde-pkgs
 , libsForQt5
 , cmake
 , pkg-config
+, deepin
 }:
 stdenv.mkDerivation rec {
   pname = "dmarked";
@@ -19,17 +19,14 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = with dde-pkgs; [
-    dtkcore
-    dtkgui
+  buildInputs = with deepin; [
     dtkwidget
     qt5platform-plugins
     libsForQt5.qtwebengine
   ];
 
   qtWrapperArgs = [
-    "--prefix QT_QPA_PLATFORM_PLUGIN_PATH : ${dde-pkgs.qt5platform-plugins}/${libsForQt5.qtbase.qtPluginPrefix}"
-    "--prefix QT_PLUGIN_PATH : ${dde-pkgs.qt5integration}/${libsForQt5.qtbase.qtPluginPrefix}"
+    "--prefix QT_PLUGIN_PATH : ${deepin.qt5integration}/${libsForQt5.qtbase.qtPluginPrefix}"
   ];
 
   meta = with lib; {
