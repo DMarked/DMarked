@@ -24,36 +24,12 @@
         <translation>设置为横向，默认纵向</translation>
     </message>
     <message>
-        <source>Set paper size to: A4, Letter, etc.</source>
-        <translation type="vanished">设置页面大小为 A4，Letter  等.</translation>
-    </message>
-    <message>
-        <source>Set left margin</source>
-        <translation type="vanished">设置左边距</translation>
-    </message>
-    <message>
-        <source>Set top margin</source>
-        <translation type="vanished">设置上边距</translation>
-    </message>
-    <message>
-        <source>Set right margin</source>
-        <translation type="vanished">设置右边距</translation>
-    </message>
-    <message>
-        <source>Set bottom margin</source>
-        <translation type="vanished">设置下边距</translation>
-    </message>
-    <message>
         <source>Maximum depth of search directory</source>
         <translation>批量转换时文件的最大深度</translation>
     </message>
     <message>
         <source>Source file/directory to conver</source>
         <translation>需要转换的文件或其所在目录</translation>
-    </message>
-    <message>
-        <source>Destination file/directory.</source>
-        <translation type="vanished">转换后文件的位置</translation>
     </message>
     <message>
         <source>Set paper size to: A4, Letter, etc</source>
@@ -116,10 +92,6 @@
 </context>
 <context>
     <name>DDropdownMenu</name>
-    <message>
-        <source>none</source>
-        <translation type="vanished">无</translation>
-    </message>
     <message>
         <source>Read Mode</source>
         <translation>阅读模式</translation>
@@ -337,14 +309,6 @@
         <translation>替换</translation>
     </message>
     <message>
-        <source>Go to line</source>
-        <translation type="obsolete">跳到行</translation>
-    </message>
-    <message>
-        <source>Save cursor position</source>
-        <translation type="obsolete">保存光标位置</translation>
-    </message>
-    <message>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
@@ -465,10 +429,6 @@
         <translation>向右删除一个词</translation>
     </message>
     <message>
-        <source>Backward over a pair</source>
-        <translation type="obsolete">向左匹配</translation>
-    </message>
-    <message>
         <source>Select all</source>
         <translation>全选</translation>
     </message>
@@ -519,10 +479,6 @@
     <message>
         <source>Show line numbers</source>
         <translation>显示行号</translation>
-    </message>
-    <message>
-        <source>Show bookmarks icon</source>
-        <translation type="obsolete">显示书签图标</translation>
     </message>
     <message>
         <source>Show whitespaces and tabs</source>
@@ -582,10 +538,6 @@
     <message>
         <source>This shortcut conflicts with %1, click on Replace to make this shortcut effective immediately</source>
         <translation>此快捷键与%1冲突，点击替换使这个快捷键立即生效</translation>
-    </message>
-    <message>
-        <source>The shortcut %1 is invalid, please set another one.</source>
-        <translation type="vanished">%1为无效快捷键，请重新设置</translation>
     </message>
     <message>
         <source>Cancel</source>

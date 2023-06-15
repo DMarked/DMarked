@@ -1,32 +1,45 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, libsForQt5
 , cmake
+, qttools
 , pkg-config
-, deepin
+, wrapQtAppsHook
+, qtbase
+, dtkwidget
+, qt5integration
+, qt5platform-plugins
+, qtwebengine
+, qmarkdowntextedit
 }:
+
 stdenv.mkDerivation rec {
   pname = "dmarked";
   version = "0.3.0";
 
   src = ./..;
 
-  nativeBuildInputs = with libsForQt5; [
+  nativeBuildInputs = [
     cmake
     qttools
     pkg-config
     wrapQtAppsHook
   ];
 
-  buildInputs = with deepin; [
+  buildInputs = [
+    qtbase
     dtkwidget
     qt5platform-plugins
-    libsForQt5.qtwebengine
+    qtwebengine
+    qmarkdowntextedit
+  ];
+
+  cmakeFlags = [
+    "-DUES_VENDORED_QMARKDOWNTEXTEDIT=OFF"
   ];
 
   qtWrapperArgs = [
-    "--prefix QT_PLUGIN_PATH : ${deepin.qt5integration}/${libsForQt5.qtbase.qtPluginPrefix}"
+    "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}"
   ];
 
   meta = with lib; {

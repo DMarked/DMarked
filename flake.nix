@@ -12,7 +12,7 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
 
-          dmarked = pkgs.callPackage ./nix { };
+          dmarked = pkgs.deepin.callPackage ./nix { };
         in
         rec {
           packages.default = dmarked;

@@ -24,15 +24,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-# Enabled PIE binaries by default if supported.
-include(CheckPIESupported OPTIONAL RESULT_VARIABLE CHECK_PIE_SUPPORTED)
-if (CHECK_PIE_SUPPORTED)
-  check_pie_supported(LANGUAGES CXX)
-  if (CMAKE_CXX_LINK_PIE_SUPPORTED)
-    set (CMAKE_POSITION_INDEPENDENT_CODE TRUE)
-  endif ()
-endif()
-
 if (NOT MSVC)
   if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")

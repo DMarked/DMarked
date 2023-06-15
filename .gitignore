@@ -54,3 +54,6 @@ compile_commands.json
 # nix
 .direnv
 result
+
+# clangd
+.cache/
