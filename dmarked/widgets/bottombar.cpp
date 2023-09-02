@@ -26,6 +26,7 @@
 #include <QHBoxLayout>
 #include <DMenu>
 #include <DVerticalLine>
+#include <DPaletteHelper>
 
 BottomBar::BottomBar(QWidget *parent)
     : QWidget(parent),
@@ -124,12 +125,19 @@ void BottomBar::updateVimMessage(const QString &msg)
 
 void BottomBar::setPalette(const QPalette &palette)
 {
+#if DTK_VERSION < DTK_VERSION_CHECK(5, 6, 15, 0)
     DPalette paPositionLabel  = DApplicationHelper::instance()->applicationPalette();
     DPalette paCharCountLabel = DApplicationHelper::instance()->applicationPalette();
     DPalette paFakeVimStatus = DApplicationHelper::instance()->applicationPalette();
     DPalette paThemeMenu = DApplicationHelper::instance()->applicationPalette();
     DPalette paModeMenu = DApplicationHelper::instance()->applicationPalette();
-
+#else
+    DPalette paPositionLabel  = DGuiApplicationHelper::instance()->applicationPalette();
+    DPalette paCharCountLabel = DGuiApplicationHelper::instance()->applicationPalette();
+    DPalette paFakeVimStatus = DGuiApplicationHelper::instance()->applicationPalette();
+    DPalette paThemeMenu = DGuiApplicationHelper::instance()->applicationPalette();
+    DPalette paModeMenu = DGuiApplicationHelper::instance()->applicationPalette();
+#endif
     QColor colorFont = paPositionLabel.textTips().color();
 
     paPositionLabel.setColor(DPalette::WindowText, colorFont);
