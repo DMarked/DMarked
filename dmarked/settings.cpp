@@ -471,7 +471,7 @@ DDialog *Settings::createDialog(const QString &title, const QString &content, co
 {
     DDialog *dialog = new DDialog(title, content, m_pSettingsDialog);
     dialog->setWindowFlags(dialog->windowFlags() | Qt::WindowStaysOnBottomHint);
-    dialog->setIcon(QIcon(":/images/dmarked.svg"));
+    dialog->setIcon(QIcon(":/images/dmarked.jpeg"));
 
     if (bIsConflicts) {
         dialog->addButton(QString(tr("Cancel")), true, DDialog::ButtonNormal);

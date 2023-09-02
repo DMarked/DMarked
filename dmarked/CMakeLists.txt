@@ -48,7 +48,7 @@ endif() #UES_VENDORED_QMARKDOWNTEXTEDIT
 
 ## install
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES ${CMAKE_SOURCE_DIR}/resources/images/dmarked.svg DESTINATION ${ICON_INSTALL_DIR})
+install(FILES ${CMAKE_SOURCE_DIR}/resources/images/dmarked.jpeg DESTINATION ${ICON_INSTALL_DIR})
 configure_file(${CMAKE_SOURCE_DIR}/dmarked.desktop.in ${CMAKE_BINARY_DIR}/dmarked.desktop @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/dmarked.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/translations)

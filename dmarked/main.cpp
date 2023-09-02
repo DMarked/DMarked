@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName("deepin");
     app.setApplicationName("DMarked");
     app.setApplicationVersion(DApplication::buildVersion("0.2.0"));
-    app.setProductIcon(QIcon(":/images/dmarked.svg"));
+    app.setProductIcon(QIcon(":/images/dmarked.jpeg"));
     app.setProductName(DApplication::translate("AppMain", "Markdown Editor"));
     app.setApplicationDisplayName(DApplication::translate("AppMain", "Markdown Editor"));
     app.setApplicationDescription(DApplication::translate("AppMain",
