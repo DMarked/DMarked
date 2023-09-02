@@ -63,6 +63,7 @@
         <file>3rdscripts/markdown-it/markdownItAnchor.umd.js</file>
         <file>3rdscripts/markdown-it/markdownItTocDoneRight.umd.js</file>
         <file>3rdscripts/highlight/highlight.min.js</file>
+        <file>3rdscripts/highlight/nix.min.js</file>
         <file>3rdscripts/highlight/default.min.css</file>
         <file>3rdscripts/math/katex.min.css</file>
         <file>3rdscripts/math/katex.min.js</file>

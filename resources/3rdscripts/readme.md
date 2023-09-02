@@ -21,6 +21,8 @@
 
 ## highlight.js  [ BSD-3-Clause License ] 
 - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js
+- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/nix.min.js
+
 #### Theme
 - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css
 - https://highlightjs.org/static/demo/styles/monokai-sublime.css
