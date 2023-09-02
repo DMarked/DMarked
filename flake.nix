@@ -12,7 +12,8 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
 
-          dmarked = pkgs.deepin.callPackage ./nix { };
+          fakevim = pkgs.deepin.callPackage ./nix/fakevim.nix { };
+          dmarked = pkgs.deepin.callPackage ./nix { inherit fakevim; };
         in
         rec {
           packages.default = dmarked;

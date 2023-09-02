@@ -11,6 +11,7 @@
 , qt5platform-plugins
 , qtwebengine
 , qmarkdowntextedit
+, fakevim
 }:
 
 stdenv.mkDerivation rec {
@@ -32,11 +33,15 @@ stdenv.mkDerivation rec {
     qt5platform-plugins
     qtwebengine
     qmarkdowntextedit
+    fakevim
   ];
 
-  cmakeFlags = [
+  cmakeFlags = [                                                                                                                                                            
     "-DUES_VENDORED_QMARKDOWNTEXTEDIT=OFF"
+    "-DUES_VENDORED_FAKEVIM=OFF"
   ];
+
+  strictDeps = true;
 
   qtWrapperArgs = [
     "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}"
