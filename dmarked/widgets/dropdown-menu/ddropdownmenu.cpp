@@ -30,6 +30,7 @@
 #include <DSettingsOption>
 #include <DFontSizeManager>
 #include <DApplicationHelper>
+#include <DPaletteHelper>
 #include <QSvgRenderer>
 #include <QActionGroup>
 #include <DSettingsOption>
@@ -321,7 +322,11 @@ DToolButton *DDropdownMenu::getButton()
 
 QIcon DDropdownMenu::createIcon()
 {
-    DPalette dpalette  = DApplicationHelper::instance()->palette(m_pToolButton);
+#if DTK_VERSION < DTK_VERSION_CHECK(5, 6, 15, 0)
+    DPalette dpalette = DApplicationHelper::instance()->palette(m_pToolButton);
+#else
+    DPalette dpalette = DPaletteHelper::instance()->palette(m_pToolButton);
+#endif
     QColor textColor;
     QPixmap arrowPixmap;
 
