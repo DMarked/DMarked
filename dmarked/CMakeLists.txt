@@ -3,12 +3,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(QT_MAJOR_VERSION 5)
 
+find_package(PkgConfig REQUIRED)
 set(QT_COMPONENTS Core Gui Widgets WebEngineWidgets WebChannel Svg Xml)
 find_package("Qt${QT_MAJOR_VERSION}" COMPONENTS ${QT_COMPONENTS} REQUIRED)
 find_package("Qt${QT_MAJOR_VERSION}LinguistTools" REQUIRED)
-
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(Dtk REQUIRED IMPORTED_TARGET dtkcore dtkgui dtkwidget)
+find_package(Dtk REQUIRED COMPONENTS Widget)
 
 set(QT_LIBRARIES "")
 foreach(temp ${QT_COMPONENTS})
@@ -26,8 +25,11 @@ qt_create_translation(QM_FILES ${SOURCES} ${TS_FILES} OPTIONS -no-obsolete)
 add_executable(${PROJECT_NAME})
 set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCES} ${RCC_SOURCES} ${QM_FILES})
-target_link_libraries(${PROJECT_NAME} PRIVATE ${QT_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::Dtk)
+target_link_libraries(${PROJECT_NAME}
+	PRIVATE
+	${QT_LIBRARIES}
+	Dtk::Widget
+)
 
 if (UES_VENDORED_FAKEVIM)
     target_link_libraries(${PROJECT_NAME} PRIVATE fakevim)
