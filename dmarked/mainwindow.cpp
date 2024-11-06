@@ -171,7 +171,7 @@ MainWindow::~MainWindow()
 void MainWindow::setupAutoSave()
 {
     if (SettingsHelper::isAutoSave()) {
-        dError() << SettingsHelper::getAutoSaveIntervalType() << SettingsHelper::getAutoSaveInterval();
+        dInfo() << SettingsHelper::getAutoSaveIntervalType() << SettingsHelper::getAutoSaveInterval();
         m_autoSaveTimer->setSingleShot(SettingsHelper::getAutoSaveIntervalType() != "without_modification");
         m_autoSaveTimer->setInterval(SettingsHelper::getAutoSaveInterval());
         m_autoSaveTimer->start();
