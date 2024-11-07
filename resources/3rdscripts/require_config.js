@@ -4,5 +4,3 @@ var require = {
     'MarkdownItImsize': '/path/to/markdown-it-imsize.min'
   }
 };
-
-

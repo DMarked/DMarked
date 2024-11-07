@@ -103,7 +103,7 @@ void Application::md2html(QString from, QString to, int depth)
 }
 
 void Application::md2pdf(QString from, QString to, QPageLayout pageLayout, int depth)
-{   
+{
     if (depth == 0) {
         dInfo() << "2pdf: " << from << " " << to;
         if (from.right(3) != ".md")

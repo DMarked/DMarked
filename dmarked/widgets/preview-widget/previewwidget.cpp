@@ -180,6 +180,3 @@ void PreviewWidget::setFontFamily(const QString &fontName)
     QWebEngineSettings *setting = m_page->settings();
     setting->setFontFamily(QWebEngineSettings::StandardFont, fontName);
 }
-
-
-

@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     fakevim
   ];
 
-  cmakeFlags = [                                                                                                                                                            
+  cmakeFlags = [
     "-DUES_VENDORED_QMARKDOWNTEXTEDIT=OFF"
     "-DUES_VENDORED_FAKEVIM=OFF"
   ];
@@ -54,4 +54,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
-

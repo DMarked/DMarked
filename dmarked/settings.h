@@ -95,7 +95,7 @@ public:
         m_pOption = opt;
         this->installEventFilter(this);
     }
-	
+
     DTK_CORE_NAMESPACE::DSettingsOption *option()
     {
         return m_pOption;

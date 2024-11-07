@@ -4,4 +4,3 @@
 [submodule "3rdparty/FakeVim"]
 	path = 3rdparty/FakeVim
 	url = https://github.com/DMarked/FakeVim.git
-

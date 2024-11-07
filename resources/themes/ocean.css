@@ -204,16 +204,16 @@ fieldset {
   padding: 0.35em 0.625em 0.75em;
 }
 
-::-webkit-input-placeholder { 
+::-webkit-input-placeholder {
   color: #ccc;
 }
-::-moz-placeholder { 
+::-moz-placeholder {
   color: #ccc;
 }
-:-ms-input-placeholder { 
+:-ms-input-placeholder {
   color: #ccc;
 }
-:-moz-placeholder { 
+:-moz-placeholder {
   color: #ccc;
 }
 
@@ -227,20 +227,20 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-input[type="checkbox"], 
+input[type="checkbox"],
 input[type="radio"] {
   margin: 0;
 }
 
-input[type="text"], 
-input[type="number"], 
-input[type="url"], 
-input[type="tel"], 
-input[type="password"], 
-input[type="email"], 
-input[type="date"], 
-input[type="datetime-local"], 
-input[type="time"], 
+input[type="text"],
+input[type="number"],
+input[type="url"],
+input[type="tel"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
 textarea, select {
   margin: 0;
   box-shadow: none;
@@ -274,19 +274,19 @@ textarea {
   resize: vertical;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 
 button,
-input, 
-select, 
-textarea, 
-input, 
-select, 
+input,
+select,
+textarea,
+input,
+select,
 textarea {
     &[readonly], &[disabled] {
         cursor: default;
@@ -325,8 +325,8 @@ input::-moz-focus-inner {
 }
 
 textarea {
-    overflow: auto; 
-    vertical-align: top; 
+    overflow: auto;
+    vertical-align: top;
 }
 
 caption,th,td {
@@ -362,10 +362,9 @@ pre {
     overflow: scroll;
     overflow-x: auto;
     overflow-y: hidden;
-    word-wrap: normal; 
+    word-wrap: normal;
 }
 
 code {
   white-space: pre;
 }
-
