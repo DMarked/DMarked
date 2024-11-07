@@ -264,4 +264,3 @@ Duplicated footnote reference[^second].
     并且可以有多行。
 
 [^second]: 脚注 2 的内容.
-

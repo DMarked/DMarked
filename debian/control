@@ -2,9 +2,9 @@ Source: dmarked
 Section: editors
 Priority: optional
 Maintainer: Lu Hongxu <lhongxu@outlook.com>
-Build-Depends: 
-  debhelper (>=11~), 
-  qt5-qmake, 
+Build-Depends:
+  debhelper (>=11~),
+  qt5-qmake,
   pkg-config,
   qtbase5-dev,
   libdtkcore-dev,
@@ -22,4 +22,4 @@ Multi-Arch: foreign
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: a dtk based markdown editor
   An editor that supports elegant editing and preview of markdown files,
-  and supports (batch) conversion to html/pdf 
+  and supports (batch) conversion to html/pdf

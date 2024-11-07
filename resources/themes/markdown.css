@@ -41,8 +41,8 @@ h2 {
     font-size: 2.6em;
     /* Note: you cant use single quotation marks in CSS in Qt, or the
      * stylesheet will fail to load! */
-     
-     
+
+
     /* The bottom margin is small. Its designed to be used with gray meta text
      * below a post title. */
     /* 👆 No we dont want that now */
