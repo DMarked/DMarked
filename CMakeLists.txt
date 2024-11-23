@@ -41,4 +41,4 @@ message(STATUS "UES_VENDORED_FAKEVIM: ${UES_VENDORED_FAKEVIM}")
 message(STATUS "UES_VENDORED_QMARKDOWNTEXTEDIT: ${UES_VENDORED_QMARKDOWNTEXTEDIT}")
 
 add_subdirectory(3rdparty)
-add_subdirectory(dmarked)
+add_subdirectory(src)

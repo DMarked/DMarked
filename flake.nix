@@ -33,11 +33,11 @@
 
             shellHook = let
               qtPkgs = pkgs.libsForQt5;
-              makeQtpluginPath = pkgs.lib.makeSearchPathOutput "out" pkgs.qt6.qtbase.qtPluginPrefix;
-              makeQmlpluginPath = pkgs.lib.makeSearchPathOutput "out" pkgs.qt6.qtbase.qtQmlPrefix;
+              makeQtpluginPath = pkgs.lib.makeSearchPathOutput "out" qtPkgs.qtbase.qtPluginPrefix;
+              makeQmlpluginPath = pkgs.lib.makeSearchPathOutput "out" qtPkgs.qtbase.qtQmlPrefix;
             in
             ''
-              export QT_PLUGIN_PATH=${makeQtpluginPath (with qtPkgs; with pkgs.deepin; [ qtbase dtkwidget qtwayland qt5platform-plugins qt5integration ])}
+              export QT_PLUGIN_PATH=${makeQtpluginPath (with qtPkgs; with pkgs.deepin; [ qtbase qtimageformats dtkwidget qtwayland qt5platform-plugins qt5integration qtwebengine ])}
               # export QT_LOGGING_RULES=*.debug=true
             '';
           };
