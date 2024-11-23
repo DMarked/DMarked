@@ -6,9 +6,7 @@
 , pkg-config
 , wrapQtAppsHook
 , qtbase
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
+, deepin
 , qtwebengine
 , qmarkdowntextedit
 , fakevim
@@ -29,8 +27,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     qtbase
-    dtkwidget
-    qt5platform-plugins
+    deepin.dtkwidget
+    deepin.qt5platform-plugins
+    deepin.qt5integration
     qtwebengine
     qmarkdowntextedit
     fakevim
@@ -43,14 +42,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  qtWrapperArgs = [
-    "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}"
-  ];
-
-  meta = with lib; {
+  meta = {
     description = "dtk based markdown editor";
     homepage = "https://github.com/DMarked/DMarked";
-    license = licenses.gpl3Plus;
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3Plus;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ rewine ];
   };
 }

@@ -12,8 +12,8 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
 
-          fakevim = pkgs.deepin.callPackage ./nix/fakevim.nix { };
-          dmarked = pkgs.deepin.callPackage ./nix { inherit fakevim; };
+          fakevim = pkgs.libsForQt5.callPackage ./nix/fakevim.nix { };
+          dmarked = pkgs.libsForQt5.callPackage ./nix { inherit fakevim; };
         in
         rec {
           packages.default = dmarked;
@@ -24,13 +24,20 @@
           };
 
           devShell = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [ cmake pkg-config ];
-            buildInputs = with pkgs; with deepin; [
-              dtkwidget
+            inputsFrom = [ dmarked ];
+
+            buildInputs = with pkgs; [
+              deepin.dtkwidget
               qmarkdowntextedit
             ];
 
-            shellHook = ''
+            shellHook = let
+              qtPkgs = pkgs.libsForQt5;
+              makeQtpluginPath = pkgs.lib.makeSearchPathOutput "out" pkgs.qt6.qtbase.qtPluginPrefix;
+              makeQmlpluginPath = pkgs.lib.makeSearchPathOutput "out" pkgs.qt6.qtbase.qtQmlPrefix;
+            in
+            ''
+              export QT_PLUGIN_PATH=${makeQtpluginPath (with qtPkgs; with pkgs.deepin; [ qtbase dtkwidget qtwayland qt5platform-plugins qt5integration ])}
               # export QT_LOGGING_RULES=*.debug=true
             '';
           };
