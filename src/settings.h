@@ -120,7 +120,7 @@ protected:
                     for (int i =0; i < childern.size(); i++) {
                         QPoint pos(25,rect.height()/2);
 
-                        QMouseEvent event0(QEvent::MouseButtonPress, pos, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+                        QMouseEvent event0(QEvent::MouseButtonPress, pos, pos, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
                         DApplication::sendEvent(childern[i], &event0);
                     }
 

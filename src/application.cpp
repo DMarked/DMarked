@@ -165,7 +165,7 @@ bool Application::notify(QObject *object, QEvent *event)
 
             // QPoint(0,0) 表示无法获取光标位置
             if (pos != QPoint(0, 0)) {
-                QMouseEvent event(QEvent::MouseButtonPress, pos, Qt::RightButton, Qt::NoButton, Qt::NoModifier);
+                QMouseEvent event(QEvent::MouseButtonPress, pos, pos, Qt::RightButton, Qt::NoButton, Qt::NoModifier);
                 QCoreApplication::sendEvent(object, &event);
             }
         }

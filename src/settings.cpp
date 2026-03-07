@@ -49,33 +49,33 @@ Settings::Settings(QWidget *parent)
     settings->setBackend(m_backend);
 
     auto fontFamliy = settings->option("base.font.family");
-    connect(fontFamliy, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
+    connect(fontFamliy, &Dtk::Core::DSettingsOption::valueChanged, this, [this](QVariant value) {
         Q_EMIT sigAdjustFont(value.toString());
     });
 
     auto fontSize = settings->option("base.font.size");
-    connect(fontSize, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
+    connect(fontSize, &Dtk::Core::DSettingsOption::valueChanged, this, [this](QVariant value) {
         Q_EMIT sigAdjustFontSize(value.toInt());
     });
 
     auto showLineNumber = settings->option("base.font.showlinenumber");
-    connect(showLineNumber, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
+    connect(showLineNumber, &Dtk::Core::DSettingsOption::valueChanged, this, [this](QVariant value) {
         Q_EMIT sigSetLineNumberShow(value.toBool());
     });
 
     // hightlightcurrentline
     auto hightlightCurrentLine = settings->option("base.font.hightlightcurrentline");
-    connect(hightlightCurrentLine, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
+    connect(hightlightCurrentLine, &Dtk::Core::DSettingsOption::valueChanged, this, [this](QVariant value) {
         Q_EMIT sigHightLightCurrentLine(value.toBool());
     });
 
     // auto save option
     auto autoSaveEnable = settings->option("base.autosave.enable");
-    connect(autoSaveEnable, &Dtk::Core::DSettingsOption::valueChanged, [ = ] (QVariant) {
+    connect(autoSaveEnable, &Dtk::Core::DSettingsOption::valueChanged, [this] (QVariant) {
         Q_EMIT sigChangeAutoSaveOption();
     });
     auto autoSaveInterval = settings->option("base.autosave.interval");
-    connect(autoSaveInterval, &Dtk::Core::DSettingsOption::valueChanged, [ = ] (QVariant) {
+    connect(autoSaveInterval, &Dtk::Core::DSettingsOption::valueChanged, [this] (QVariant) {
         Q_EMIT sigChangeAutoSaveOption();
     });
     auto autoSaveType = settings->option("base.autosave.type");
@@ -87,13 +87,13 @@ Settings::Settings(QWidget *parent)
                                                    << tr("After the last modification")
                                                    << tr("After the frist modification"));
     autoSaveType->setData("items", autoSaveTypeMap);
-    connect(autoSaveType, &Dtk::Core::DSettingsOption::valueChanged, [ = ] (QVariant) {
+    connect(autoSaveType, &Dtk::Core::DSettingsOption::valueChanged, [this] (QVariant) {
         Q_EMIT sigChangeAutoSaveOption();
     });
 
     // Tab Space Number
     auto tabSpaceNumber = settings->option("advance.editor.tabspacenumber");
-    connect(tabSpaceNumber, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
+    connect(tabSpaceNumber, &Dtk::Core::DSettingsOption::valueChanged, this, [this](QVariant value) {
         Q_EMIT sigAdjustTabSpaceNumber(value.toInt());
     });
 
@@ -104,7 +104,7 @@ Settings::Settings(QWidget *parent)
     keymapMap.insert("values", QStringList() << tr("Standard") << tr("Customize"));
     keymap->setData("items", keymapMap);
 
-    connect(keymap, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ](QVariant value) {
+    connect(keymap, &Dtk::Core::DSettingsOption::valueChanged, this, [this](QVariant value) {
         // Update all key's display value with user select keymap.
         updateAllKeysWithKeymap(value.toString());
     });
@@ -115,11 +115,11 @@ Settings::Settings(QWidget *parent)
     windowStateMap.insert("keys", QStringList() << "window_normal" << "window_maximum" << "fullscreen");
     windowStateMap.insert("values", QStringList() << tr("Normal") << tr("Maximum") << tr("Fullscreen"));
     windowState->setData("items", windowStateMap);
-    connect(windowState, &Dtk::Core::DSettingsOption::valueChanged, this, [ = ] (QVariant value) {
+    connect(windowState, &Dtk::Core::DSettingsOption::valueChanged, this, [this] (QVariant value) {
         Q_EMIT sigChangeWindowSize(value.toString());
     });
 
-    connect(settings, &Dtk::Core::DSettings::valueChanged, this, [ = ](const QString &key, const QVariant &value) {
+    connect(settings, &Dtk::Core::DSettings::valueChanged, this, [this, keymap](const QString &key, const QVariant &value) {
 
         // Change keymap to customize once user change any keyshortcut.
         if (!m_bUserChangeKey && key.startsWith("shortcuts.") && key != "shortcuts.keymap.keymap" && !key.contains("_keymap_")) {
