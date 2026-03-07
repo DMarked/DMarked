@@ -244,7 +244,7 @@ void DDropdownMenu::slotRequestMenu(bool request)
     m_menu->exec();
     // 清除 focus
     m_pToolButton->clearFocus();
-    QEvent event(QEvent::HoverLeave);
+    QEvent event(QEvent::Leave);
     QApplication::sendEvent(m_pToolButton, &event);
     Q_EMIT sigSetTextEditFocus();
 }
