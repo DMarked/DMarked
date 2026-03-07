@@ -30,12 +30,7 @@
 #include <QTextBlock>
 #include <DApplication>
 #include <DMessageBox>
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
-    #include<QRegularExpression>
-#else
-    #include<QRegExp>
-#endif
+#include <QRegularExpression>
 
 FakeVimProxy::FakeVimProxy(QPlainTextEdit *widget, MainWindow *mw, QObject *parent)
     : QObject(parent), m_ed(widget), m_mainWindow(mw) {}
@@ -46,35 +41,35 @@ FakeVimProxy *FakeVimProxy::connectSignals(FakeVim::Internal::FakeVimHandler *ha
     FakeVimProxy *proxy = new FakeVimProxy(editor, mainWindow, handler);
 
     handler->commandBufferChanged
-        .connect([proxy](const QString &contents, int cursorPos, int /*anchorPos*/, int /*messageLevel*/) {
+        .set([proxy](const QString &contents, int cursorPos, int /*anchorPos*/, int /*messageLevel*/) {
         proxy->changeStatusMessage(contents, cursorPos);
     });
-    handler->extraInformationChanged.connect([proxy](const QString &text) {
+    handler->extraInformationChanged.set([proxy](const QString &text) {
         proxy->changeExtraInformation(text);
     });
-    handler->statusDataChanged.connect([proxy](const QString &text) {
+    handler->statusDataChanged.set([proxy](const QString &text) {
         proxy->changeStatusData(text);
     });
-    handler->highlightMatches.connect([proxy](const QString &needle) {
+    handler->highlightMatches.set([proxy](const QString &needle) {
         proxy->highlightMatches(needle);
     });
-    handler->handleExCommandRequested.connect([proxy](bool *handled, const FakeVim::Internal::ExCommand &cmd) {
+    handler->handleExCommandRequested.set([proxy](bool *handled, const FakeVim::Internal::ExCommand &cmd) {
         proxy->handleExCommand(handled, cmd);
     });
-    handler->requestSetBlockSelection.connect([proxy](const QTextCursor &cursor) {
+    handler->requestSetBlockSelection.set([proxy](const QTextCursor &cursor) {
         proxy->requestSetBlockSelection(cursor);
     });
-    handler->requestDisableBlockSelection.connect([proxy] {
+    handler->requestDisableBlockSelection.set([proxy] {
         proxy->requestDisableBlockSelection();
     });
-    handler->requestHasBlockSelection.connect([proxy](bool *on) {
+    handler->requestHasBlockSelection.set([proxy](bool *on) {
         proxy->requestHasBlockSelection(on);
     });
 
-    handler->indentRegion.connect([proxy](int beginBlock, int endBlock, QChar typedChar) {
+    handler->indentRegion.set([proxy](int beginBlock, int endBlock, QChar typedChar) {
         proxy->indentRegion(beginBlock, endBlock, typedChar);
     });
-    handler->checkForElectricCharacter.connect([proxy](bool *result, QChar c) {
+    handler->checkForElectricCharacter.set([proxy](bool *result, QChar c) {
             proxy->checkForElectricCharacter(result, c);
     });
 
@@ -101,11 +96,7 @@ void FakeVimProxy::highlightMatches(const QString &pattern) {
 
     // Highlight matches.
     QTextDocument *doc = m_ed->document();
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
     QRegularExpression re(pattern);
-#else
-    QRegExp re(pattern);
-#endif
     cur = doc->find(re);
 
     m_searchSelection.clear();
@@ -241,7 +232,7 @@ void FakeVimProxy::requestHasBlockSelection(bool *on) {
 }
 
 void FakeVimProxy::indentRegion(int beginBlock, int endBlock, QChar typedChar) {
-    const qint64 indentSize = FakeVim::Internal::fakeVimSettings()->shiftWidth.value();
+    const qint64 indentSize = FakeVim::Internal::settings().shiftWidth.value();
 
     QTextDocument *doc = m_ed->document();
     QTextBlock startBlock = doc->findBlockByNumber(beginBlock);

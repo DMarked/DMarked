@@ -14,7 +14,7 @@
 
 stdenv.mkDerivation rec {
   pname = "dmarked";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = ./..;
 
@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
   buildInputs = [
     qtbase
     deepin.dtkwidget
-    deepin.qt5platform-plugins
-    deepin.qt5integration
+    deepin.qt6platform-plugins
+    deepin.qt6integration
     qtwebengine
     qmarkdowntextedit
     fakevim

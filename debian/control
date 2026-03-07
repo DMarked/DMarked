@@ -4,15 +4,17 @@ Priority: optional
 Maintainer: Lu Hongxu <lhongxu@outlook.com>
 Build-Depends:
   debhelper (>=11~),
-  qt5-qmake,
   pkg-config,
-  qtbase5-dev,
-  libdtkcore-dev,
-  libdtkwidget-dev,
-  qtwebengine5-dev,
+  qt6-base-dev,
+  qt6-svg-dev,
+  libdtk6core-dev,
+  libdtk6widget-dev,
+  libdtk6gui-dev,
+  qt6-webengine-dev,
   cmake,
-  qttools5-dev,
-  qttools5-dev-tools
+  qt6-tools-dev,
+  qt6-tools-dev-tools,
+  qt6-5compat-dev
 Standards-Version: 4.1.4
 Homepage: https://github.com/wineee/DMarked
 

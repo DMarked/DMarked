@@ -12,8 +12,8 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
 
-          fakevim = pkgs.libsForQt5.callPackage ./nix/fakevim.nix { };
-          dmarked = pkgs.libsForQt5.callPackage ./nix { inherit fakevim; };
+          fakevim = pkgs.qt6Packages.callPackage ./nix/fakevim.nix { };
+          dmarked = pkgs.qt6Packages.callPackage ./nix { inherit fakevim; };
         in
         rec {
           packages.default = dmarked;
@@ -32,12 +32,12 @@
             ];
 
             shellHook = let
-              qtPkgs = pkgs.libsForQt5;
+              qtPkgs = pkgs.qt6Packages;
               makeQtpluginPath = pkgs.lib.makeSearchPathOutput "out" qtPkgs.qtbase.qtPluginPrefix;
               makeQmlpluginPath = pkgs.lib.makeSearchPathOutput "out" qtPkgs.qtbase.qtQmlPrefix;
             in
             ''
-              export QT_PLUGIN_PATH=${makeQtpluginPath (with qtPkgs; with pkgs.deepin; [ qtbase qtimageformats dtkwidget qtwayland qt5platform-plugins qt5integration qtwebengine ])}
+              export QT_PLUGIN_PATH=${makeQtpluginPath (with qtPkgs; with pkgs.deepin; [ qtbase qtimageformats dtkwidget qtwayland qt6platform-plugins qt6integration qtwebengine ])}
               # export QT_LOGGING_RULES=*.debug=true
             '';
           };

@@ -25,7 +25,7 @@
 #include "dropdown-menu/ddropdownmenu.h"
 
 #include <DLabel>
-#include <DApplicationHelper>
+#include <DGuiApplicationHelper>
 #include <DFontSizeManager>
 #include <QPainterPath>
 

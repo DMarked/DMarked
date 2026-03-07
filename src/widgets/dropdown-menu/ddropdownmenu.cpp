@@ -25,11 +25,12 @@
 
 #include <QHBoxLayout>
 #include <QMouseEvent>
+#include <QFile>
 #include <DApplication>
 #include <QPainter>
 #include <DSettingsOption>
 #include <DFontSizeManager>
-#include <DApplicationHelper>
+#include <DGuiApplicationHelper>
 #include <DPaletteHelper>
 #include <QSvgRenderer>
 #include <QActionGroup>
@@ -322,11 +323,7 @@ DToolButton *DDropdownMenu::getButton()
 
 QIcon DDropdownMenu::createIcon()
 {
-#if DTK_VERSION < DTK_VERSION_CHECK(5, 6, 15, 0)
-    DPalette dpalette = DApplicationHelper::instance()->palette(m_pToolButton);
-#else
     DPalette dpalette = DPaletteHelper::instance()->palette(m_pToolButton);
-#endif
     QColor textColor;
     QPixmap arrowPixmap;
 
