@@ -31,6 +31,7 @@
 #include <QWebEngineProfile>
 #include <QWebEngineSettings>
 #include <DDesktopServices>
+#include <QRegularExpression>
 
 PreviewWidget::PreviewWidget(QWidget *parent) : QWebEngineView(parent)
 {
@@ -120,7 +121,7 @@ void PreviewWidget::setNoGui()
  */
 void PreviewWidget::convert2Html(const QString &filePath) {
     PreviewWidget *pw = this;
-    QWebEngineCallback<const QString &> resultCallback([filePath, pw](const QString &html) {
+    auto resultCallback = [filePath, pw](const QString &html) {
         //DMessageBox::warning(nullptr, tr("Warn"), html);
         QFile f(filePath);
         if (!f.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -132,7 +133,7 @@ void PreviewWidget::convert2Html(const QString &filePath) {
             return;
         }
 
-        QRegExp ipjs(" *<script src=\".*\"></script> *\n");
+        QRegularExpression ipjs(" *<script src=\".*\"></script> *\n");
         QString output = html;
         output.remove(ipjs);
 
@@ -148,7 +149,7 @@ void PreviewWidget::convert2Html(const QString &filePath) {
         if (pw->isGui)
             DDesktopServices::showFileItem(filePath);
         Q_EMIT pw->convert2HtmlFinish(true);
-    });
+    };
     m_page->toHtml(resultCallback);
 }
 

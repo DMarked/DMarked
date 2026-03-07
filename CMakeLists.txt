@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.16)
 
 # Set PIE flags for POSITION_INDEPENDENT_CODE targets, added in 3.14.
 if (POLICY CMP0083)
   cmake_policy(SET CMP0083 NEW)
 endif()
 
-set (DVERSION "0.3.0" CACHE STRING "define project version")
+set (DVERSION "0.4.0" CACHE STRING "define project version")
 project (dmarked
   VERSION ${DVERSION}
   DESCRIPTION "dtk based markdown editor"

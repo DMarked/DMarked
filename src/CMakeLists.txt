@@ -1,13 +1,13 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(QT_MAJOR_VERSION 5)
+set(QT_MAJOR_VERSION 6)
 
 find_package(PkgConfig REQUIRED)
-set(QT_COMPONENTS Core Gui Widgets WebEngineWidgets WebChannel Svg Xml)
+set(QT_COMPONENTS Core Gui Widgets WebEngineWidgets WebChannel Svg Xml Core5Compat)
 find_package("Qt${QT_MAJOR_VERSION}" COMPONENTS ${QT_COMPONENTS} REQUIRED)
 find_package("Qt${QT_MAJOR_VERSION}LinguistTools" REQUIRED)
-find_package(Dtk REQUIRED COMPONENTS Widget)
+find_package(Dtk6 REQUIRED COMPONENTS Widget Core Gui)
 
 set(QT_LIBRARIES "")
 foreach(temp ${QT_COMPONENTS})
@@ -20,7 +20,7 @@ set(RCC_SOURCES translations.qrc ../resources/markdowneditor.qrc)
 file(GLOB TS_FILES "translations/*.ts")
 message(${TS_FILES})
 set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_BINARY_DIR}/translations)
-qt_create_translation(QM_FILES ${SOURCES} ${TS_FILES} OPTIONS -no-obsolete)
+qt_add_translation(QM_FILES ${TS_FILES})
 
 add_executable(${PROJECT_NAME})
 set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
@@ -28,7 +28,9 @@ target_sources(${PROJECT_NAME} PRIVATE ${SOURCES} ${RCC_SOURCES} ${QM_FILES})
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
 	${QT_LIBRARIES}
-	Dtk::Widget
+	Dtk6::Widget
+	Dtk6::Core
+	Dtk6::Gui
 )
 
 if (UES_VENDORED_FAKEVIM)

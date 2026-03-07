@@ -25,7 +25,6 @@
 
 #include <DApplication>
 #include <DWidgetUtil>
-#include <DApplicationSettings>
 #include <DGuiApplicationHelper>
 #include <DMainWindow>
 #include <DLog>
@@ -62,9 +61,7 @@ int main(int argc, char *argv[])
     qputenv("DTK_USE_SEMAPHORE_SINGLEINSTANCE", "1");
     //qputenv("QTWEBENGINE_REMOTE_DEBUGGING", "7777");
 
-#if DTK_VERSION < DTK_VERSION_CHECK(5, 6, 15, 0)
-    DApplicationSettings settings;
-#endif
+    // DApplicationSettings is not needed in DTK6
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 

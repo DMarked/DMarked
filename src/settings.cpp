@@ -24,7 +24,6 @@
 
 #include "settings.h"
 
-#include <DThemeManager>
 #include <DSettings>
 #include <DSettingsGroup>
 #include <DSettingsWidgetFactory>
@@ -34,6 +33,7 @@
 #include <QComboBox>
 #include <QDir>
 #include <QStandardPaths>
+#include <QRegularExpression>
 
 Settings *Settings::s_pSetting = nullptr;
 Settings::Settings(QWidget *parent)
@@ -420,7 +420,7 @@ bool Settings::checkShortcutValid(const QString &Name, QString Key, QString &Rea
     // 单键
     if (Key.count("+") == 0) {
         // F1-F12是允许的
-        QRegExp regexp("^F[0-9]{1,2}$");
+        QRegularExpression regexp("^F[0-9]{1,2}$");
         if (!Key.contains(regexp)) {
             Reason = tr("The shortcut %1 is invalid, please set another one").arg(style);
             bIsConflicts = false;
@@ -428,7 +428,7 @@ bool Settings::checkShortcutValid(const QString &Name, QString Key, QString &Rea
         }
     }
     // 小键盘单键都不允许
-    QRegExp regexpNum("^Num+.*");
+    QRegularExpression regexpNum("^Num\\+.*");
     if (Key.contains(regexpNum)) {
         Reason = tr("The shortcut %1 is invalid, please set another one").arg(style);
         bIsConflicts = false;

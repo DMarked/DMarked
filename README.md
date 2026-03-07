@@ -2,13 +2,20 @@
 
 使用 dtk 开发的 markdown 编辑器
 
+> **🎉 重要更新 v0.4.0**: DMarked 已迁移到 Qt6 和 DTK6！
+>
+> - ✅ 完全支持 Qt6 和 DTK6
+> - ✅ 改进的构建系统（CMake）
+> - ✅ 更好的性能和兼容性
+> - 📖 详见 [Qt6迁移说明.md](Qt6迁移说明.md) 或 [QUICK_START.md](QUICK_START.md)
+
 [介绍帖](https://bbs.deepin.org/en/post/228829) & [github](https://github.com/wineee/DMarked) & [gitee](https://gitee.com/rewine/DMarked)
 
 #### Dependencies
 
 In debian, use below command to install compile dependencies:
 
-`sudo apt install qt5-default libdtkwidget-dev libdtkgui-dev libdtkcore-dev qtwebengine5-dev`
+`sudo apt install qt6-base-dev qt6-svg-dev libdtk6widget-dev libdtk6gui-dev libdtk6core-dev qt6-webengine-dev qt6-5compat-dev cmake`
 
 #### Clone
 - git clone git@github.com:DMarked/DMarked.git
@@ -19,7 +26,8 @@ In debian, use below command to install compile dependencies:
 #### Build
 - mkdir build
 - cd build
-- qmake ..
+- cmake ..
+- make
 - sudo make install
 
 #### Nix

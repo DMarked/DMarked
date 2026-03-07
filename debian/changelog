@@ -1,3 +1,14 @@
+dmarked (0.4.0) unstable; urgency=medium
+
+  * Migrate to Qt6 and DTK6
+  * Update build system to use CMake
+  * Replace deprecated Qt5 APIs (QRegExp → QRegularExpression)
+  * Remove DTK version check conditional compilation
+  * Add Qt6::Core5Compat for backward compatibility
+  * Update all dependencies to Qt6 and DTK6 versions
+
+ -- Lu Hongxu <lhongxu@outlook.com>  Sat, 07 Mar 2026 00:00:00 +0800
+
 dmarked (0.2.0) UNRELEASED; urgency=low
 
   * Add pangu.js, FakeVim, File History, Auto Save ...

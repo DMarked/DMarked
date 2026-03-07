@@ -27,8 +27,9 @@
 
 #include <QWebChannel>
 #include <QWebEngineView>
-#include <DApplicationHelper>
 #include <QWebEngineSettings>
+#include <DWidget>
+#include <DGuiApplicationHelper>
 
 DWIDGET_USE_NAMESPACE
 
