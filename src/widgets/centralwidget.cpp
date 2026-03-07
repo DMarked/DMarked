@@ -55,7 +55,7 @@ CentralWidget::CentralWidget(DWidget *parent)
 
       m_previewWidget->setGeometry(0, 0, 600, 740);
 
-      connect(m_editorWidget, &QMarkdownTextEdit::textChanged, [this]() {
+      connect(m_editorWidget->document(), &QTextDocument::contentsChanged, [this]() {
           m_previewWidget->setText(m_editorWidget->toPlainText());
       });
 
@@ -105,7 +105,7 @@ void CentralWidget::setFilePath(const QString &path)
 
 void CentralWidget::onFileModified(const QString &path, const QString &name)
 {
-    dInfo() << QString("File Modified: path: %1, name: %2").arg(path).arg(name);
+    dDebug() << QString("File Modified: path: %1, name: %2").arg(path).arg(name);
     //auto ret = DMessageBox::question(this, tr("reload"), tr("file has modified, reload?"));
     QFile f(path);
     if (!f.open(QIODevice::ReadOnly))
