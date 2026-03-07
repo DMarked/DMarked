@@ -384,7 +384,7 @@ bool DDropdownMenu::eventFilter(QObject *object, QEvent *event)
         m_pToolButton->setIcon(createIcon());
         return false;
     }
-    
+
     if(object == m_pToolButton) {
         if (event->type() == QEvent::KeyPress) {
             QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
