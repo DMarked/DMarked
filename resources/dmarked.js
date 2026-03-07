@@ -41,7 +41,7 @@ function filepath2Absolute(base, relative) {
   return stack.join("/");
 }
 
-var updateText = function () {
+var updateText = function (latestText) {
   var defaults = {
     html:        dmarked_config.html,             // Enable HTML tags in source
     xhtmlOut:    dmarked_config.xhtmlOut,         // Use '/' to close single tags (<br />)
@@ -135,11 +135,10 @@ var updateText = function () {
     return '<p>' + '<img src="file://' + token.attrs[aIndexSrc][1] + '" alt="' + token.attrs[aIndexAlt][1] + '">' + '</p>';
   };
 
+  var sourceText = typeof latestText === 'string' ? latestText : dmarked_content.text;
   if (dmarked_pangu)
-    text = pangu.spacing(dmarked_content.text);
-  else
-    text = dmarked_content.text;
-  document.getElementById('placeholder').innerHTML = md.render(text);
+    sourceText = pangu.spacing(sourceText);
+  document.getElementById('placeholder').innerHTML = md.render(sourceText);
   mermaid.initialize(mermaidConfigs);
   dmarked_content.onMdLoadFinished();
 }
@@ -148,7 +147,14 @@ const dmarked_setup = () => new QWebChannel(qt.webChannelTransport,
   function (channel) {
     dmarked_content = channel.objects.content;
     dmarked_config = channel.objects.config;
-    updateText();
-    dmarked_content.textChanged.connect(updateText);
+
+    const scheduleUpdate = (latestText) => {
+      setTimeout(function () {
+        updateText(latestText);
+      }, 0);
+    };
+
+    scheduleUpdate(dmarked_content.text);
+    dmarked_content.textChanged.connect(scheduleUpdate);
   }
 );
