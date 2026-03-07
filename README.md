@@ -1,96 +1,137 @@
 # DMarked
 
-使用 dtk 开发的 markdown 编辑器
+A Markdown editor built with DTK.
 
-> **🎉 重要更新 v0.4.0**: DMarked 已迁移到 Qt6 和 DTK6！
->
-> - ✅ 完全支持 Qt6 和 DTK6
-> - ✅ 改进的构建系统（CMake）
-> - ✅ 更好的性能和兼容性
-> - 📖 详见 [Qt6迁移说明.md](Qt6迁移说明.md) 或 [QUICK_START.md](QUICK_START.md)
+> **Important update v0.4.0**: DMarked has been migrated to Qt6 and DTK6.
 
-[介绍帖](https://bbs.deepin.org/en/post/228829) & [github](https://github.com/wineee/DMarked) & [gitee](https://gitee.com/rewine/DMarked)
+Project links: [DMarked (GitHub)](https://github.com/DMarked/DMarked) & [Gitee](https://gitee.com/rewine/DMarked)
 
-#### Dependencies
+Forum post: [https://bbs.deepin.org/en/post/228829](https://bbs.deepin.org/en/post/228829)
 
-In debian, use below command to install compile dependencies:
+For Chinese documentation, see [README.zh_CN.md](README.zh_CN.md).
 
-`sudo apt install qt6-base-dev qt6-svg-dev libdtk6widget-dev libdtk6gui-dev libdtk6core-dev qt6-webengine-dev qt6-5compat-dev cmake`
+## Highlights
 
-#### Clone
-- git clone git@github.com:DMarked/DMarked.git
-- cd DMarked
-- git submodule init
-- git submodule update
+- Two-pane editing with live preview and switchable read/write/preview modes
+- Full Markdown extension support: Mermaid, KaTeX, highlight.js, markdown-it
+- Export to PDF/HTML and batch conversion via CLI
+- Theme switching, character counting, and cursor position display
+- Persistent configuration and settings panel (font, shortcuts, autosave, etc.)
+- Qt6 / DTK6 support
 
-#### Build
-- mkdir build
-- cd build
-- cmake ..
-- make
-- sudo make install
+## Screenshots
 
-#### Nix
+Main interface
 
-In Project Dir:
+![Main interface](dist/dmarked_20260307_155010_997.png)
 
-- nix develop
+Settings interface example
 
-get develop shell
+![Settings interface](dist/dmarked_20260307_155205_614.png)
 
-- nix build ".?submodules=1"
+## UI Modes
 
-build package
+You can switch Markdown themes from the bottom info bar.
 
-- nix run ".?submodules=1"
+Available modes:
 
-just run dmarked
+- Read Mode: only the right preview pane
+- Write Mode: only the left editor pane
+- Preview Mode: edit and preview side by side
+- Preview Mode S: editor and preview scrolling are synchronized (algorithm still being improved)
+- Preview Mode N: editor and preview scroll independently
 
+## Command Line
 
-#### TODO
-- [x] 新建，打开，另存为 Markdown 文件
-- [x] 一边编辑，另一边预览
-- [x] 编辑框文字更新后，预览界面自动更新
-- [x] 可以切换编辑模式（只有编辑框），阅读模式（只有预览框），预览模式（都有）
-- [x] 统计字符数，显示光标行列
-- [x] 初步支持中英文
-- [x] 导出成 pdf 文件
-- [x] 导出成 html 文件
-- [x] 可以切换 css 主题，分浅色，深色两类
-- [X] 完善对命令行支持，可以在命令行中打开文件，批量转换HTML，PDF
-- [ ] 图床工具 --picgo
-- [X] 增加 markdown-it 引擎
-- [X] 代码高亮 highlight.js
-- [X] 画图 Mermaid.js
-- [X] 数学公式 katex
-- [X] 可保存配置
-- [X] 增加设置面板（字体，快捷键，自动保存等）/ 完善快捷键
-- [X] 进行打包工作
+```bash
+$ dmarked -h
+Usage: dmarked [options] source [destination]
 
-（Need Help）
-- [ ] 更好的编辑页面，预览页面的同步算法
-- [ ] 更好的 logo
+Options:
+  -h, --help                Show this help.
+  -v, --version             Show version information.
+  -w, --write <file>        Open a markdown file in DMarked
+  -f, --format <pdf>        Convert markdown files to pdf/html
+  -L, --use-landscape       Set landscape orientation (default is portrait)
+  -s, --page-size <A4>      Set page size, e.g. A4, Letter
+  -l, --margin-left <10>    Set left margin (pt)
+  -t, --margin-top <10>     Set top margin (pt)
+  -r, --margin-right <10>   Set right margin (pt)
+  -b, --margin-bottom <10>  Set bottom margin (pt)
+  -d, --max-depth <1>       Max depth for batch conversion
 
-#### [TODO(VERSION 2.0)](https://github.com/wineee/DMarked/projects/1)
+Arguments:
+  source                    Source file or directory
+  [destination]             Output file or directory
+```
 
-#### License
+The CLI mode was designed mainly for batch conversion, and that goal has mostly been achieved.
+
+Convert `a.md` to `my.html`:
+
+```bash
+dmarked -f html a.md my.html
+```
+
+Convert all Markdown files in the current directory and up to 2 levels of subdirectories to PDF. The `-s` options are the same as in the GUI page-size selector. The theme follows the last-used GUI theme.
+
+If `destination` is omitted, exported PDFs are placed alongside the source md files.
+
+```bash
+dmarked -f pdf -s A5 -t 20 -b 20 -d 3 .
+```
+
+Convert all md files in `content` (excluding subdirectories) to PDF and write them into `content_pdf`:
+
+```bash
+dmarked -f pdf content content_pdf
+```
+
+## Dependencies
+
+On Debian/Deepin, install build dependencies with:
+
+```bash
+sudo apt install qt6-base-dev qt6-svg-dev libdtk6widget-dev libdtk6gui-dev libdtk6core-dev qt6-webengine-dev qt6-5compat-dev cmake
+```
+
+## Clone Source
+
+```bash
+git clone --recurse-submodules git@github.com:DMarked/DMarked.git
+cd DMarked
+```
+
+If the repository is already cloned, initialize/update submodules with:
+
+```bash
+git submodule update --init --recursive
+```
+
+## Build and Install (CMake)
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+sudo cmake --install build
+```
+
+## License
 
 DMarked is licensed under GPLv3.
 
-#### 使用的第三方库
+## Third-party Libraries
 
-- [qmarkdowntextedit](https://github.com/pbek/qmarkdowntextedit) MIT
-- [markdown-it](https://github.com/markdown-it/markdown-it) MIT
-- [And More](https://github.com/wineee/DMarked/tree/main/resources/3rdscripts)
-
-主题使用了：
-- [wecatch/markdown-css](https://github.com/wecatch/markdown-css) MIT
-- [yrgoldteeth/darkdowncss](https://github.com/yrgoldteeth/darkdowncss)
-- [kevinburke/markdown-css](https://bitbucket.org/kevinburke/markdowncss) Apache V2.0
-- [CuteMarkEd-NG's Theme](https://github.com/Waqar144/CuteMarkEd-NG) [LICENSE](https://github.com/Waqar144/CuteMarkEd-NG/blob/develop/LICENSE.md)
-
-代码参考了：
-- [deepin-editor](https://github.com/linuxdeepin/deepin-editor) GPL-3.0
-- [WebEngine Markdown Editor Example](https://doc.qt.io/qt-5/qtwebengine-webenginewidgets-markdowneditor-example.html) BSD
+| Category | Project | License |
+| --- | --- | --- |
+| Core | [qmarkdowntextedit](https://github.com/pbek/qmarkdowntextedit) | MIT |
+| Core | [markdown-it](https://github.com/markdown-it/markdown-it) | MIT |
+| Core | [And More](https://github.com/wineee/DMarked/tree/main/resources/3rdscripts) | - |
+| Theme | [wecatch/markdown-css](https://github.com/wecatch/markdown-css) | MIT |
+| Theme | [yrgoldteeth/darkdowncss](https://github.com/yrgoldteeth/darkdowncss) | - |
+| Theme | [kevinburke/markdown-css](https://bitbucket.org/kevinburke/markdowncss) | Apache V2.0 |
+| Theme | [CuteMarkEd-NG's Theme](https://github.com/Waqar144/CuteMarkEd-NG) ([LICENSE](https://github.com/Waqar144/CuteMarkEd-NG/blob/develop/LICENSE.md)) | - |
+| Reference | [deepin-editor](https://github.com/linuxdeepin/deepin-editor) | GPL-3.0 |
+| Reference | [WebEngine Markdown Editor Example](https://doc.qt.io/qt-5/qtwebengine-webenginewidgets-markdowneditor-example.html) | BSD |
 
 Organization's profile picture @[RigoLigo](https://github.com/RigoLigoRLC)
