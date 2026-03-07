@@ -108,6 +108,11 @@ If the repository is already cloned, initialize/update submodules with:
 git submodule update --init --recursive
 ```
 
+If GitHub access is unstable in your network, you can use Gitee mirrors for submodule dependencies:
+
+- `https://gitee.com/DMarked/qmarkdowntextedit.git`
+- `https://gitee.com/DMarked/FakeVim`
+
 ## Build and Install (CMake)
 
 ```bash
