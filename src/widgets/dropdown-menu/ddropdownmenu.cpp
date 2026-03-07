@@ -78,7 +78,7 @@ DDropdownMenu::DDropdownMenu(QWidget *parent)
     connect(this, &DDropdownMenu::requestContextMenu, this, &DDropdownMenu::slotRequestMenu);
 
     // 设置字体自适应大小 设置界面大小根据内容大小自适应
-    connect(qApp, &DApplication::fontChanged, this, &DDropdownMenu::OnFontChangedSlot);
+    qApp->installEventFilter(this);
 }
 
 DDropdownMenu::~DDropdownMenu()
@@ -376,6 +376,11 @@ void DDropdownMenu::OnFontChangedSlot(const QFont &font)
 
 bool DDropdownMenu::eventFilter(QObject *object, QEvent *event)
 {
+    if (object == qApp && event->type() == QEvent::ApplicationFontChange) {
+        OnFontChangedSlot(qApp->font());
+        return false;
+    }
+
     if(object == m_pToolButton) {
         if (event->type() == QEvent::KeyPress) {
             QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);

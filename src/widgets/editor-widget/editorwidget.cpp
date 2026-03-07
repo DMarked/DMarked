@@ -170,7 +170,7 @@ void EditorWidget::dropEvent(QDropEvent *e)
         QFileInfo fileInfo(path);
         QString fileExtension = fileInfo.suffix().toLower();
 
-        QTextCursor dropCursor = cursorForPosition(e->pos());
+        QTextCursor dropCursor = cursorForPosition(e->position().toPoint());
 
         // If the file extension indicates an image type, then insert an
         // image link into the text.
@@ -206,11 +206,11 @@ void EditorWidget::dropEvent(QDropEvent *e)
             QDropEvent *dummyEvent =
                 new QDropEvent
             (
-                e->pos(),
+                e->position().toPoint(),
                 e->possibleActions(),
                 dummyMimeData,
-                e->mouseButtons(),
-                e->keyboardModifiers()
+                e->buttons(),
+                e->modifiers()
             );
             QPlainTextEdit::dropEvent(dummyEvent);
 

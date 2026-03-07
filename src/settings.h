@@ -119,8 +119,15 @@ protected:
 
                     for (int i =0; i < childern.size(); i++) {
                         QPoint pos(25,rect.height()/2);
+                        QPoint localPos = childern[i]->mapFrom(this, pos);
+                        QPoint globalPos = childern[i]->mapToGlobal(localPos);
 
-                        QMouseEvent event0(QEvent::MouseButtonPress, pos, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+                        QMouseEvent event0(QEvent::MouseButtonPress,
+                                           QPointF(localPos),
+                                           QPointF(globalPos),
+                                           Qt::LeftButton,
+                                           Qt::LeftButton,
+                                           Qt::NoModifier);
                         DApplication::sendEvent(childern[i], &event0);
                     }
 
