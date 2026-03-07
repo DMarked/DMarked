@@ -377,11 +377,7 @@ void DDropdownMenu::OnFontChangedSlot(const QFont &font)
 bool DDropdownMenu::eventFilter(QObject *object, QEvent *event)
 {
     if (object == qApp && event->type() == QEvent::ApplicationFontChange) {
-        QFont font = qApp->font();
-        int fontsize = DFontSizeManager::instance()->fontPixelSize(DFontSizeManager::T8);
-        m_font = font;
-        m_font.setPixelSize(fontsize);
-        m_pToolButton->setIcon(createIcon());
+        OnFontChangedSlot(qApp->font());
         return false;
     }
 
