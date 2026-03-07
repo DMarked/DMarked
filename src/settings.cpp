@@ -428,7 +428,7 @@ bool Settings::checkShortcutValid(const QString &Name, QString Key, QString &Rea
         }
     }
     // 小键盘单键都不允许
-    QRegularExpression regexpNum("^Num+.*");
+    QRegularExpression regexpNum("^Num\\+.*");
     if (Key.contains(regexpNum)) {
         Reason = tr("The shortcut %1 is invalid, please set another one").arg(style);
         bIsConflicts = false;
