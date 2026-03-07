@@ -106,6 +106,11 @@ cd DMarked
 git submodule update --init --recursive
 ```
 
+如果访问 GitHub 不方便，可使用 Gitee 的依赖仓库:
+
+- `https://gitee.com/DMarked/qmarkdowntextedit.git`
+- `https://gitee.com/DMarked/FakeVim`
+
 ## 构建与安装 (CMake)
 
 ```bash
